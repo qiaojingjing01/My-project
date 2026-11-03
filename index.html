@@ -26,7 +26,7 @@ a{color:inherit}
 .contact{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:16px;color:var(--ink2);font-size:14px}
 .contact b{font-weight:600;color:var(--ink)}
 .note{margin-top:14px;font-size:13px;color:var(--muted)}
-.toc{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:32px 0 8px}
+.toc{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:32px 0 8px}
 .toc a{display:block;text-decoration:none;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;transition:transform .15s,box-shadow .15s}
 .toc a:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.06)}
 .toc .n{font-size:12px;color:var(--muted);letter-spacing:.08em}
@@ -244,11 +244,86 @@ svg text{font-family:inherit}
 .bars i{display:block;height:12px;border-radius:3px;background:#3370ff}
 .check{margin-top:14px;background:#e3f5ec;color:#16794d;border-radius:10px;padding:8px 12px;font-size:13px}
 
+/* ---------- COLEAD ---------- */
+.cl-stage{padding:0;overflow:hidden}
+.cl-tabs{display:flex;border-bottom:1px solid var(--line);background:#fbfaf7}
+.cl-tabs button{flex:1;border:0;background:none;padding:14px 10px;font-size:14px;color:var(--muted);position:relative}
+.cl-tabs button b{display:block;font-size:11px;letter-spacing:.08em;color:#b3afa6}
+.cl-tabs button.on{color:var(--ink);font-weight:600;background:#fff}
+.cl-tabs button.on:after{content:"";position:absolute;left:20%;right:20%;bottom:-1px;height:3px;border-radius:2px;background:var(--red)}
+.cl-pane{display:none;padding:20px;min-height:500px}
+.cl-pane.on{display:block}
+.cl-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.cl-card{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fff}
+.cl-card h5{margin:0 0 10px;font-size:13px;color:var(--muted);font-weight:600;letter-spacing:.04em}
+.role{display:flex;gap:8px}
+.role button{flex:1;border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px;text-align:left;font-size:14px}
+.role button small{display:block;color:var(--muted);font-size:12px}
+.role button.on{border-color:var(--red);background:#fff5f6;box-shadow:0 0 0 3px rgba(255,36,66,.1)}
+.field{margin-top:12px;font-size:13px;color:var(--muted)}
+.field div{margin-top:4px;border:1px solid var(--line);border-radius:10px;padding:8px 10px;color:var(--ink);font-size:14px;background:#fcfbf9}
+.agenda{list-style:none;margin:0;padding:0}
+.agenda li{display:flex;justify-content:space-between;gap:8px;padding:7px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.agenda li:last-child{border-bottom:0}
+.agenda li span{color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.files{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.files span{font-size:12px;border:1px solid var(--line);border-radius:8px;padding:4px 8px;background:#fcfbf9}
+.cl-say{display:flex;gap:10px;align-items:flex-start;margin-top:14px}
+.orb{width:34px;height:34px;border-radius:50%;flex:none;background:radial-gradient(circle at 35% 30%,#ffd1d8 0,#ff5c75 38%,#ff2442 70%,#c4102c 100%);box-shadow:0 0 0 4px rgba(255,36,66,.12)}
+.orb.live{animation:breathe 1.6s ease-in-out infinite}
+@keyframes breathe{50%{box-shadow:0 0 0 10px rgba(255,36,66,.06),0 0 18px rgba(255,36,66,.35);transform:scale(1.06)}}
+.cl-bub{background:#fff6f7;border:1px solid #ffd9df;border-radius:14px;border-top-left-radius:4px;padding:10px 12px;font-size:14px;color:var(--ink2);line-height:1.7;white-space:pre-line}
+.mt{display:grid;grid-template-columns:1.35fr 1fr;gap:16px}
+.live-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:13px;border-radius:999px;padding:5px 12px;background:#f1efe9;color:var(--ink2)}
+.pill i{width:8px;height:8px;border-radius:50%;background:#b3afa6}
+.pill.rec i{background:var(--red);animation:blink 1.2s steps(1) infinite}
+.pill.awake{background:#fff0f2;color:#c41d38}
+.transcript{height:330px;overflow-y:auto;border:1px solid var(--line);border-radius:14px;padding:10px 12px;background:#fcfbf9}
+.tl{display:flex;gap:10px;padding:6px 0;font-size:14px;animation:pop .25s ease}
+.tl .who{flex:none;width:52px;font-weight:600;color:var(--ink)}
+.tl .who small{display:block;color:var(--muted);font-weight:400;font-size:11px;font-variant-numeric:tabular-nums}
+.tl .say{color:var(--ink2)}
+.tl.me .who{color:var(--blue)}
+.nudge{margin:8px 0;border:1px solid #ffd9df;background:#fff6f7;border-radius:12px;padding:8px 10px;font-size:13px;color:#a3132b;display:flex;gap:8px;align-items:flex-start;animation:pop .3s ease}
+.nudge .orb{width:20px;height:20px;box-shadow:none}
+.goals{list-style:none;margin:0;padding:0}
+.goals li{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.goals li:last-child{border-bottom:0}
+.goals .gs{width:18px;height:18px;border-radius:50%;border:2px solid #d4d0c7;flex:none;margin-top:3px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff}
+.goals li.doing .gs{border-color:var(--amber);border-top-color:transparent;animation:spin 1s linear infinite}
+.goals li.done .gs{border-color:var(--green);background:var(--green)}
+.goals li.done .gs:after{content:"✓"}
+.goals small{display:block;color:var(--muted);font-size:12px}
+.wake{margin-top:12px;display:flex;flex-direction:column;gap:8px}
+.wake button{border:1px solid var(--line);border-radius:12px;background:#fff;padding:9px 12px;text-align:left;font-size:14px}
+.wake button.mic{border-color:#ffc2cb;background:#fff5f6;color:#c41d38}
+.wake button:disabled{opacity:.45;cursor:default}
+.cockpit{position:relative;margin-top:12px;border-radius:16px;background:#1a1416;color:#f5eef0;padding:14px;display:none;animation:pop .3s ease}
+.cockpit.on{display:block}
+.cockpit .hd{display:flex;align-items:center;gap:10px;font-size:13px;color:#d9c9cd}
+.cockpit .tx{margin-top:8px;font-size:14px;line-height:1.75;white-space:pre-line;color:#fff}
+.cockpit .q{font-size:13px;color:#c9b6bb;margin-top:6px}
+.post{display:grid;grid-template-columns:1.25fr 1fr;gap:16px}
+.mm{width:100%;height:auto;display:block}
+.todo{list-style:none;margin:0;padding:0}
+.todo li{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.todo li:last-child{border-bottom:0}
+.todo input{margin-top:4px;accent-color:var(--green);width:16px;height:16px}
+.todo .who{font-weight:600}
+.todo small{display:block;color:var(--muted);font-size:12px}
+.todo li.mine{background:#f6f8ff;border-radius:10px;padding:9px 8px;border-bottom-color:transparent}
+.todo li.ok .tt{text-decoration:line-through;color:var(--muted)}
+.remind{margin-top:12px;border-radius:12px;padding:10px 12px;font-size:13px;background:#fff8e8;color:#8a5a00;border:1px solid #f5dfae}
+.kb{margin-top:10px;font-size:13px;color:var(--muted)}
+@media (max-width:980px){.cl-row,.mt,.post{grid-template-columns:1fr}.transcript{height:300px}}
+@media (max-width:560px){.cl-pane{padding:14px}.cl-tabs button{padding:12px 4px;font-size:13px}}
+
 footer{padding:40px 0 60px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);margin-top:40px}
 
 @media (max-width:980px){
   .case-grid{grid-template-columns:1fr}
-  .toc{grid-template-columns:1fr}
+  .toc{grid-template-columns:1fr 1fr}
   .tiles{grid-template-columns:repeat(2,1fr)}
   .cols{grid-template-columns:1fr}
   .flow{grid-template-columns:1fr}
@@ -259,6 +334,7 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:13px;border-top:1px soli
   .steps{grid-template-columns:repeat(2,1fr)}
 }
 @media (max-width:560px){
+  .toc{grid-template-columns:1fr}
   .wrap{padding:0 16px}
   .hero h1{font-size:34px}
   .hero h1 span{display:block;margin:4px 0 0;font-size:20px}
@@ -275,7 +351,7 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:13px;border-top:1px soli
 <header class="wrap hero">
   <div class="eyebrow">Product Portfolio · Interactive Demos</div>
   <h1>王雯菁<span>Claire · AI 产品经理 · 2027 届</span></h1>
-  <p class="lead">这里是我参与过的三个 AI 与数据产品的交互 Demo。比起写在简历里，我更想让你直接点一点，看看这些产品做到理想状态时是什么样子。</p>
+  <p class="lead">这里是我参与过的四个 AI 与数据产品的交互 Demo。比起写在简历里，我更想让你直接点一点，看看这些产品做到理想状态时是什么样子。</p>
   <div class="contact">
     <span><b>电话</b> 15619080835</span>
     <span><b>邮箱</b> 15619080835@163.com</span>
@@ -285,8 +361,9 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:13px;border-top:1px soli
 
   <nav class="toc">
     <a href="#flick"><div class="n">01 · 小红书</div><div class="t"><span class="dot" style="background:var(--red)"></span>Flick 与「问 AI」</div><div class="d">企业内部 AI 知识分发：关注、推荐、智能问答</div></a>
-    <a href="#dash"><div class="n">02 · 特斯拉</div><div class="t"><span class="dot" style="background:#0f1115"></span>售后运营数据看板</div><div class="d">分层指标、口径切换、大区＋门店下钻、异常预警</div></a>
-    <a href="#report"><div class="n">03 · Ubras</div><div class="t"><span class="dot" style="background:var(--lark)"></span>对话式 AI 经营报告</div><div class="d">飞书发一句话，智能体在 BI 平台生成报告再推回</div></a>
+    <a href="#colead"><div class="n">02 · 小红书</div><div class="t"><span class="dot" style="background:#c4102c"></span>Colead 会议助手</div><div class="d">会前准备、会中陪跑、会后待办的会议 Agent</div></a>
+    <a href="#dash"><div class="n">03 · 特斯拉</div><div class="t"><span class="dot" style="background:#0f1115"></span>售后运营数据看板</div><div class="d">分层指标、口径切换、大区＋门店下钻、异常预警</div></a>
+    <a href="#report"><div class="n">04 · Ubras</div><div class="t"><span class="dot" style="background:var(--lark)"></span>对话式 AI 经营报告</div><div class="d">飞书发一句话，智能体在 BI 平台生成报告再推回</div></a>
   </nav>
 </header>
 
@@ -360,11 +437,142 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:13px;border-top:1px soli
   </div>
 </section>
 
-<!-- ================= 02 DASHBOARD ================= -->
+<!-- ================= 02 COLEAD ================= -->
+<section class="case wrap" id="colead">
+  <div class="case-grid">
+    <div>
+      <div class="eyebrow">02 · 小红书 · AI 产品经理实习生</div>
+      <h2>Colead 会议助手</h2>
+      <div class="sub">贯穿会前、会中、会后的会议 Agent</div>
+      <div class="pair">
+        <div><b>发现的问题</b>会前材料分散，会中容易跑题，会后纪要和待办靠人工整理，会议目标常常落不了地。</div>
+        <div><b>理想态</b>像车里的智能座舱助手：平时安静地记，需要时一叫就到，帮所有人把会开完、把事做完。</div>
+      </div>
+      <div class="block">
+        <h4>我做了什么</h4>
+        <ul class="did">
+          <li>按会前、会中、会后拆解场景，设计材料收集、目标跟踪、纪要与待办分派的全流程方案</li>
+          <li>设计“随时唤起、保持静默”双模式交互：静默时也持续记录，不打断讨论</li>
+          <li>会议材料和纪要沉淀为知识库，纪要与待办增加输出校验</li>
+          <li>完成全流程方案与交互设计，推动首版可用 Demo 研发</li>
+        </ul>
+      </div>
+      <div class="chips"><span class="chip">身份感知</span><span class="chip">目标跟踪</span><span class="chip">语音唤起</span><span class="chip">静默记录</span><span class="chip">思维导图</span><span class="chip">待办提醒</span></div>
+    </div>
+    <div class="stage cl-stage">
+      <div class="cl-tabs" id="clTabs">
+        <button class="on" data-p="pre"><b>BEFORE</b>会前 · 准备</button>
+        <button data-p="in"><b>DURING</b>会中 · 陪你开会</button>
+        <button data-p="post"><b>AFTER</b>会后 · 落实</button>
+      </div>
+
+      <div class="cl-pane on" id="cl-pre">
+        <div class="cl-row">
+          <div class="cl-card">
+            <h5>1 · 你在这场会里的角色</h5>
+            <div class="role" id="clRole">
+              <button class="on" data-r="host">主持会议<small>负责推进议程和拍板</small></button>
+              <button data-r="att">参会<small>汇报自己负责的部分</small></button>
+            </div>
+            <div class="field">会议主题<div>新人引导功能改版评审</div></div>
+            <div class="field">本次会议目标<div>① 确定改版方案<br>② 确定上线时间<br>③ 明确分工</div></div>
+          </div>
+          <div class="cl-card">
+            <h5>2 · 议程与材料</h5>
+            <ul class="agenda">
+              <li>回顾用户访谈结论<span>10 分钟</span></li>
+              <li>讨论两版引导方案<span>15 分钟</span></li>
+              <li>确定上线时间与分工<span>5 分钟</span></li>
+            </ul>
+            <div class="field">已交给 Colead 的材料</div>
+            <div class="files"><span>📄 新人访谈纪要.docx</span><span>📊 新人留存数据.xlsx</span><span>🖼 引导方案 A/B.fig</span></div>
+          </div>
+        </div>
+        <div class="cl-say"><div class="orb"></div><div class="cl-bub" id="clBrief"></div></div>
+      </div>
+
+      <div class="cl-pane" id="cl-in">
+        <div class="live-bar">
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <span class="pill" id="clState"><i></i>会议未开始</span>
+            <span class="pill" id="clClock">00:00</span>
+          </div>
+          <div class="ctrl"><button class="btn pri" id="clPlay">▶ 开始模拟会议</button><button class="btn" id="clReset">↺ 重置</button></div>
+        </div>
+        <div class="mt">
+          <div class="transcript" id="clScript"><div style="color:var(--muted);font-size:13px;text-align:center;margin-top:120px">点「开始模拟会议」，Colead 会在旁边静默记录</div></div>
+          <div>
+            <div class="cl-card">
+              <h5>会议目标跟踪</h5>
+              <ul class="goals" id="clGoals">
+                <li data-g="0"><span class="gs"></span><div>确定改版方案<small>来自会前设定</small></div></li>
+                <li data-g="1"><span class="gs"></span><div>确定上线时间<small>来自会前设定</small></div></li>
+                <li data-g="2"><span class="gs"></span><div>明确分工<small>来自会前设定</small></div></li>
+              </ul>
+            </div>
+            <div class="wake">
+              <button class="mic" id="clWake">🎙 “小红小红，帮我总结一下刚才说了什么，每个人要干什么”</button>
+              <button id="clQuiet" disabled>🤫 “好的，你先退下吧”</button>
+            </div>
+            <div class="cockpit" id="clCockpit">
+              <div class="hd"><div class="orb live"></div><span>Colead 已唤起 · 正在回答</span></div>
+              <div class="q" id="clQ"></div>
+              <div class="tx" id="clAns"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cl-pane" id="cl-post">
+        <div class="post">
+          <div class="cl-card">
+            <h5>会议思维导图 · 自动生成</h5>
+            <svg class="mm" viewBox="0 0 500 330" role="img" aria-label="会议思维导图">
+              <g fill="none" stroke="#d9d4ca" stroke-width="1.6">
+                <path d="M128 165 C160 165,160 60,190 60"/><path d="M128 165 C160 165,160 165,190 165"/><path d="M128 165 C160 165,160 272,190 272"/>
+                <path d="M250 60 C270 60,270 36,292 36"/><path d="M250 60 C270 60,270 86,292 86"/>
+                <path d="M250 165 C270 165,270 128,292 128"/><path d="M250 165 C270 165,270 165,292 165"/><path d="M250 165 C270 165,270 202,292 202"/>
+                <path d="M250 272 C270 272,270 272,292 272"/>
+              </g>
+              <rect x="4" y="136" width="124" height="58" rx="12" fill="#ff2442"/>
+              <text x="66" y="160" fill="#fff" font-size="15" font-weight="700" text-anchor="middle">新人引导改版</text>
+              <text x="66" y="181" fill="#ffe1e6" font-size="12" text-anchor="middle">评审会 · 28 分钟</text>
+              <g font-size="15" font-weight="700" text-anchor="middle">
+                <rect x="190" y="42" width="60" height="36" rx="9" fill="#e9f7f0"/><text x="220" y="65" fill="#16794d">结论</text>
+                <rect x="190" y="147" width="60" height="36" rx="9" fill="#eef3ff"/><text x="220" y="170" fill="#1f4fd6">待办</text>
+                <rect x="190" y="254" width="60" height="36" rx="9" fill="#fff4e0"/><text x="220" y="277" fill="#8a5a00">风险</text>
+              </g>
+              <g font-size="14.5" fill="#3d4049">
+                <text x="298" y="41">采用方案 B：任务式引导</text>
+                <text x="298" y="91">11 月 20 日灰度上线</text>
+                <text x="298" y="133">你 · 整理访谈结论</text>
+                <text x="298" y="170">周明 · 埋点与开发评估</text>
+                <text x="298" y="207">陈雨 · 出 B 方案终稿</text>
+                <text x="298" y="277">埋点排期可能延后 2 天</text>
+              </g>
+            </svg>
+            <div class="kb">✓ 纪要与思维导图已存入会议知识库，下次相关会议会自动作为背景材料</div>
+          </div>
+          <div class="cl-card">
+            <h5>每个人的待办 · 带提醒</h5>
+            <ul class="todo" id="clTodo">
+              <li class="mine"><input type="checkbox" id="td1" aria-label="完成：整理访谈结论"><div><span class="tt"><span class="who">你</span> · 整理访谈结论，同步到评审群</span><small>截止 11/13 周三</small></div></li>
+              <li><input type="checkbox" id="td2" aria-label="完成：埋点与开发评估"><div><span class="tt"><span class="who">周明</span> · 完成埋点方案与开发工作量评估</span><small>截止 11/14 周四</small></div></li>
+              <li><input type="checkbox" id="td3" aria-label="完成：B 方案终稿"><div><span class="tt"><span class="who">陈雨</span> · 输出方案 B 的交互终稿</span><small>截止 11/15 周五</small></div></li>
+            </ul>
+            <div class="remind" id="clRemind">⏰ 提醒：你的「整理访谈结论」明天截止，还没有标记完成。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 03 DASHBOARD ================= -->
 <section class="case wrap" id="dash">
   <div class="case-grid">
     <div>
-      <div class="eyebrow">02 · 特斯拉 · 数据产品实习生</div>
+      <div class="eyebrow">03 · 特斯拉 · 数据产品实习生</div>
       <h2>售后运营数据看板</h2>
       <div class="sub">把静态 Excel 周报升级为交互式数据产品</div>
       <div class="pair">
@@ -417,7 +625,7 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:13px;border-top:1px soli
 <section class="case wrap" id="report">
   <div class="case-grid">
     <div>
-      <div class="eyebrow">03 · Ubras · AI 产品测试开发实习生</div>
+      <div class="eyebrow">04 · Ubras · AI 产品测试开发实习生</div>
       <h2>对话式 AI 经营报告</h2>
       <div class="sub">飞书 × 阿里云 × BI 平台的跨平台工作流</div>
       <div class="pair">
@@ -577,6 +785,90 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:13px;border-top:1px soli
     document.getElementById('pTitle').textContent=titles[btn.dataset.tab];
     document.getElementById('pBody').scrollTop=btn.dataset.tab==='ask'?1e6:0;
   });
+})();
+
+/* =================== COLEAD =================== */
+(function(){
+  const $=id=>document.getElementById(id);
+  const brief={
+    host:'你是这场会的主持人，我帮你准备好了：\n· 三份材料的要点已整理成 1 页简报，开场 2 分钟就能讲完\n· 方案 A/B 的主要分歧在“引导步数”，建议先让陈雨讲 B\n· 会议只有 30 分钟，我会在跑题或超时的时候提醒你',
+    att:'你这次是参会人，需要汇报“访谈结论”部分：\n· 我已从访谈纪要里提炼出 3 条核心结论和 2 句用户原话\n· 留存数据里新人第 3 天流失最明显，可以作为你的论据\n· 轮到你发言前 1 分钟，我会提示你'
+  };
+  let role='host';
+  function drawBrief(){$('clBrief').textContent=brief[role];}
+  $('clRole').addEventListener('click',e=>{const b=e.target.closest('button'); if(!b) return; role=b.dataset.r; [...$('clRole').children].forEach(x=>x.classList.toggle('on',x===b)); drawBrief(); markMine();});
+  drawBrief();
+
+  document.querySelectorAll('#clTabs button').forEach(b=>b.onclick=()=>{
+    document.querySelectorAll('#clTabs button').forEach(x=>x.classList.toggle('on',x===b));
+    document.querySelectorAll('.cl-pane').forEach(p=>p.classList.toggle('on',p.id==='cl-'+b.dataset.p));
+  });
+
+  const script=[
+    {t:'00:30',w:'林夏',s:'今天主要定新人引导改版，先请大家看一下访谈结论。'},
+    {t:'02:10',w:'你',s:'访谈里 8 个新人有 6 个说第一天不知道该先做什么，第 3 天流失最明显。',me:1},
+    {t:'06:40',w:'陈雨',s:'所以 B 方案把引导改成三个小任务，做完一个解锁下一个。'},
+    {t:'09:15',w:'周明',s:'B 方案开发量大一点，主要是任务状态要埋点。'},
+    {t:'12:30',w:'林夏',s:'我觉得 B 更好，大家没意见就定 B。',g:[0,'done']},
+    {t:'14:05',w:'陈雨',s:'对了，顺便说下上周那个活动页的配色……'},
+    {nudge:'这个话题和本次目标无关。目标 2「确定上线时间」还没开始讨论，剩余约 12 分钟，建议回到议程。',g:[1,'doing']},
+    {t:'17:20',w:'林夏',s:'好，回到正题，上线时间大家看 20 号灰度可以吗？'},
+    {t:'18:40',w:'周明',s:'埋点可能会晚两天，但 20 号灰度问题不大。',g:[1,'done']},
+    {t:'21:10',w:'林夏',s:'那分工一下：访谈结论、埋点评估、B 方案终稿。',g:[2,'doing']},
+    {t:'23:30',w:'你',s:'访谈结论我来整理，周三前发到群里。',me:1},
+    {t:'25:00',w:'周明',s:'埋点和工作量我周四给。陈雨周五出终稿。',g:[2,'done']}
+  ];
+  let tok=0, lines=0, awake=false, playing=false;
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  function setState(){
+    const p=$('clState');
+    if(awake){p.className='pill awake'; p.innerHTML='<i style="background:#ff2442"></i>Colead 已唤起';}
+    else if(playing||lines){p.className='pill rec'; p.innerHTML=`<i></i>静默记录中 · 已记录 ${lines} 句`;}
+    else {p.className='pill'; p.innerHTML='<i></i>会议未开始';}
+  }
+  function goal(i,st){const li=$('clGoals').children[i]; li.className=st; li.querySelector('small').textContent=st==='done'?'已达成 · Colead 识别到结论':'讨论中';}
+  function resetGoals(){[...$('clGoals').children].forEach(li=>{li.className=''; li.querySelector('small').textContent='来自会前设定';});}
+  function reset(){tok++; lines=0; playing=false; awake=false; $('clScript').innerHTML='<div style="color:var(--muted);font-size:13px;text-align:center;margin-top:120px">点「开始模拟会议」，Colead 会在旁边静默记录</div>'; $('clClock').textContent='00:00'; resetGoals(); $('clCockpit').classList.remove('on'); $('clQuiet').disabled=true; $('clPlay').disabled=false; $('clPlay').textContent='▶ 开始模拟会议'; setState();}
+  async function play(){
+    reset(); const my=tok; playing=true; $('clPlay').disabled=true; $('clScript').innerHTML=''; setState();
+    for(const x of script){
+      await sleep(x.nudge?900:1300); if(my!==tok) return;
+      const box=$('clScript');
+      if(x.nudge){const d=document.createElement('div'); d.className='nudge'; d.innerHTML=`<div class="orb"></div><div><b>Colead 提醒</b><br>${x.nudge}</div>`; box.appendChild(d);}
+      else{const d=document.createElement('div'); d.className='tl'+(x.me?' me':''); d.innerHTML=`<div class="who">${x.w}<small>${x.t}</small></div><div class="say">${x.s}</div>`; box.appendChild(d); lines++; $('clClock').textContent=x.t;}
+      if(x.g) goal(x.g[0],x.g[1]);
+      box.scrollTop=box.scrollHeight; setState();
+    }
+    playing=false; $('clPlay').disabled=false; $('clPlay').textContent='▶ 再开一次';
+    const d=document.createElement('div'); d.className='nudge'; d.style.background='#eefaf4'; d.style.borderColor='#bfe8d3'; d.style.color='#16794d'; d.innerHTML='<div class="orb"></div><div><b>三个目标全部达成</b><br>会议纪要、思维导图和待办已生成，切到「会后」查看。</div>'; $('clScript').appendChild(d); $('clScript').scrollTop=1e6;
+  }
+  function answer(){
+    if(lines<3) return '会议刚开始，我还没有记录到足够的内容。可以先点「开始模拟会议」，等大家讨论一会儿再叫我。';
+    const done=[...$('clGoals').children].map(li=>li.className==='done');
+    let a='刚才主要说了三件事：\n';
+    a+='1. 访谈发现新人第一天不知道做什么，第 3 天流失最明显。\n';
+    a+= done[0]?'2. 大家同意采用方案 B：任务式引导。\n':'2. 正在比较方案 A 和 B，还没有结论。\n';
+    a+= done[1]?'3. 定在 11 月 20 日灰度，埋点可能晚两天。\n':'3. 上线时间还没讨论。\n';
+    if(done[2]) a+='\n每个人要做的：\n· 你：整理访谈结论，周三前发群里\n· 周明：埋点和工作量评估，周四\n· 陈雨：方案 B 终稿，周五';
+    else a+='\n分工还没明确，建议现在把三项任务分配下去。';
+    return a;
+  }
+  $('clWake').onclick=()=>{
+    awake=true; setState(); $('clQuiet').disabled=false;
+    const c=$('clCockpit'); c.classList.add('on'); $('clQ').textContent='“小红小红，帮我总结一下刚才说了什么，每个人要干什么”';
+    const txt=answer(); const el=$('clAns'); el.textContent=''; let i=0; const my=tok;
+    const tm=setInterval(()=>{ if(my!==tok||!awake){clearInterval(tm);return;} el.textContent=txt.slice(0,++i); if(i>=txt.length) clearInterval(tm);},16);
+  };
+  $('clQuiet').onclick=()=>{awake=false; $('clCockpit').classList.remove('on'); $('clQuiet').disabled=true; setState();};
+  $('clPlay').onclick=play; $('clReset').onclick=reset;
+
+  function markMine(){const lis=$('clTodo').children; lis[0].classList.toggle('mine',true);}
+  $('clTodo').addEventListener('change',e=>{
+    const li=e.target.closest('li'); li.classList.toggle('ok',e.target.checked);
+    const mine=$('td1').checked, all=['td1','td2','td3'].every(id=>$(id).checked);
+    $('clRemind').textContent= all?'✓ 三项待办全部完成，已通知会议发起人。': mine?'⏰ 你的待办已完成。周明的「埋点方案」后天截止，到期前一天会提醒他。':'⏰ 提醒：你的「整理访谈结论」明天截止，还没有标记完成。';
+  });
+  setState();
 })();
 
 /* =================== DASHBOARD =================== */
