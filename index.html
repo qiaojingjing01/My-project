@@ -283,7 +283,7 @@ svg text{font-family:inherit}
 .tl{display:flex;gap:10px;padding:6px 0;font-size:14px;animation:pop .25s ease}
 .tl .who{flex:none;width:52px;font-weight:600;color:var(--ink)}
 .tl .who small{display:block;color:var(--muted);font-weight:400;font-size:11px;font-variant-numeric:tabular-nums}
-.tl .say{color:var(--ink2)}
+.tl .say{color:var(--ink2);white-space:pre-line}
 .tl.me .who{color:var(--blue)}
 .nudge{margin:8px 0;border:1px solid #ffd9df;background:#fff6f7;border-radius:12px;padding:8px 10px;font-size:13px;color:#a3132b;display:flex;gap:8px;align-items:flex-start;animation:pop .3s ease}
 .nudge .orb{width:20px;height:20px;box-shadow:none}
@@ -350,6 +350,27 @@ svg text{font-family:inherit}
 .badge-mini span{font-size:12px;color:var(--muted);line-height:1.5}
 @media (max-width:980px){.strat{width:100%;max-width:360px}}
 @media (max-width:560px){.strat{display:block}}
+.pblock{margin-top:18px}
+.pblock h4{margin:0 0 6px;font-size:13px;color:var(--muted);font-weight:600;letter-spacing:.04em}
+.pblock p{margin:0 0 6px;font-size:14px;color:var(--ink2)}
+.pblock p b{color:var(--ink)}
+.feat{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.feat li{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:9px 12px;font-size:13.5px;color:var(--ink2);line-height:1.6}
+.feat li b{display:block;color:var(--ink);font-size:14px;margin-bottom:1px}
+.diff .feat li{background:#fbf9f4;border-style:dashed}
+.kbtabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.kbtabs span{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:2px 10px;color:var(--muted);background:#fff;transition:all .2s}
+.kbtabs span.on{border-color:var(--red);color:#c41d38;background:#fff5f6}
+.kbq{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.kbq button{border:1px solid #ffc2cb;background:#fff5f6;color:#c41d38;border-radius:12px;padding:8px 12px;text-align:left;font-size:13.5px}
+.kbq button:disabled{opacity:.45;cursor:default}
+.kbsrc{display:inline-block;font-size:11px;border-radius:6px;padding:1px 7px;margin-top:6px;background:#eef3ff;color:#1f4fd6}
+.plan{font-size:11px;font-weight:600;color:#8a5a00;background:#fff4e0;border-radius:6px;padding:1px 6px;margin-left:6px;letter-spacing:0}
+.hn{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.hn li{display:grid;grid-template-columns:76px minmax(0,1fr);gap:2px 10px;font-size:13px;align-items:center}
+.hn li span{color:var(--muted)}
+.hn li b{font-weight:600;color:var(--ink)}
+.hn li i{grid-column:2;height:5px;border-radius:3px;background:linear-gradient(90deg,var(--red) var(--w),#efece6 var(--w));transition:background .4s}
 footer{padding:40px 0 60px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);margin-top:40px}
 
 @media (max-width:980px){
@@ -405,30 +426,18 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:13px;border-top:1px soli
       <div class="eyebrow">01 · 小红书 · AI 产品经理实习生</div>
       <h2>Flick 与「问 AI」</h2>
       <div class="sub">企业内部 AI 知识发现与分发产品</div>
-      <div class="pair">
-        <div><b>发现的问题</b>大量业务经验沉淀在文档里，员工找不到、看不到、用不上，知识复用率很低。</div>
-        <div><b>理想态</b>让对的知识主动找到对的人：打开 Flick 就能看到与自己团队相关的经验，有问题直接问 AI，答案有据可查。</div>
-      </div>
-      <div class="block">
-        <h4>我做了什么</h4>
-        <ul class="did">
-          <li>用户访谈拆出三类问题，完成需求拆解、PRD 与原型</li>
-          <li>设计文档预筛、事实审核、授权准入、重要度评分的内容加工流程，提出三层分发方案</li>
-          <li>组织数据治理：613 类原始取值归并为 102 个部门组合，抽检 598 张卡片全部映射成功</li>
-          <li>负责「问 AI」接入，让回答基于企业知识库生成</li>
-          <li>搭建反馈平台，结合访谈推动“团队＋话题”双维度关注改版</li>
-        </ul>
-      </div>
-      <div class="block">
-        <h4>关注策略重构</h4>
-        <p style="font-size:14px">目标是让更多人用起关注、用得更频繁，让每个人聚焦在自己想看的内容上，从而把用户留下来。</p>
-        <ul class="did">
-          <li>关注对象分两维：信息卡按团队，数据卡和案例卡按话题</li>
-          <li>「猜你想关注」：结合组织关系、搜索习惯和浏览行为实时推荐，并给出推荐理由</li>
-          <li>关注后有承接：关注的团队和话题直接进入「关注」信息流</li>
-          <li>用关注渗透率、关注流阅读占比、次周留存衡量效果</li>
-        </ul>
-      </div>
+      <div class="pblock"><h4>为什么做</h4>
+        <p><b>痛点：</b>公司大量业务经验沉淀在文档里，员工找不到、看不到、用不上，知识复用率很低。</p>
+        <p><b>理想态：</b>让对的知识主动找到对的人。打开 Flick 就能看到和自己团队相关的经验，有问题直接问 AI，答案有据可查。</p></div>
+      <div class="pblock"><h4>核心功能，能带来什么</h4><ul class="feat">
+        <li><b>关注</b>按团队和话题关注；「猜你想关注」根据组织关系、搜索和浏览实时推荐并给出理由，关注后内容直接进入关注流。每个人都能聚焦在自己想看的内容上。</li>
+        <li><b>AI 内容加工与分发</b>文档经过预筛、事实审核、授权准入和重要度评分，变成信息卡、数据卡、案例卡，再按广泛推荐、定向推荐、保留检索分层分发。好内容被更多人看到，不相关的不打扰。</li>
+        <li><b>问 AI</b>先检索企业知识库、校验权限，再生成回答并附上来源，用户可以反馈不准确。回答可信，也能持续变好。</li>
+      </ul></div>
+      <div class="pblock diff"><h4>和其他产品有什么不同</h4><ul class="feat">
+        <li><b>对比企业 Wiki、文档平台</b>那里是“人找知识”，得知道去哪找、搜什么；Flick 是“知识找人”，按团队和话题主动推送。</li>
+        <li><b>对比通用 AI 问答</b>只基于企业内部文档、按权限回答，并附来源，不会凭空编。</li>
+      </ul></div>
       <div class="kpi-line">
         <div><b>1,000+ → 1,500</b><span>两轮灰度用户</span></div>
         <div><b>2,750</b><span>知识卡片覆盖</span></div>
@@ -493,26 +502,27 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:13px;border-top:1px soli
       <div class="eyebrow">02 · 小红书 · AI 产品经理实习生</div>
       <h2>Colead 会议助手</h2>
       <div class="sub">贯穿会前、会中、会后的会议 Agent</div>
-      <div class="pair">
-        <div><b>发现的问题</b>会前材料分散，会中容易跑题，会后纪要和待办靠人工整理，会议目标常常落不了地。</div>
-        <div><b>理想态</b>像车里的智能座舱助手：平时安静地记，需要时一叫就到，帮所有人把会开完、把事做完。</div>
-      </div>
-      <div class="block">
-        <h4>我做了什么</h4>
-        <ul class="did">
-          <li>按会前、会中、会后拆解场景，设计材料收集、目标跟踪、纪要与待办分派的全流程方案</li>
-          <li>设计“随时唤起、保持静默”双模式交互：静默时也持续记录，不打断讨论</li>
-          <li>会议材料和纪要沉淀为知识库，纪要与待办增加输出校验</li>
-          <li>完成全流程方案与交互设计，推动首版可用 Demo 研发</li>
-        </ul>
-      </div>
-      <div class="chips"><span class="chip">身份感知</span><span class="chip">目标跟踪</span><span class="chip">语音唤起</span><span class="chip">静默记录</span><span class="chip">思维导图</span><span class="chip">待办提醒</span></div>
+      <div class="pblock"><h4>为什么做</h4>
+        <p><b>痛点：</b>会前材料分散，会中容易跑题，会后纪要和待办靠人工整理；很多事要开好几次会才能推进，上一场说了什么也很难找回。</p>
+        <p><b>理想态：</b>像车里的智能座舱助手：平时安静地记，需要时一叫就到，记得每一场会的来龙去脉，而且越用越懂你。</p></div>
+      <div class="pblock"><h4>核心功能，能带来什么</h4><ul class="feat">
+        <li><b>会前</b>确认你的身份和角色（主持还是参会），收集材料，生成为你准备的简报。</li>
+        <li><b>会中</b>静默记录，按会前目标跟踪进度，跑题时主动提醒；“小红小红”一叫就出来总结。</li>
+        <li><b>会后</b>生成思维导图和每个人的待办，到期前提醒。</li>
+        <li><b>三层知识库</b>个人知识库围绕你本人；会议知识库按目标、节奏和结论打包，承接多场会议的上下文；企业知识库基于 dibp Agent 查询公司内部知识。会议之外，用一句模糊的描述也能找回资料。</li>
+        <li><b>个人 Harness（规划中）</b>沉淀你的偏好、决策、近期关注、容易丢失的上下文和反复回顾的内容，按权重调用，让 AI 越来越懂你。</li>
+      </ul></div>
+      <div class="pblock diff"><h4>和其他产品有什么不同</h4><ul class="feat">
+        <li><b>对比会议软件里的 AI 助手</b>通用会议软件的 AI 助手（比如腾讯会议）主要围绕单场会议做记录、纪要和会后问答。Colead 关心的是会议目标有没有落地：跨多场会议记住上下文，会中按目标纠偏，待办有闭环提醒，会议之外也能问。</li>
+        <li><b>懂人也懂企业</b>接入企业知识库，并通过个人 Harness 记住每个人的习惯；作为企业自研工具，会议数据留在企业内部。</li>
+      </ul></div>
     </div>
     <div class="stage cl-stage">
       <div class="cl-tabs" id="clTabs">
         <button class="on" data-p="pre"><b>BEFORE</b>会前 · 准备</button>
         <button data-p="in"><b>DURING</b>会中 · 陪你开会</button>
         <button data-p="post"><b>AFTER</b>会后 · 落实</button>
+        <button data-p="ask"><b>ANYTIME</b>会外 · 随时问</button>
       </div>
 
       <div class="cl-pane on" id="cl-pre">
@@ -613,6 +623,30 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:13px;border-top:1px soli
           </div>
         </div>
       </div>
+      <div class="cl-pane" id="cl-ask">
+        <div class="mt">
+          <div>
+            <div class="kbtabs" id="kbLayers"><span data-l="me">个人知识库</span><span data-l="mt">会议知识库</span><span data-l="ent">企业知识库 · dibp</span></div>
+            <div class="transcript" id="kbChat" style="height:300px"></div>
+            <div class="kbq" id="kbQ">
+              <button data-i="0">“上次新人引导评审会最后定了什么？”</button>
+              <button data-i="1">“前两天有人发我一个讲引导页的竞品链接，帮我找一下”</button>
+              <button data-i="2">“公司新人引导的设计规范在哪？”</button>
+            </div>
+          </div>
+          <div class="cl-card">
+            <h5>个人 Harness · 越用越懂你 <span class="plan">规划中 · 冷启动</span></h5>
+            <ul class="hn" id="hn">
+              <li><span>偏好</span><b>先看结论，再看细节</b><i style="--w:55%"></i></li>
+              <li><span>近期关注</span><b id="hnFocus">新人引导改版</b><i id="hnFocusW" style="--w:40%"></i></li>
+              <li><span>决策记录</span><b>采用方案 B · 11/12</b><i style="--w:60%"></i></li>
+              <li><span>易丢失上下文</span><b>埋点排期依赖周明</b><i style="--w:35%"></i></li>
+              <li><span>反复回顾</span><b id="hnRev">访谈结论 × 2</b><i id="hnRevW" style="--w:30%"></i></li>
+            </ul>
+            <div class="kb" style="margin-top:12px">每问一次，Colead 都会更新这些记忆的权重。上下文太长时：按议题分段摘要，只检索和当前问题相关的片段，关键决策常驻。</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -624,20 +658,18 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:13px;border-top:1px soli
       <div class="eyebrow">03 · 特斯拉 · 数据产品实习生</div>
       <h2>售后运营数据看板</h2>
       <div class="sub">把静态 Excel 周报升级为交互式数据产品</div>
-      <div class="pair">
-        <div><b>发现的问题</b>售后数据散落在静态 Excel 里，制作耗时、口径不一，管理层看不出哪家店、哪个指标出了问题。</div>
-        <div><b>理想态</b>打开看板就知道“哪家店、哪个指标、该先管谁”：口径统一，问题门店自动置顶并标红。</div>
-      </div>
-      <div class="block">
-        <h4>设计要点</h4>
-        <ul class="did">
-          <li><b>大区一列 + 门店一列</b>：先看大区，再下钻到单店</li>
-          <li><b>按关注度排序</b>：综合达标差距、环比变化和工单量，最该关注的门店排最前</li>
-          <li><b>异常突出</b>：未达目标标红、环比恶化标黄，一眼定位</li>
-          <li><b>口径切换</b>：FRFT、Key to Key 各有统一定义与目标线</li>
-          <li>看板作为和门店经理沟通的工具，逐店对齐问题、跟进改善</li>
-        </ul>
-      </div>
+      <div class="pblock"><h4>为什么做</h4>
+        <p><b>痛点：</b>售后数据散落在静态 Excel 里，制作耗时、口径不一，管理层看不出哪家店、哪个指标出了问题。</p>
+        <p><b>理想态：</b>打开看板就知道“哪家店、哪个指标、该先管谁”。</p></div>
+      <div class="pblock"><h4>核心功能，能带来什么</h4><ul class="feat">
+        <li><b>统一口径的分层指标</b>FRFT、Key to Key 等指标口径统一，各方看的是同一套数。</li>
+        <li><b>大区一列、门店一列</b>先看大区，再下钻到单店。</li>
+        <li><b>按关注度排序，异常突出</b>综合达标差距、环比变化和工单量排序；未达标标红、环比恶化标黄，问题门店一眼可见。</li>
+        <li><b>沟通工具</b>拿着看板和门店经理逐店对齐问题、跟进改善。</li>
+      </ul></div>
+      <div class="pblock diff"><h4>和其他方式有什么不同</h4><ul class="feat">
+        <li><b>对比 Excel 周报和“大而全”的看板</b>不是把数据都堆上去，而是问题导向：最该管的门店排在最前，异常先被看到。</li>
+      </ul></div>
       <div class="kpi-line">
         <div><b>2–3h → 0.5h</b><span>单份报表制作</span></div>
         <div><b>韩国全量 + 北京 20 家</b><span>门店覆盖</span></div>
@@ -677,19 +709,18 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:13px;border-top:1px soli
       <div class="eyebrow">04 · Ubras · AI 产品测试开发实习生</div>
       <h2>对话式 AI 经营报告</h2>
       <div class="sub">飞书 × 阿里云 × BI 平台的跨平台工作流</div>
-      <div class="pair">
-        <div><b>发现的问题</b>业务人员写经营报告要在 BI 平台逐一翻看大量看板，再手工整合，单份约 20 分钟。</div>
-        <div><b>理想态</b>在飞书里说一句话，几分钟后同一个对话里就收到一份数据准确、带结论的完整报告。</div>
-      </div>
-      <div class="block">
-        <h4>我做了什么</h4>
-        <ul class="did">
-          <li>对接商业、达播、法务、运营 4 个部门梳理取数场景，统一指标口径</li>
-          <li>把“拟人化操作”拆成任务下发、任务调度、结果回传三段，打通三个平台</li>
-          <li>设计异步生成与用户 ID、报告 ID 关联分发，报告自动推回发起人</li>
-          <li>负责提示词调优与效果验证，输出前增加数据复核</li>
-        </ul>
-      </div>
+      <div class="pblock"><h4>为什么做</h4>
+        <p><b>痛点：</b>业务人员写经营报告，要在 BI 平台逐一翻看大量看板再手工整合，单份约 20 分钟。</p>
+        <p><b>理想态：</b>在飞书里说一句话，几分钟后在同一个对话里收到一份数据准确、带结论的完整报告。</p></div>
+      <div class="pblock"><h4>核心功能，能带来什么</h4><ul class="feat">
+        <li><b>一句话下任务</b>在每天都用的飞书里用自然语言提需求，不用切到 BI 平台。</li>
+        <li><b>智能体整合多张报表</b>「神笔」智能体在 BI 平台查询多张报表，整合成带结论的完整报告。</li>
+        <li><b>异步生成、自动推回</b>用户 ID 和报告 ID 关联，生成完自动推回发起人，不用等着。</li>
+        <li><b>数据复核</b>输出前和源报表核对关键数字，保证报告可信。</li>
+      </ul></div>
+      <div class="pblock diff"><h4>和其他方式有什么不同</h4><ul class="feat">
+        <li><b>对比在 BI 里自己查</b>不只回答一个数字，而是跨多张报表直接给出完整报告；全程在飞书里完成，并且有复核保证准确。</li>
+      </ul></div>
       <div class="kpi-line">
         <div><b>20 → 5 分钟</b><span>单份报告</span></div>
         <div><b>近 100 次/日</b><span>覆盖 4 个部门</span></div>
@@ -945,6 +976,32 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:13px;border-top:1px soli
   };
   $('clQuiet').onclick=()=>{awake=false; $('clCockpit').classList.remove('on'); $('clQuiet').disabled=true; setState();};
   $('clPlay').onclick=play; $('clReset').onclick=reset;
+
+  const KB=[
+    {l:'mt',src:'会议知识库 · 11/12 新人引导改版评审（第 2 次）',a:'这件事一共开了两次会。第二次会上定了三件事：\n1. 采用方案 B，任务式引导；\n2. 11 月 20 日灰度上线；\n3. 你整理访谈结论，周明做埋点评估，陈雨出 B 方案终稿。\n上一次会留下的问题“引导步数太多”，这次已经解决。',focus:'新人引导改版',fw:70},
+    {l:'me',src:'个人知识库 · 陈雨 11/10 发给你的链接',a:'找到了，应该是这个：陈雨 11 月 10 日在“引导改版”群里发给你的《三款工具产品的新人引导拆解》。你当时没有打开过，我已经帮你标记为待读。',focus:'新人引导改版',fw:85},
+    {l:'ent',src:'企业知识库 · 设计规范 / 新人引导 v3',a:'公司的《新人引导设计规范 v3》在设计中心的知识库里，核心有三条：步骤不超过 3 步、每一步都能跳过、首屏给出可完成的任务。它和你们这次的方案 B 是一致的。',focus:'新人引导改版',fw:95}
+  ];
+  let rev=2;
+  function kbInit(){ $('kbChat').innerHTML='<div class="tl"><div class="who">Colead<small>会外</small></div><div class="say">不在开会的时候也可以问我。用一句模糊的描述，我会去个人、会议和企业三层知识库里帮你找。</div></div>'; }
+  kbInit();
+  $('kbQ').addEventListener('click',e=>{
+    const b=e.target.closest('button'); if(!b||b.disabled) return; const k=KB[+b.dataset.i];
+    [...$('kbQ').children].forEach(x=>x.disabled=true);
+    const box=$('kbChat');
+    const q=document.createElement('div'); q.className='tl me'; q.innerHTML=`<div class="who">你</div><div class="say">${b.textContent.replace(/[“”]/g,'')}</div>`; box.appendChild(q);
+    [...$('kbLayers').children].forEach(x=>x.classList.toggle('on',x.dataset.l===k.l));
+    const a=document.createElement('div'); a.className='tl'; a.innerHTML='<div class="who">Colead</div><div class="say"><span class="typing">正在三层知识库里查找</span></div>'; box.appendChild(a); box.scrollTop=box.scrollHeight;
+    setTimeout(()=>{
+      const say=a.querySelector('.say'); say.textContent=''; let i=0;
+      const t=setInterval(()=>{say.textContent=k.a.slice(0,++i); box.scrollTop=box.scrollHeight;
+        if(i>=k.a.length){clearInterval(t); const sp=document.createElement('div'); sp.className='kbsrc'; sp.textContent='来源：'+k.src; say.appendChild(sp); box.scrollTop=box.scrollHeight;
+          [...$('kbQ').children].forEach(x=>x.disabled=false);
+          if(k.l==='mt'||k.l==='me'){rev++; $('hnRev').textContent='访谈结论 × '+rev; $('hnRevW').style.setProperty('--w',Math.min(90,30+rev*10)+'%');}
+          $('hnFocusW').style.setProperty('--w',k.fw+'%');}
+      },15);
+    },700);
+  });
 
   function markMine(){const lis=$('clTodo').children; lis[0].classList.toggle('mine',true);}
   $('clTodo').addEventListener('change',e=>{
