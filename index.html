@@ -507,6 +507,98 @@ svg text{font-family:inherit}
 .fk-about p{font-size:13.5px;color:#666;line-height:1.7;margin:0 0 10px}
 .fk-about small{color:#aaa;font-size:11.5px}
 .fk-empty{text-align:center;color:#aaa;font-size:13px;padding:60px 20px}
+/* colead v2 desktop window */
+.cl-stage{padding:14px;background:#eef0f2}
+.cw{background:#fff;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.08);overflow:hidden;border:1px solid #dfe2e6;display:flex;flex-direction:column}
+.cw [hidden]{display:none!important}
+.cw-bar{height:34px;display:flex;align-items:center;gap:7px;padding:0 12px;background:#f6f7f9;border-bottom:1px solid #e8eaee;font-size:12.5px;color:#666}
+.cw-bar i{width:11px;height:11px;border-radius:50%;display:inline-block}
+.cw-bar b{margin-left:8px;color:#333}
+.cw-main{display:flex;min-height:560px}
+.cw-rail{width:66px;flex:none;background:#f8f9fb;border-right:1px solid #eceef1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 0}
+.cw-logo{width:30px;height:30px;border-radius:50%;margin-bottom:8px;background:radial-gradient(circle at 35% 30%,#bcd3ff 0,#4f7cff 45%,#2b54d6 100%);box-shadow:0 0 0 4px rgba(79,124,255,.15)}
+.cw-rail button{width:54px;border:0;background:none;border-radius:10px;padding:6px 0;color:#7a808a;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10.5px}
+.cw-rail button:hover{background:#eef0f4}
+.cw-rail button.on{background:#e8efff;color:#2b54d6;font-weight:600}
+.cw-rail .bottom{margin-top:auto}
+.cw-view{display:none;flex:1;min-width:0;flex-direction:column;padding:14px 16px}
+.cw-view.on{display:flex}
+.cw-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.cw-title{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;color:#888}
+.cw-title b{font-size:18px;color:#1f2329}
+.cw-title small{font-size:12px;color:#8f959e}
+.cw-title .st{font-style:normal;font-size:12px;color:#8f959e}
+.cw-title .st.live{color:#16794d}.cw-title .st.live:before{content:"● "}
+.cw-sub{font-size:12px;color:#8f959e;margin-top:2px}
+.cw-phase{display:flex;background:#f1f2f5;border-radius:10px;padding:3px}
+.cw-phase button{border:0;background:none;border-radius:8px;padding:5px 16px;font-size:13.5px;color:#646a73}
+.cw-phase button.on{background:#fff;color:#1f2329;font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.cw-cols{display:grid;grid-template-columns:1.15fr 1fr;gap:12px;flex:1;min-height:0}
+.cw-pane{border:1px solid #eceef1;border-radius:12px;padding:12px;min-width:0;display:flex;flex-direction:column;background:#fff}
+.cw-ph{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:#646a73;margin-bottom:8px}
+.cw-ph a{color:#3370ff;cursor:pointer}
+.cw-doc{font-size:13px;color:#1f2329;overflow-y:auto;max-height:470px}
+.cw-doc h4{margin:12px 0 6px;font-size:14px}
+.cw-doc h4:first-child{margin-top:0}
+.cw-doc .kbtag{font-size:11px;font-weight:500;color:#1f4fd6;background:#eef3ff;border-radius:6px;padding:1px 6px;margin-left:4px}
+.cw-goals{list-style:none;margin:0;padding:0}
+.cw-goals li{display:flex;gap:8px;align-items:center;padding:4px 0}
+.cw-goals .gs{width:16px;height:16px;border-radius:50%;border:2px solid #d4d0c7;flex:none;display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff}
+.cw-goals li.doing .gs{border-color:var(--amber);border-top-color:transparent;animation:spin 1s linear infinite}
+.cw-goals li.done .gs{border-color:var(--green);background:var(--green)}
+.cw-goals li.done .gs:after{content:"✓"}
+.cw-goals li.done{color:#16794d}
+.cw-t{width:100%;border-collapse:collapse;font-size:12.5px}
+.cw-t td,.cw-t th{border-bottom:1px solid #f0f1f3;padding:6px 6px 6px 0;text-align:left;vertical-align:top}
+.cw-t th{color:#8f959e;font-weight:600}
+.cw-t td:last-child{color:#646a73}
+.cw-ph-tabs{display:flex;background:#f4f5f7;border-radius:9px;padding:3px;margin-bottom:10px}
+.cw-ph-tabs button{flex:1;border:0;background:none;border-radius:7px;padding:5px 4px;font-size:12.5px;color:#646a73}
+.cw-ph-tabs button.on{background:#fff;color:#2b54d6;font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,.06)}
+.cw-ph-tabs i{font-style:normal;font-size:11px;color:#8f959e;margin-left:2px}
+.cw-tab{display:none;flex:1;flex-direction:column;min-height:0}
+.cw-tab.on{display:flex}
+.cw-tab .transcript{height:330px;background:#fff;border-color:#f0f1f3}
+.cw-empty{color:#a0a6b0;font-size:12.5px;text-align:center;margin-top:110px}
+.tl .who small{display:block}
+.tl .fix{font-size:11px;color:#3370ff;margin-top:2px;cursor:pointer}
+.cw-chips{display:flex;gap:8px;margin-top:8px}
+.cw-chips span{font-size:12px;border:1px solid #eceef1;border-radius:8px;padding:2px 8px;color:#646a73}
+.cw-chips span.hot{border-color:#ffc2cb;background:#fff5f6;color:#c41d38}
+.cw-ask{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.wakebtn{border:1px solid #c9d6ff;background:#f3f6ff;color:#2b54d6;border-radius:10px;padding:8px 10px;text-align:left;font-size:13px}
+.wakebtn.ghost{background:#fff;color:#646a73;border-color:#eceef1}
+.wakebtn:disabled{opacity:.45;cursor:default}
+.cw-sumbox{font-size:13.5px;line-height:1.75;color:#3d4049;white-space:pre-line;background:#fafbfc;border-radius:10px;padding:10px 12px;min-height:200px}
+.cw-brief{background:#fafbfc;border-radius:10px;padding:12px;font-size:13.5px;color:#3d4049;line-height:1.7}
+.cw-brief ul{margin:6px 0;padding-left:18px}
+.cw-brief small{color:#8f959e;font-size:12px}
+.cw-pane .role{margin-bottom:12px}
+.cw-pane .cl-say{margin-top:0}
+.kbl{display:grid;gap:8px}
+.kbl div{border:1px solid #eceef1;border-radius:10px;padding:10px 12px;transition:all .2s}
+.kbl div b{display:block;font-size:14px}
+.kbl div small{font-size:12px;color:#8f959e}
+.kbl div.on{border-color:#3370ff;background:#f3f6ff}
+.cw-rules{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:13px;color:#3d4049}
+.cw-rules li{background:#fafbfc;border-radius:10px;padding:8px 10px}
+.cw-rules b{display:block;color:#1f2329;font-size:13.5px}
+.cw-list{display:grid;gap:8px}
+.cw-list div{border:1px solid #eceef1;border-radius:10px;padding:10px 12px}
+.cw-list b{display:block;font-size:14px}.cw-list small{color:#8f959e;font-size:12px}
+.cw-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px solid #eceef1;padding:10px 16px;background:#fbfbfc}
+.cw-foot .rec{display:flex;align-items:center;gap:10px;font-size:13px}
+.cw-foot .rec i{width:12px;height:12px;border-radius:50%;border:2px solid #c9ccd1;flex:none}
+.cw-foot .rec i.on{border-color:var(--red);background:radial-gradient(circle,var(--red) 0 40%,transparent 45%);animation:blink 1.2s steps(1) infinite}
+.cw-foot .rec b{display:block;font-size:13px}
+.cw-foot .rec small{color:#8f959e;font-size:12px;font-variant-numeric:tabular-nums}
+.cw-foot .src{margin-left:10px}
+.cw .cockpit{margin-top:8px}
+.cw .tl .who{width:74px}
+.cw-foot .rec i{background:#fff}
+@media (max-width:980px){.cw-cols{grid-template-columns:1fr}}
+@media (max-width:640px){.cw-main{flex-direction:column}.cw-rail{width:auto;flex-direction:row;justify-content:space-around;border-right:0;border-bottom:1px solid #eceef1;padding:6px}.cw-logo{display:none}.cw-rail .bottom{margin-top:0}.cw-view{padding:12px}.cw-foot .src{display:none}}
+
 footer{padding:40px 0 60px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);margin-top:40px}
 
 @media (max-width:980px){
@@ -729,137 +821,158 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:13px;border-top:1px soli
         <li><b>会前</b>确认你的身份和角色（主持还是参会），收集材料，生成为你准备的简报。</li>
         <li><b>会中</b>静默记录，按会前目标跟踪进度，跑题时主动提醒；“小红小红”一叫就出来总结。</li>
         <li><b>会后</b>生成思维导图和每个人的待办，到期前提醒。</li>
-        <li><b>三层知识库</b>个人知识库围绕你本人；会议知识库按目标、节奏和结论打包，承接多场会议的上下文；企业知识库基于 dibp Agent 查询公司内部知识。会议之外，用一句模糊的描述也能找回资料。</li>
-        <li><b>个人 Harness（规划中）</b>沉淀你的偏好、决策、近期关注、容易丢失的上下文和反复回顾的内容，按权重调用，让 AI 越来越懂你。</li>
+        <li><b>三层知识库（左侧栏「知识库」）</b>个人知识库围绕你本人；会议知识库按目标、节奏和结论打包，承接多场会议的上下文；企业知识库基于 dibp Agent 查询公司内部知识。会议之外，用一句模糊的描述也能找回资料。</li>
+        <li><b>个人 Harness（规划中，左侧栏「Harness」）</b>沉淀你的偏好、决策、近期关注、容易丢失的上下文和反复回顾的内容，按权重调用，让 AI 越来越懂你。</li>
       </ul></div>
     <div class="stage cl-stage">
-      <div class="cl-tabs" id="clTabs">
-        <button class="on" data-p="pre"><b>BEFORE</b>会前 · 准备</button>
-        <button data-p="in"><b>DURING</b>会中 · 陪你开会</button>
-        <button data-p="post"><b>AFTER</b>会后 · 落实</button>
-        <button data-p="ask"><b>ANYTIME</b>会外 · 随时问</button>
-      </div>
-
-      <div class="cl-pane on" id="cl-pre">
-        <div class="cl-row">
-          <div class="cl-card">
-            <h5>1 · 你在这场会里的角色</h5>
-            <div class="role" id="clRole">
-              <button class="on" data-r="host">主持会议<small>负责推进议程和拍板</small></button>
-              <button data-r="att">参会<small>汇报自己负责的部分</small></button>
+      <div class="cw" id="cw">
+        <div class="cw-bar"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i><b>Colead</b><span>· Demo</span></div>
+        <div class="cw-main">
+          <nav class="cw-rail" id="cwRail" aria-label="Colead 导航">
+            <div class="cw-logo"></div>
+            <button class="on" data-v="meet" title="会议"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="15" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span>会议</span></button>
+            <button data-v="kb" title="知识库管理"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5M8 7h7"/></svg><span>知识库</span></button>
+            <button data-v="hn" title="Harness 管理"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1-3.5 3.8-5.5 7-5.5s6 2 7 5.5"/><path d="M18.5 4.5l1 1M20 9h1.2"/></svg><span>Harness</span></button>
+            <button data-v="doc" title="纪要与文档"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/></svg><span>纪要</span></button>
+            <button class="bottom" data-v="set" title="设置"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg><span>设置</span></button>
+          </nav>
+          <!-- MEETING VIEW -->
+          <section class="cw-view on" id="cv-meet">
+            <div class="cw-head">
+              <div><div class="cw-title">‹ <b>新人引导改版评审</b><small>11 月 12 日 · 14:00–14:30</small><em class="st" id="cwStatus">未开始</em></div>
+              <div class="cw-sub" id="cwSub">会前 · 已同步日程与 3 份材料</div></div>
+              <div class="cw-phase" id="cwPhase"><button class="on" data-p="pre">会前</button><button data-p="in">会中</button><button data-p="post">会后</button></div>
             </div>
-            <div class="field">会议主题<div>新人引导功能改版评审</div></div>
-            <div class="field">本次会议目标<div>① 确定改版方案<br>② 确定上线时间<br>③ 明确分工</div></div>
-          </div>
-          <div class="cl-card">
-            <h5>2 · 议程与材料</h5>
-            <ul class="agenda">
-              <li>回顾用户访谈结论<span>10 分钟</span></li>
-              <li>讨论两版引导方案<span>15 分钟</span></li>
-              <li>确定上线时间与分工<span>5 分钟</span></li>
-            </ul>
-            <div class="field">已交给 Colead 的材料</div>
-            <div class="files"><span>📄 新人访谈纪要.docx</span><span>📊 新人留存数据.xlsx</span><span>🖼 引导方案 A/B.fig</span></div>
-          </div>
+            <div class="cw-cols">
+              <div class="cw-pane">
+                <div class="cw-ph"><span>📄 会议文档</span><small><a>资料入库</a> · <a>材料</a></small></div>
+                <div class="cw-doc">
+                  <h4>一、本次会议目标</h4>
+                  <ol class="cw-goals" id="clGoals">
+                    <li data-g="0"><span class="gs"></span>确定新人引导改版方案</li>
+                    <li data-g="1"><span class="gs"></span>确定上线时间</li>
+                    <li data-g="2"><span class="gs"></span>明确分工</li>
+                  </ol>
+                  <h4>二、议程</h4>
+                  <table class="cw-t"><tr><td>回顾用户访谈结论</td><td>10 分钟</td></tr><tr><td>讨论两版引导方案</td><td>15 分钟</td></tr><tr><td>确定上线时间与分工</td><td>5 分钟</td></tr></table>
+                  <h4>三、上次会议待办追踪 <small class="kbtag">来自会议知识库 · 11/05 第 1 次评审</small></h4>
+                  <table class="cw-t trk"><tr><th>上次待办 / 负责人</th><th>已核实进展</th><th>本次追踪点</th></tr>
+                    <tr><td>补充新人访谈样本 · 你</td><td>已完成，新增 8 位新人访谈</td><td>结论是否支持方案 B</td></tr>
+                    <tr><td>方案 B 交互初稿 · 陈雨</td><td>部分推进：引导步数仍有争议</td><td>本次定下步数</td></tr>
+                    <tr><td>埋点可行性 · 周明</td><td>待补充：工作量未评估</td><td>确认排期风险</td></tr></table>
+                  <h4>四、材料</h4>
+                  <div class="files"><span>📄 新人访谈纪要.docx</span><span>📊 新人留存数据.xlsx</span><span>🖼 引导方案 A/B.fig</span></div>
+                </div>
+              </div>
+              <div class="cw-pane">
+                <!-- PRE -->
+                <div class="cw-ph-tabs" data-for="pre"><button class="on" data-t="role">我的角色</button><button data-t="brief">会前简报</button></div>
+                <div class="cw-tab on" id="t-role">
+                  <div class="role" id="clRole">
+                    <button class="on" data-r="host">主持会议<small>推进议程、拍板结论</small></button>
+                    <button data-r="att">参会<small>汇报自己负责的部分</small></button>
+                  </div>
+                  <div class="cl-say"><div class="orb"></div><div class="cl-bub" id="clBrief"></div></div>
+                </div>
+                <div class="cw-tab" id="t-brief">
+                  <div class="cw-brief">
+                    <b>1 页简报 · 由 3 份材料与上次纪要生成</b>
+                    <ul><li>访谈：8 位新人中 6 位第一天不知道该先做什么，第 3 天流失最明显。</li><li>分歧：方案 A 是功能导览，方案 B 是三个小任务；上次卡在“引导步数”。</li><li>风险：埋点工作量未评估，可能影响上线时间。</li></ul>
+                    <small>来源：新人访谈纪要.docx · 新人留存数据.xlsx · 11/05 会议纪要</small>
+                  </div>
+                </div>
+                <!-- IN -->
+                <div class="cw-ph-tabs" data-for="in" hidden><button data-t="sum">动态总结</button><button class="on" data-t="rec">会议记录 <i id="clCnt">0</i></button><button data-t="qa">助手问答</button></div>
+                <div class="cw-tab" id="t-sum"><div class="cw-sumbox" id="clSum">会议开始后，这里会按议题实时更新总结。</div></div>
+                <div class="cw-tab" id="t-rec">
+                  <div class="transcript" id="clScript"><div class="cw-empty">点下方「开始记录」，Colead 会静默记录并跟踪目标</div></div>
+                  <div class="cw-chips"><span id="chipAI">✳ AI 感知 <b id="aiCnt">0</b></span><span>⛁ 事项进展</span></div>
+                </div>
+                <div class="cw-tab" id="t-qa">
+                  <div class="transcript" id="clQA"><div class="cw-empty">会中随时提问，或者直接说“小红小红”</div></div>
+                </div>
+                <div class="cw-ask" data-for="in" hidden>
+                  <button class="wakebtn" id="clWake">🎙 小红小红，总结一下刚才说了什么，每个人要干什么</button>
+                  <button class="wakebtn ghost" id="clQuiet" disabled>🤫 你先退下吧</button>
+                </div>
+                <!-- POST -->
+                <div class="cw-ph-tabs" data-for="post" hidden><button class="on" data-t="mm">思维导图</button><button data-t="todo">待办</button></div>
+                <div class="cw-tab" id="t-mm">
+                  <svg class="mm" viewBox="0 0 500 300" role="img" aria-label="会议思维导图">
+                    <g fill="none" stroke="#d9d4ca" stroke-width="1.6"><path d="M128 150 C160 150,160 50,190 50"/><path d="M128 150 C160 150,160 150,190 150"/><path d="M128 150 C160 150,160 252,190 252"/><path d="M250 50 C270 50,270 28,292 28"/><path d="M250 50 C270 50,270 74,292 74"/><path d="M250 150 C270 150,270 116,292 116"/><path d="M250 150 C270 150,270 150,292 150"/><path d="M250 150 C270 150,270 184,292 184"/><path d="M250 252 C270 252,270 252,292 252"/></g>
+                    <rect x="4" y="122" width="124" height="56" rx="12" fill="#ff2442"/><text x="66" y="146" fill="#fff" font-size="15" font-weight="700" text-anchor="middle">新人引导改版</text><text x="66" y="166" fill="#ffe1e6" font-size="12" text-anchor="middle">第 2 次评审 · 28 分钟</text>
+                    <g font-size="15" font-weight="700" text-anchor="middle"><rect x="190" y="32" width="60" height="36" rx="9" fill="#e9f7f0"/><text x="220" y="55" fill="#16794d">结论</text><rect x="190" y="132" width="60" height="36" rx="9" fill="#eef3ff"/><text x="220" y="155" fill="#1f4fd6">待办</text><rect x="190" y="234" width="60" height="36" rx="9" fill="#fff4e0"/><text x="220" y="257" fill="#8a5a00">风险</text></g>
+                    <g font-size="14.5" fill="#3d4049"><text x="298" y="33">采用方案 B：任务式引导</text><text x="298" y="79">11 月 20 日灰度上线</text><text x="298" y="121">你 · 整理访谈结论</text><text x="298" y="155">周明 · 埋点与开发评估</text><text x="298" y="189">陈雨 · 出 B 方案终稿</text><text x="298" y="257">埋点排期可能延后 2 天</text></g>
+                  </svg>
+                  <div class="kb">✓ 纪要与导图已存入会议知识库，下次评审会自动带出“上次待办追踪”。</div>
+                </div>
+                <div class="cw-tab" id="t-todo">
+                  <ul class="todo" id="clTodo">
+                    <li class="mine"><input type="checkbox" id="td1" aria-label="完成：整理访谈结论"><div><span class="tt"><span class="who">你</span> · 整理访谈结论，同步到评审群</span><small>截止 11/13 周三</small></div></li>
+                    <li><input type="checkbox" id="td2" aria-label="完成：埋点与开发评估"><div><span class="tt"><span class="who">周明</span> · 完成埋点方案与开发工作量评估</span><small>截止 11/14 周四</small></div></li>
+                    <li><input type="checkbox" id="td3" aria-label="完成：B 方案终稿"><div><span class="tt"><span class="who">陈雨</span> · 输出方案 B 的交互终稿</span><small>截止 11/15 周五</small></div></li>
+                  </ul>
+                  <div class="remind" id="clRemind">⏰ 提醒：你的「整理访谈结论」明天截止，还没有标记完成。</div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- KB VIEW -->
+          <section class="cw-view" id="cv-kb">
+            <div class="cw-head"><div><div class="cw-title"><b>知识库管理</b><small>个人 · 会议 · 企业三层</small></div><div class="cw-sub">会议之外也能问：用一句模糊的描述，Colead 帮你在三层知识库里找</div></div></div>
+            <div class="cw-cols">
+              <div class="cw-pane">
+                <div class="cw-ph"><span>知识库</span></div>
+                <div class="kbl" id="kbLayers">
+                  <div data-l="me"><b>个人知识库</b><small>围绕你本人：别人发给你的文档、链接、你的笔记 · 126 条</small></div>
+                  <div data-l="mt"><b>会议知识库</b><small>按会议系列打包：目标、节奏、结论、待办 · 18 个系列</small></div>
+                  <div data-l="ent"><b>企业知识库 · dibp</b><small>基于 dibp Agent 查询公司内部知识与规范</small></div>
+                </div>
+              </div>
+              <div class="cw-pane">
+                <div class="transcript" id="kbChat" style="height:270px"></div>
+                <div class="kbq" id="kbQ">
+                  <button data-i="0">“上次新人引导评审会最后定了什么？”</button>
+                  <button data-i="1">“前两天有人发我一个讲引导页的竞品链接，帮我找一下”</button>
+                  <button data-i="2">“公司新人引导的设计规范在哪？”</button>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- HARNESS VIEW -->
+          <section class="cw-view" id="cv-hn">
+            <div class="cw-head"><div><div class="cw-title"><b>Harness 管理</b><small>规划中 · 冷启动</small></div><div class="cw-sub">让 AI 更懂你：沉淀你的偏好和习惯，按权重放进每一次回答的上下文</div></div></div>
+            <div class="cw-cols">
+              <div class="cw-pane">
+                <div class="cw-ph"><span>关于你的记忆 · 权重</span></div>
+                <ul class="hn" id="hn">
+                  <li><span>偏好</span><b>先看结论，再看细节</b><i style="--w:55%"></i></li>
+                  <li><span>近期关注</span><b id="hnFocus">新人引导改版</b><i id="hnFocusW" style="--w:40%"></i></li>
+                  <li><span>决策记录</span><b>采用方案 B · 11/12</b><i style="--w:60%"></i></li>
+                  <li><span>易丢失上下文</span><b>埋点排期依赖周明</b><i style="--w:35%"></i></li>
+                  <li><span>反复回顾</span><b id="hnRev">访谈结论 × 2</b><i id="hnRevW" style="--w:30%"></i></li>
+                </ul>
+              </div>
+              <div class="cw-pane">
+                <div class="cw-ph"><span>上下文太长时怎么办</span></div>
+                <ul class="cw-rules">
+                  <li><b>分层存</b>短期（本场会）、中期（会议系列摘要）、长期（个人偏好与决策）分开管理</li>
+                  <li><b>按需取</b>每次只检索和当前问题最相关的片段</li>
+                  <li><b>定期压缩</b>长会议按议题摘要，原文保留索引可追溯</li>
+                  <li><b>关键常驻</b>会议目标、已做决策固定保留</li>
+                  <li><b>权重衰减</b>按最近程度和回顾次数加权，长期不用的降权归档</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+          <section class="cw-view" id="cv-doc"><div class="cw-head"><div><div class="cw-title"><b>纪要与文档</b></div><div class="cw-sub">每场会议结束后自动生成，按会议系列归档</div></div></div>
+            <div class="cw-list"><div><b>新人引导改版评审 · 第 2 次</b><small>11/12 · 3 条结论 · 3 项待办</small></div><div><b>新人引导改版评审 · 第 1 次</b><small>11/05 · 2 条结论 · 3 项待办</small></div><div><b>周会 · Product Lab</b><small>11/04 · 5 项待办</small></div></div></section>
+          <section class="cw-view" id="cv-set"><div class="cw-head"><div><div class="cw-title"><b>设置</b></div><div class="cw-sub">会议记录前会告知参会人；纪要仅参会人可见</div></div></div>
+            <div class="cw-list"><div><b>会中提醒方式</b><small>跑题时轻提示，不打断发言</small></div><div><b>唤醒词</b><small>小红小红</small></div><div><b>数据范围</b><small>会议数据留在企业内部</small></div></div></section>
         </div>
-        <div class="cl-say"><div class="orb"></div><div class="cl-bub" id="clBrief"></div></div>
-      </div>
-
-      <div class="cl-pane" id="cl-in">
-        <div class="live-bar">
-          <div style="display:flex;gap:8px;flex-wrap:wrap">
-            <span class="pill" id="clState"><i></i>会议未开始</span>
-            <span class="pill" id="clClock">00:00</span>
-          </div>
-          <div class="ctrl"><button class="btn pri" id="clPlay">▶ 开始模拟会议</button><button class="btn" id="clReset">↺ 重置</button></div>
-        </div>
-        <div class="mt">
-          <div class="transcript" id="clScript"><div style="color:var(--muted);font-size:13px;text-align:center;margin-top:120px">点「开始模拟会议」，Colead 会在旁边静默记录</div></div>
-          <div>
-            <div class="cl-card">
-              <h5>会议目标跟踪</h5>
-              <ul class="goals" id="clGoals">
-                <li data-g="0"><span class="gs"></span><div>确定改版方案<small>来自会前设定</small></div></li>
-                <li data-g="1"><span class="gs"></span><div>确定上线时间<small>来自会前设定</small></div></li>
-                <li data-g="2"><span class="gs"></span><div>明确分工<small>来自会前设定</small></div></li>
-              </ul>
-            </div>
-            <div class="wake">
-              <button class="mic" id="clWake">🎙 “小红小红，帮我总结一下刚才说了什么，每个人要干什么”</button>
-              <button id="clQuiet" disabled>🤫 “好的，你先退下吧”</button>
-            </div>
-            <div class="cockpit" id="clCockpit">
-              <div class="hd"><div class="orb live"></div><span>Colead 已唤起 · 正在回答</span></div>
-              <div class="q" id="clQ"></div>
-              <div class="tx" id="clAns"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="cl-pane" id="cl-post">
-        <div class="post">
-          <div class="cl-card">
-            <h5>会议思维导图 · 自动生成</h5>
-            <svg class="mm" viewBox="0 0 500 330" role="img" aria-label="会议思维导图">
-              <g fill="none" stroke="#d9d4ca" stroke-width="1.6">
-                <path d="M128 165 C160 165,160 60,190 60"/><path d="M128 165 C160 165,160 165,190 165"/><path d="M128 165 C160 165,160 272,190 272"/>
-                <path d="M250 60 C270 60,270 36,292 36"/><path d="M250 60 C270 60,270 86,292 86"/>
-                <path d="M250 165 C270 165,270 128,292 128"/><path d="M250 165 C270 165,270 165,292 165"/><path d="M250 165 C270 165,270 202,292 202"/>
-                <path d="M250 272 C270 272,270 272,292 272"/>
-              </g>
-              <rect x="4" y="136" width="124" height="58" rx="12" fill="#ff2442"/>
-              <text x="66" y="160" fill="#fff" font-size="15" font-weight="700" text-anchor="middle">新人引导改版</text>
-              <text x="66" y="181" fill="#ffe1e6" font-size="12" text-anchor="middle">评审会 · 28 分钟</text>
-              <g font-size="15" font-weight="700" text-anchor="middle">
-                <rect x="190" y="42" width="60" height="36" rx="9" fill="#e9f7f0"/><text x="220" y="65" fill="#16794d">结论</text>
-                <rect x="190" y="147" width="60" height="36" rx="9" fill="#eef3ff"/><text x="220" y="170" fill="#1f4fd6">待办</text>
-                <rect x="190" y="254" width="60" height="36" rx="9" fill="#fff4e0"/><text x="220" y="277" fill="#8a5a00">风险</text>
-              </g>
-              <g font-size="14.5" fill="#3d4049">
-                <text x="298" y="41">采用方案 B：任务式引导</text>
-                <text x="298" y="91">11 月 20 日灰度上线</text>
-                <text x="298" y="133">你 · 整理访谈结论</text>
-                <text x="298" y="170">周明 · 埋点与开发评估</text>
-                <text x="298" y="207">陈雨 · 出 B 方案终稿</text>
-                <text x="298" y="277">埋点排期可能延后 2 天</text>
-              </g>
-            </svg>
-            <div class="kb">✓ 纪要与思维导图已存入会议知识库，下次相关会议会自动作为背景材料</div>
-          </div>
-          <div class="cl-card">
-            <h5>每个人的待办 · 带提醒</h5>
-            <ul class="todo" id="clTodo">
-              <li class="mine"><input type="checkbox" id="td1" aria-label="完成：整理访谈结论"><div><span class="tt"><span class="who">你</span> · 整理访谈结论，同步到评审群</span><small>截止 11/13 周三</small></div></li>
-              <li><input type="checkbox" id="td2" aria-label="完成：埋点与开发评估"><div><span class="tt"><span class="who">周明</span> · 完成埋点方案与开发工作量评估</span><small>截止 11/14 周四</small></div></li>
-              <li><input type="checkbox" id="td3" aria-label="完成：B 方案终稿"><div><span class="tt"><span class="who">陈雨</span> · 输出方案 B 的交互终稿</span><small>截止 11/15 周五</small></div></li>
-            </ul>
-            <div class="remind" id="clRemind">⏰ 提醒：你的「整理访谈结论」明天截止，还没有标记完成。</div>
-          </div>
-        </div>
-      </div>
-      <div class="cl-pane" id="cl-ask">
-        <div class="mt">
-          <div>
-            <div class="kbtabs" id="kbLayers"><span data-l="me">个人知识库</span><span data-l="mt">会议知识库</span><span data-l="ent">企业知识库 · dibp</span></div>
-            <div class="transcript" id="kbChat" style="height:300px"></div>
-            <div class="kbq" id="kbQ">
-              <button data-i="0">“上次新人引导评审会最后定了什么？”</button>
-              <button data-i="1">“前两天有人发我一个讲引导页的竞品链接，帮我找一下”</button>
-              <button data-i="2">“公司新人引导的设计规范在哪？”</button>
-            </div>
-          </div>
-          <div class="cl-card">
-            <h5>个人 Harness · 越用越懂你 <span class="plan">规划中 · 冷启动</span></h5>
-            <ul class="hn" id="hn">
-              <li><span>偏好</span><b>先看结论，再看细节</b><i style="--w:55%"></i></li>
-              <li><span>近期关注</span><b id="hnFocus">新人引导改版</b><i id="hnFocusW" style="--w:40%"></i></li>
-              <li><span>决策记录</span><b>采用方案 B · 11/12</b><i style="--w:60%"></i></li>
-              <li><span>易丢失上下文</span><b>埋点排期依赖周明</b><i style="--w:35%"></i></li>
-              <li><span>反复回顾</span><b id="hnRev">访谈结论 × 2</b><i id="hnRevW" style="--w:30%"></i></li>
-            </ul>
-            <div class="kb" style="margin-top:12px">每问一次，Colead 都会更新这些记忆的权重。上下文太长时：按议题分段摘要，只检索和当前问题相关的片段，关键决策常驻。</div>
-          </div>
+        <div class="cw-foot">
+          <div class="rec"><i id="recDot"></i><div><b id="recState">未在采集</b><small id="recTime">00:00</small></div><small class="src">输入：会议室麦克风 · 会中 AI 已连接</small></div>
+          <div class="ctrl"><button class="btn pri" id="clPlay">▶ 开始记录</button><button class="btn" id="clReset">↺ 重置</button></div>
         </div>
       </div>
     </div>
@@ -1176,86 +1289,93 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:13px;border-top:1px soli
 /* =================== COLEAD =================== */
 (function(){
   const $=id=>document.getElementById(id);
-  const brief={
-    host:'你是这场会的主持人，我帮你准备好了：\n· 三份材料的要点已整理成 1 页简报，开场 2 分钟就能讲完\n· 方案 A/B 的主要分歧在“引导步数”，建议先让陈雨讲 B\n· 会议只有 30 分钟，我会在跑题或超时的时候提醒你',
-    att:'你这次是参会人，需要汇报“访谈结论”部分：\n· 我已从访谈纪要里提炼出 3 条核心结论和 2 句用户原话\n· 留存数据里新人第 3 天流失最明显，可以作为你的论据\n· 轮到你发言前 1 分钟，我会提示你'
-  };
-  let role='host';
-  function drawBrief(){$('clBrief').textContent=brief[role];}
-  $('clRole').addEventListener('click',e=>{const b=e.target.closest('button'); if(!b) return; role=b.dataset.r; [...$('clRole').children].forEach(x=>x.classList.toggle('on',x===b)); drawBrief(); markMine();});
-  drawBrief();
-
-  document.querySelectorAll('#clTabs button').forEach(b=>b.onclick=()=>{
-    document.querySelectorAll('#clTabs button').forEach(x=>x.classList.toggle('on',x===b));
-    document.querySelectorAll('.cl-pane').forEach(p=>p.classList.toggle('on',p.id==='cl-'+b.dataset.p));
-  });
-
+  const root=$('cw');
+  // rail
+  $('cwRail').addEventListener('click',e=>{const b=e.target.closest('button'); if(!b) return; [...$('cwRail').querySelectorAll('button')].forEach(x=>x.classList.toggle('on',x===b)); root.querySelectorAll('.cw-view').forEach(v=>v.classList.toggle('on',v.id==='cv-'+b.dataset.v));});
+  // phase
+  let phase='pre';
+  function setPhase(p){phase=p; [...$('cwPhase').children].forEach(x=>x.classList.toggle('on',x.dataset.p===p));
+    root.querySelectorAll('[data-for]').forEach(el=>el.hidden=el.dataset.for!==p);
+    const tabs=root.querySelector(`.cw-ph-tabs[data-for="${p}"]`); const on=tabs.querySelector('.on'); showTab(on.dataset.t);
+    $('cwSub').textContent={pre:'会前 · 已同步日程与 3 份材料，带出上次会议待办',in:'会中 · 静默记录中，跑题会轻提示',post:'会后 · 纪要、导图和待办已生成'}[p];}
+  function showTab(t){root.querySelectorAll('.cw-tab').forEach(x=>x.classList.toggle('on',x.id==='t-'+t));}
+  $('cwPhase').addEventListener('click',e=>{const b=e.target.closest('button'); if(b) setPhase(b.dataset.p);});
+  root.querySelectorAll('.cw-ph-tabs').forEach(g=>g.addEventListener('click',e=>{const b=e.target.closest('button'); if(!b) return; [...g.children].forEach(x=>x.classList.toggle('on',x===b)); showTab(b.dataset.t);}));
+  // pre
+  const brief={host:'你是这场会的主持人，我帮你准备好了：\n· 3 份材料和上次纪要已整理成 1 页简报，开场 2 分钟能讲完\n· 上次卡在“引导步数”，建议先请陈雨讲方案 B\n· 会议 30 分钟，跑题或超时我会轻提示你',att:'你这次是参会人，需要汇报“访谈结论”：\n· 已从访谈纪要提炼 3 条结论和 2 句用户原话\n· 留存数据里第 3 天流失最明显，可以作为论据\n· 轮到你发言前 1 分钟，我会提示你'};
+  function drawBrief(r){$('clBrief').textContent=brief[r];}
+  $('clRole').addEventListener('click',e=>{const b=e.target.closest('button'); if(!b) return; [...$('clRole').children].forEach(x=>x.classList.toggle('on',x===b)); drawBrief(b.dataset.r);});
+  drawBrief('host');
+  // in-meeting simulation
   const script=[
-    {t:'00:30',w:'林夏',s:'今天主要定新人引导改版，先请大家看一下访谈结论。'},
-    {t:'02:10',w:'你',s:'访谈里 8 个新人有 6 个说第一天不知道该先做什么，第 3 天流失最明显。',me:1},
-    {t:'06:40',w:'陈雨',s:'所以 B 方案把引导改成三个小任务，做完一个解锁下一个。'},
-    {t:'09:15',w:'周明',s:'B 方案开发量大一点，主要是任务状态要埋点。'},
+    {t:'00:30',w:'林夏',s:'今天主要定新人引导改版，先回顾一下访谈结论。'},
+    {t:'02:10',w:'你',s:'补充的 8 位新人里有 6 位说第一天不知道先做什么，第 3 天流失最明显。',me:1},
+    {t:'06:40',w:'陈雨',s:'所以方案 B 把引导改成三个小任务，做完一个解锁下一个。'},
+    {t:'09:15',w:'未确认发言人',s:'B 方案开发量大一点，主要是任务状态要埋点。',unk:1},
     {t:'12:30',w:'林夏',s:'我觉得 B 更好，大家没意见就定 B。',g:[0,'done']},
     {t:'14:05',w:'陈雨',s:'对了，顺便说下上周那个活动页的配色……'},
-    {nudge:'这个话题和本次目标无关。目标 2「确定上线时间」还没开始讨论，剩余约 12 分钟，建议回到议程。',g:[1,'doing']},
-    {t:'17:20',w:'林夏',s:'好，回到正题，上线时间大家看 20 号灰度可以吗？'},
-    {t:'18:40',w:'周明',s:'埋点可能会晚两天，但 20 号灰度问题不大。',g:[1,'done']},
+    {nudge:'这个话题和本次目标无关。目标②「确定上线时间」还没开始，剩余约 12 分钟。',g:[1,'doing']},
+    {t:'17:20',w:'林夏',s:'回到正题，上线时间大家看 20 号灰度可以吗？'},
+    {t:'18:40',w:'周明',s:'埋点可能晚两天，但 20 号灰度问题不大。',g:[1,'done']},
     {t:'21:10',w:'林夏',s:'那分工一下：访谈结论、埋点评估、B 方案终稿。',g:[2,'doing']},
-    {t:'23:30',w:'你',s:'访谈结论我来整理，周三前发到群里。',me:1},
-    {t:'25:00',w:'周明',s:'埋点和工作量我周四给。陈雨周五出终稿。',g:[2,'done']}
+    {t:'23:30',w:'你',s:'访谈结论我来整理，周三前发群里。',me:1},
+    {t:'25:00',w:'周明',s:'埋点和工作量我周四给，陈雨周五出终稿。',g:[2,'done']}
   ];
-  let tok=0, lines=0, awake=false, playing=false;
+  let tok=0, lines=0, awake=false, playing=false, ai=0;
   const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-  function setState(){
-    const p=$('clState');
-    if(awake){p.className='pill awake'; p.innerHTML='<i style="background:#ff2442"></i>Colead 已唤起';}
-    else if(playing||lines){p.className='pill rec'; p.innerHTML=`<i></i>静默记录中 · 已记录 ${lines} 句`;}
-    else {p.className='pill'; p.innerHTML='<i></i>会议未开始';}
-  }
-  function goal(i,st){const li=$('clGoals').children[i]; li.className=st; li.querySelector('small').textContent=st==='done'?'已达成 · Colead 识别到结论':'讨论中';}
-  function resetGoals(){[...$('clGoals').children].forEach(li=>{li.className=''; li.querySelector('small').textContent='来自会前设定';});}
-  function reset(){tok++; lines=0; playing=false; awake=false; $('clScript').innerHTML='<div style="color:var(--muted);font-size:13px;text-align:center;margin-top:120px">点「开始模拟会议」，Colead 会在旁边静默记录</div>'; $('clClock').textContent='00:00'; resetGoals(); $('clCockpit').classList.remove('on'); $('clQuiet').disabled=true; $('clPlay').disabled=false; $('clPlay').textContent='▶ 开始模拟会议'; setState();}
+  function goal(i,st){$('clGoals').children[i].className=st;}
+  function sumText(){const d=[...$('clGoals').children].map(li=>li.className==='done');
+    let t='【议题 1 · 访谈回顾】新人第一天不知道做什么，第 3 天流失最明显。\n';
+    if(lines>=4) t+='【议题 2 · 方案讨论】方案 B 是任务式引导，开发量主要在埋点。\n';
+    if(d[0]) t+='✓ 结论：采用方案 B。\n'; if(d[1]) t+='✓ 结论：11 月 20 日灰度，埋点可能晚两天。\n'; if(d[2]) t+='✓ 分工：你整理访谈结论（周三），周明埋点评估（周四），陈雨 B 方案终稿（周五）。';
+    return lines?t:'会议开始后，这里会按议题实时更新总结。';}
+  function reset(){tok++; lines=0; ai=0; playing=false; awake=false; $('clScript').innerHTML='<div class="cw-empty">点下方「开始记录」，Colead 会静默记录并跟踪目标</div>'; $('clQA').innerHTML='<div class="cw-empty">会中随时提问，或者直接说“小红小红”</div>'; [...$('clGoals').children].forEach(li=>li.className=''); $('clCnt').textContent='0'; $('aiCnt').textContent='0'; $('chipAI').classList.remove('hot'); $('clSum').textContent=sumText(); $('recDot').className=''; $('recState').textContent='未在采集'; $('recTime').textContent='00:00'; $('cwStatus').textContent='未开始'; $('cwStatus').className='st'; $('clQuiet').disabled=true; $('clPlay').disabled=false; $('clPlay').textContent='▶ 开始记录';}
   async function play(){
-    reset(); const my=tok; playing=true; $('clPlay').disabled=true; $('clScript').innerHTML=''; setState();
+    reset(); const my=tok; playing=true; setPhase('in'); $('clPlay').disabled=true; $('clScript').innerHTML='';
+    $('recDot').className='on'; $('recState').textContent='正在采集 · 已收到转写'; $('cwStatus').textContent='进行中'; $('cwStatus').className='st live';
     for(const x of script){
-      await sleep(x.nudge?900:1300); if(my!==tok) return;
+      await sleep(x.nudge?900:1250); if(my!==tok) return;
       const box=$('clScript');
-      if(x.nudge){const d=document.createElement('div'); d.className='nudge'; d.innerHTML=`<div class="orb"></div><div><b>Colead 提醒</b><br>${x.nudge}</div>`; box.appendChild(d);}
-      else{const d=document.createElement('div'); d.className='tl'+(x.me?' me':''); d.innerHTML=`<div class="who">${x.w}<small>${x.t}</small></div><div class="say">${x.s}</div>`; box.appendChild(d); lines++; $('clClock').textContent=x.t;}
+      if(x.nudge){const d=document.createElement('div'); d.className='nudge'; d.innerHTML=`<div class="orb"></div><div><b>Colead 提醒</b><br>${x.nudge}</div>`; box.appendChild(d); ai++; $('aiCnt').textContent=ai; $('chipAI').classList.add('hot');}
+      else{const d=document.createElement('div'); d.className='tl'+(x.me?' me':''); d.innerHTML=`<div class="who">${x.w}<small>${x.t}</small></div><div class="say">${x.s}${x.unk?'<div class="fix">发言人待确认 · 纠正发言人</div>':''}</div>`; box.appendChild(d); lines++; $('clCnt').textContent=lines; $('recTime').textContent=x.t;}
       if(x.g) goal(x.g[0],x.g[1]);
-      box.scrollTop=box.scrollHeight; setState();
+      $('clSum').textContent=sumText(); box.scrollTop=box.scrollHeight;
     }
-    playing=false; $('clPlay').disabled=false; $('clPlay').textContent='▶ 再开一次';
-    const d=document.createElement('div'); d.className='nudge'; d.style.background='#eefaf4'; d.style.borderColor='#bfe8d3'; d.style.color='#16794d'; d.innerHTML='<div class="orb"></div><div><b>三个目标全部达成</b><br>会议纪要、思维导图和待办已生成，切到「会后」查看。</div>'; $('clScript').appendChild(d); $('clScript').scrollTop=1e6;
+    playing=false; $('clPlay').disabled=false; $('clPlay').textContent='▶ 再开一次'; $('recDot').className=''; $('recState').textContent='会议已结束 · 录音已保存'; $('cwStatus').textContent='已结束'; $('cwStatus').className='st';
+    const d=document.createElement('div'); d.className='nudge'; d.style.background='#eefaf4'; d.style.borderColor='#bfe8d3'; d.style.color='#16794d'; d.innerHTML='<div class="orb"></div><div><b>三个目标全部达成</b><br>纪要、导图和待办已生成，切到「会后」查看。</div>'; $('clScript').appendChild(d); $('clScript').scrollTop=1e6;
   }
   function answer(){
-    if(lines<3) return '会议刚开始，我还没有记录到足够的内容。可以先点「开始模拟会议」，等大家讨论一会儿再叫我。';
-    const done=[...$('clGoals').children].map(li=>li.className==='done');
-    let a='刚才主要说了三件事：\n';
-    a+='1. 访谈发现新人第一天不知道做什么，第 3 天流失最明显。\n';
-    a+= done[0]?'2. 大家同意采用方案 B：任务式引导。\n':'2. 正在比较方案 A 和 B，还没有结论。\n';
-    a+= done[1]?'3. 定在 11 月 20 日灰度，埋点可能晚两天。\n':'3. 上线时间还没讨论。\n';
-    if(done[2]) a+='\n每个人要做的：\n· 你：整理访谈结论，周三前发群里\n· 周明：埋点和工作量评估，周四\n· 陈雨：方案 B 终稿，周五';
-    else a+='\n分工还没明确，建议现在把三项任务分配下去。';
-    return a;
-  }
+    if(lines<3) return '会议刚开始，我还没有记录到足够的内容。先点「开始记录」，等大家讨论一会儿再叫我。';
+    const d=[...$('clGoals').children].map(li=>li.className==='done');
+    let a='刚才主要说了三件事：\n1. 访谈发现新人第一天不知道做什么，第 3 天流失最明显。\n';
+    a+=d[0]?'2. 大家同意采用方案 B：任务式引导。\n':'2. 正在比较方案 A 和 B，还没有结论。\n';
+    a+=d[1]?'3. 定在 11 月 20 日灰度，埋点可能晚两天。\n':'3. 上线时间还没讨论。\n';
+    a+=d[2]?'\n每个人要做的：\n· 你：整理访谈结论，周三前发群里\n· 周明：埋点和工作量评估，周四\n· 陈雨：方案 B 终稿，周五':'\n分工还没明确，建议现在把三项任务分下去。';
+    return a;}
   $('clWake').onclick=()=>{
-    awake=true; setState(); $('clQuiet').disabled=false;
-    const c=$('clCockpit'); c.classList.add('on'); $('clQ').textContent='“小红小红，帮我总结一下刚才说了什么，每个人要干什么”';
-    const txt=answer(); const el=$('clAns'); el.textContent=''; let i=0; const my=tok;
-    const tm=setInterval(()=>{ if(my!==tok||!awake){clearInterval(tm);return;} el.textContent=txt.slice(0,++i); if(i>=txt.length) clearInterval(tm);},16);
+    awake=true; $('clQuiet').disabled=false;
+    [...root.querySelector('.cw-ph-tabs[data-for="in"]').children].forEach(x=>x.classList.toggle('on',x.dataset.t==='qa')); showTab('qa');
+    const box=$('clQA'); if(box.querySelector('.cw-empty')) box.innerHTML='';
+    const q=document.createElement('div'); q.className='tl me'; q.innerHTML='<div class="who">你</div><div class="say">小红小红，总结一下刚才说了什么，每个人要干什么</div>'; box.appendChild(q);
+    const a=document.createElement('div'); a.className='tl'; a.innerHTML='<div class="who">Colead<small>已唤起</small></div><div class="say"></div>'; box.appendChild(a);
+    const txt=answer(), el=a.querySelector('.say'); let i=0; const my=tok;
+    const tm=setInterval(()=>{ if(my!==tok){clearInterval(tm);return;} el.textContent=txt.slice(0,++i); box.scrollTop=box.scrollHeight; if(i>=txt.length) clearInterval(tm);},14);
   };
-  $('clQuiet').onclick=()=>{awake=false; $('clCockpit').classList.remove('on'); $('clQuiet').disabled=true; setState();};
-  $('clPlay').onclick=play; $('clReset').onclick=reset;
-
+  $('clQuiet').onclick=()=>{awake=false; $('clQuiet').disabled=true; const box=$('clQA'); const d=document.createElement('div'); d.className='tl'; d.innerHTML='<div class="who">Colead</div><div class="say" style="color:#8f959e">好的，我先退下，继续静默记录。</div>'; box.appendChild(d); box.scrollTop=box.scrollHeight;};
+  $('clPlay').onclick=play; $('clReset').onclick=()=>{reset(); setPhase('pre');};
+  $('clTodo').addEventListener('change',e=>{
+    const li=e.target.closest('li'); li.classList.toggle('ok',e.target.checked);
+    const mine=$('td1').checked, all=['td1','td2','td3'].every(id=>$(id).checked);
+    $('clRemind').textContent= all?'✓ 三项待办全部完成，已通知会议发起人。': mine?'⏰ 你的待办已完成。周明的「埋点方案」后天截止，到期前一天会提醒他。':'⏰ 提醒：你的「整理访谈结论」明天截止，还没有标记完成。';
+  });
+  // knowledge base
   const KB=[
-    {l:'mt',src:'会议知识库 · 11/12 新人引导改版评审（第 2 次）',a:'这件事一共开了两次会。第二次会上定了三件事：\n1. 采用方案 B，任务式引导；\n2. 11 月 20 日灰度上线；\n3. 你整理访谈结论，周明做埋点评估，陈雨出 B 方案终稿。\n上一次会留下的问题“引导步数太多”，这次已经解决。',focus:'新人引导改版',fw:70},
-    {l:'me',src:'个人知识库 · 陈雨 11/10 发给你的链接',a:'找到了，应该是这个：陈雨 11 月 10 日在“引导改版”群里发给你的《三款工具产品的新人引导拆解》。你当时没有打开过，我已经帮你标记为待读。',focus:'新人引导改版',fw:85},
-    {l:'ent',src:'企业知识库 · 设计规范 / 新人引导 v3',a:'公司的《新人引导设计规范 v3》在设计中心的知识库里，核心有三条：步骤不超过 3 步、每一步都能跳过、首屏给出可完成的任务。它和你们这次的方案 B 是一致的。',focus:'新人引导改版',fw:95}
+    {l:'mt',src:'会议知识库 · 新人引导改版评审（第 2 次）',a:'这件事一共开了两次会。第二次会上定了三件事：\n1. 采用方案 B，任务式引导；\n2. 11 月 20 日灰度上线；\n3. 你整理访谈结论，周明做埋点评估，陈雨出 B 方案终稿。\n上一次留下的“引导步数”争议，这次已经解决。',fw:70},
+    {l:'me',src:'个人知识库 · 陈雨 11/10 发给你的链接',a:'找到了，应该是这个：陈雨 11 月 10 日在“引导改版”群里发给你的《三款工具产品的新人引导拆解》。你当时没有打开过，我帮你标记为待读。',fw:85},
+    {l:'ent',src:'企业知识库 · 设计规范 / 新人引导 v3',a:'公司的《新人引导设计规范 v3》在设计中心的知识库里，核心有三条：步骤不超过 3 步、每一步都能跳过、首屏给出可完成的任务。它和你们这次的方案 B 是一致的。',fw:95}
   ];
   let rev=2;
-  function kbInit(){ $('kbChat').innerHTML='<div class="tl"><div class="who">Colead<small>会外</small></div><div class="say">不在开会的时候也可以问我。用一句模糊的描述，我会去个人、会议和企业三层知识库里帮你找。</div></div>'; }
-  kbInit();
+  $('kbChat').innerHTML='<div class="tl"><div class="who">Colead<small>会外</small></div><div class="say">不在开会的时候也可以问我。用一句模糊的描述，我会去个人、会议和企业三层知识库里帮你找。</div></div>';
   $('kbQ').addEventListener('click',e=>{
     const b=e.target.closest('button'); if(!b||b.disabled) return; const k=KB[+b.dataset.i];
     [...$('kbQ').children].forEach(x=>x.disabled=true);
@@ -1263,24 +1383,16 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:13px;border-top:1px soli
     const q=document.createElement('div'); q.className='tl me'; q.innerHTML=`<div class="who">你</div><div class="say">${b.textContent.replace(/[“”]/g,'')}</div>`; box.appendChild(q);
     [...$('kbLayers').children].forEach(x=>x.classList.toggle('on',x.dataset.l===k.l));
     const a=document.createElement('div'); a.className='tl'; a.innerHTML='<div class="who">Colead</div><div class="say"><span class="typing">正在三层知识库里查找</span></div>'; box.appendChild(a); box.scrollTop=box.scrollHeight;
-    setTimeout(()=>{
-      const say=a.querySelector('.say'); say.textContent=''; let i=0;
+    setTimeout(()=>{ const say=a.querySelector('.say'); say.textContent=''; let i=0;
       const t=setInterval(()=>{say.textContent=k.a.slice(0,++i); box.scrollTop=box.scrollHeight;
         if(i>=k.a.length){clearInterval(t); const sp=document.createElement('div'); sp.className='kbsrc'; sp.textContent='来源：'+k.src; say.appendChild(sp); box.scrollTop=box.scrollHeight;
           [...$('kbQ').children].forEach(x=>x.disabled=false);
-          if(k.l==='mt'||k.l==='me'){rev++; $('hnRev').textContent='访谈结论 × '+rev; $('hnRevW').style.setProperty('--w',Math.min(90,30+rev*10)+'%');}
+          if(k.l!=='ent'){rev++; $('hnRev').textContent='访谈结论 × '+rev; $('hnRevW').style.setProperty('--w',Math.min(90,30+rev*10)+'%');}
           $('hnFocusW').style.setProperty('--w',k.fw+'%');}
-      },15);
-    },700);
+      },14);
+    },650);
   });
-
-  function markMine(){const lis=$('clTodo').children; lis[0].classList.toggle('mine',true);}
-  $('clTodo').addEventListener('change',e=>{
-    const li=e.target.closest('li'); li.classList.toggle('ok',e.target.checked);
-    const mine=$('td1').checked, all=['td1','td2','td3'].every(id=>$(id).checked);
-    $('clRemind').textContent= all?'✓ 三项待办全部完成，已通知会议发起人。': mine?'⏰ 你的待办已完成。周明的「埋点方案」后天截止，到期前一天会提醒他。':'⏰ 提醒：你的「整理访谈结论」明天截止，还没有标记完成。';
-  });
-  setState();
+  setPhase('pre');
 })();
 
 /* =================== DASHBOARD =================== */
