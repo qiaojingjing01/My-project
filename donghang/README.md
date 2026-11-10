@@ -2,7 +2,7 @@
 
 新人入行的行话词典。刚进一个行业，就像刚开始学英语：先把这个行业里大家常说的词背下来，是入门的第一步。懂行把 AI、数据和职场黑话做成「百词斩」式的每日词卡，每天刷一组，翻面看意思，认识的间隔越拉越长，不认识的当天再来一次。
 
-在线使用：<https://qiaojingjing01.github.io/My-project/dongxing/>
+在线使用：<https://qiaojingjing01.github.io/My-project/donghang/>
 
 ## 现在能做什么
 
