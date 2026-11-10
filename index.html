@@ -1017,8 +1017,8 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:13px;border-top:1px soli
   <div class="why2"><div><b>痛点</b>新人和校招生刚进一个行业，会上满是 Agent、口径、对齐这样的词。查百科太学术，问同事又不好意思。我在汽车、电商、互联网几段实习里反复遇到，一次面试后面试官也建议我多补 Agent 知识，于是把自己的学习过程做成了产品。</div><div><b>理想态</b>刚入行就像刚学英语，先把行话当单词背：每天刷一组词卡，翻面就懂；词库跟着行业热词自己长大，不用自己到处找。</div></div>
   <div class="case-grid">
     <div class="featcol"><h4>核心功能，能带来什么</h4><ul class="feat2">
-        <li><b>今日刷词</b>选一本词书，每天背 10、20 或 30 个。词卡正面只有词：右滑是认识，直接下一个；左滑是不认识，卡片翻面，看人话解释、打个比方、实际用法和容易弄错的地方。</li>
-        <li><b>间隔复习和打卡</b>认识的词，下次出现的间隔依次拉长到 1、2、4、7、15、30 天；模糊的明天再来；不认识的在这一组里隔 3 张再出现一次。背完一组记一次打卡。</li>
+        <li><b>今日刷词</b>选一本词书，每天背 10、20 或 30 个。词卡里只有「认识」和「不认识」：认识就直接下一个；拿不准就点卡片翻面，看人话解释、打个比方、实际用法和容易弄错的地方，再做选择。也支持左右滑。</li>
+        <li><b>间隔复习和打卡</b>直接认识的词，下次出现的间隔依次拉长到 1、2、4、7、15、30 天；看了解释才认识的，明天再来；不认识的在这一组里隔 3 张再出现一次。背完一组记一次打卡。</li>
         <li><b>发现：一个大词库</b>居中搜索，聚焦时给出 12 个「猜你想搜」，按三本词书配额推荐、可以换一批；下面按词书浏览全部词卡。搜不到就一键申请收录。</li>
         <li><b>我的</b>生词本、收藏、已掌握和我的申请。生词可以单独拿出来再背一组。</li>
         <li><b>自动扩充（规划中）</b>用 GitHub Actions 每天跑一次，全部基于开源项目：Crawl4AI 抓行业资讯发现新词，Perplexica 联网查资料，千问按格式写解释并附来源，提交 Pull Request，人工审核后入库。</li>
@@ -1029,8 +1029,8 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:13px;border-top:1px soli
         <div class="goal">每天一组，认识的越背越少，不认识的反复出现</div>
         <ol class="dh-rules">
           <li>选词书和数量，点「开始背」</li>
-          <li>右滑认识，直接下一个</li>
-          <li>左滑不认识，翻面看意思</li>
+          <li>点「认识」，直接下一个</li>
+          <li>拿不准，点卡片看解释再选</li>
           <li>背完看这一组的结果和打卡</li>
         </ol>
         <div class="sig"><b>复习间隔</b>：1 → 2 → 4 → 7 → 15 → 30 天<br><b>发现</b>：大词库、猜你想搜、申请收录</div>
@@ -1220,6 +1220,19 @@ h2{font-family:var(--serif);font-weight:900;font-size:26px;line-height:1.3;margi
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(86px + env(safe-area-inset-bottom));z-index:15;display:flex;align-items:center;gap:12px;background:var(--ink);color:#fff;border-radius:999px;padding:8px 8px 8px 16px;font-size:13.5px;box-shadow:0 10px 24px rgba(0,0,0,.2);white-space:nowrap}
 .toast button{border:0;background:#fff;color:var(--ink);border-radius:999px;padding:5px 12px;font-size:13px;font-weight:700;min-height:32px}
 
+/* ---------- 认识/不认识放进卡片 ---------- */
+.flip{height:min(64vh,520px);min-height:380px}
+.front{padding:0;cursor:default;gap:0;justify-content:stretch;align-items:stretch}
+.front-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:24px;cursor:pointer;border-radius:22px 22px 0 0}
+.front-body:hover .ask{color:var(--blue)}
+.front .ask{transition:color .15s}
+.cbtns{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px 16px 16px;border-top:1px dashed var(--line);flex:none}
+.cbtns button{border:0;border-radius:14px;padding:13px 0;font-size:16px;font-weight:700;min-height:50px}
+.c-no{background:var(--red-soft);color:var(--red)}
+.c-know{background:var(--green-soft);color:var(--green)}
+.c-next{grid-column:1 / -1;background:var(--ink);color:#fff}
+.c-no:hover{filter:brightness(.97)}.c-know:hover{filter:brightness(.97)}
+
 &lt;/style&gt;
 &lt;/head&gt;
 &lt;body&gt;
@@ -1404,19 +1417,8 @@ h2{font-family:var(--serif);font-weight:900;font-size:26px;line-height:1.3;margi
     var s = session, id = s.queue[s.idx], w = byId[id];
     var total = s.total, done = s.done;
     var g = s.graded;
-    var bottom;
-    if (!g) {
-      var peek = s.flipped;
-      bottom = &#x27;&lt;div class=&quot;grade&quot;&gt;&#x27; +
-        &#x27;&lt;button class=&quot;g-no&quot; data-grade=&quot;no&quot;&gt;&#x27; + (peek ? &#x27;没记住&#x27; : &#x27;不认识&#x27;) + &#x27;&lt;/button&gt;&#x27; +
-        &#x27;&lt;button class=&quot;g-vague&quot; data-grade=&quot;vague&quot;&gt;模糊&lt;/button&gt;&#x27; +
-        &#x27;&lt;button class=&quot;g-know&quot; data-grade=&quot;know&quot;&gt;&#x27; + (peek ? &#x27;记得&#x27; : &#x27;认识&#x27;) + &#x27;&lt;/button&gt;&lt;/div&gt;&#x27; +
-        &#x27;&lt;p class=&quot;keys&quot;&gt;&#x27; + (peek ? &#x27;看完意思，诚实地选一个&#x27; : &#x27;右滑认识，直接下一个 · 左滑不认识，看意思 · 点卡片翻面&#x27;) + &#x27;&lt;/p&gt;&#x27;;
-    } else {
-      var txt = { vague: &#x27;模糊，明天再复习&#x27;, no: &#x27;不认识，这一组里还会再出现&#x27; }[g] || &#x27;&#x27;;
-      bottom = &#x27;&lt;div class=&quot;after&quot;&gt;&lt;button class=&quot;next&quot; data-act=&quot;next&quot;&gt;下一个&lt;/button&gt;&#x27; +
-        &#x27;&lt;span class=&quot;verdict&quot;&gt;&#x27; + txt + &#x27;　左右滑动也能进入下一个&lt;/span&gt;&lt;/div&gt;&#x27;;
-    }
+    var pair = &#x27;&lt;div class=&quot;cbtns&quot;&gt;&lt;button class=&quot;c-no&quot; data-grade=&quot;no&quot;&gt;不认识&lt;/button&gt;&lt;button class=&quot;c-know&quot; data-grade=&quot;know&quot;&gt;认识&lt;/button&gt;&lt;/div&gt;&#x27;;
+    var backFoot = g ? &#x27;&lt;div class=&quot;cbtns&quot;&gt;&lt;button class=&quot;c-next&quot; data-act=&quot;next&quot;&gt;下一个&lt;/button&gt;&lt;/div&gt;&#x27; : pair;
     return &#x27;&#x27; +
       &#x27;&lt;div class=&quot;study-top&quot;&gt;&lt;button class=&quot;quit&quot; data-act=&quot;quit&quot; aria-label=&quot;结束这一组&quot;&gt;&#x27; +
         &#x27;&lt;svg viewBox=&quot;0 0 24 24&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M15 5l-7 7 7 7&quot;/&gt;&lt;/svg&gt;结束&lt;/button&gt;&#x27; +
@@ -1425,13 +1427,16 @@ h2{font-family:var(--serif);font-weight:900;font-size:26px;line-height:1.3;margi
       &#x27;&lt;div class=&quot;flip&#x27; + (s.flipped ? &#x27; flipped&#x27; : &#x27;&#x27;) + &#x27;&quot; id=&quot;card&quot;&gt;&#x27; +
         &#x27;&lt;div class=&quot;stamp yes&quot; aria-hidden=&quot;true&quot;&gt;认识&lt;/div&gt;&lt;div class=&quot;stamp no&quot; aria-hidden=&quot;true&quot;&gt;&#x27; + (g ? &#x27;下一个&#x27; : &#x27;不认识&#x27;) + &#x27;&lt;/div&gt;&#x27; +
         &#x27;&lt;div class=&quot;flip-in&quot;&gt;&#x27; +
-          &#x27;&lt;div class=&quot;face front&quot; data-act=&quot;flip&quot; role=&quot;button&quot; tabindex=&quot;0&quot; aria-label=&quot;翻面查看意思&quot;&gt;&#x27; +
-            &#x27;&lt;span class=&quot;badge &#x27; + w.book + &#x27;&quot;&gt;&#x27; + BOOK_NAME[w.book] + &#x27;&lt;/span&gt;&#x27; +
-            &#x27;&lt;div class=&quot;word&quot;&gt;&#x27; + esc(w.word) + &#x27;&lt;/div&gt;&#x27; +
-            &#x27;&lt;div class=&quot;ask&quot;&gt;你知道它是什么意思吗？&lt;/div&gt;&#x27; +
-            &#x27;&lt;div class=&quot;tap&quot;&gt;&lt;span&gt;← 不认识&lt;/span&gt;&lt;span&gt;点一下翻面&lt;/span&gt;&lt;span&gt;认识 →&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&#x27; +
-          &#x27;&lt;div class=&quot;face back&quot; aria-hidden=&quot;&#x27; + (s.flipped ? &#x27;false&#x27; : &#x27;true&#x27;) + &#x27;&quot;&gt;&lt;div class=&quot;back-scroll&quot;&gt;&#x27; + detailHTML(w) + &#x27;&lt;/div&gt;&lt;/div&gt;&#x27; +
-        &#x27;&lt;/div&gt;&lt;/div&gt;&#x27; + bottom +
+          &#x27;&lt;div class=&quot;face front&quot;&gt;&#x27; +
+            &#x27;&lt;div class=&quot;front-body&quot; data-act=&quot;flip&quot; role=&quot;button&quot; tabindex=&quot;0&quot; aria-label=&quot;翻面查看解释&quot;&gt;&#x27; +
+              &#x27;&lt;span class=&quot;badge &#x27; + w.book + &#x27;&quot;&gt;&#x27; + BOOK_NAME[w.book] + &#x27;&lt;/span&gt;&#x27; +
+              &#x27;&lt;div class=&quot;word&quot;&gt;&#x27; + esc(w.word) + &#x27;&lt;/div&gt;&#x27; +
+              &#x27;&lt;div class=&quot;ask&quot;&gt;拿不准？点卡片看解释&lt;/div&gt;&lt;/div&gt;&#x27; +
+            (s.flipped ? &#x27;&#x27; : pair) + &#x27;&lt;/div&gt;&#x27; +
+          &#x27;&lt;div class=&quot;face back&quot; aria-hidden=&quot;&#x27; + (s.flipped ? &#x27;false&#x27; : &#x27;true&#x27;) + &#x27;&quot;&gt;&lt;div class=&quot;back-scroll&quot;&gt;&#x27; + detailHTML(w) + &#x27;&lt;/div&gt;&#x27; +
+            (s.flipped ? backFoot : &#x27;&#x27;) + &#x27;&lt;/div&gt;&#x27; +
+        &#x27;&lt;/div&gt;&lt;/div&gt;&#x27; +
+      &#x27;&lt;p class=&quot;keys&quot;&gt;&#x27; + (g === &#x27;no&#x27; ? &#x27;这个词这一组里还会再出现一次&#x27; : (s.flipped ? &#x27;看完解释，再选认识或不认识&#x27; : &#x27;也可以右滑认识、左滑不认识 · 键盘 → 认识 · ← 不认识 · 空格翻面&#x27;)) + &#x27;&lt;/p&gt;&#x27; +
       (undoSnap ? &#x27;&lt;div class=&quot;toast&quot; role=&quot;status&quot;&gt;「&#x27; + esc(byId[undoSnap.id].word) + &#x27;」记为认识&lt;button data-act=&quot;undo&quot;&gt;撤回&lt;/button&gt;&lt;/div&gt;&#x27; : &#x27;&#x27;);
   }
 
@@ -1607,22 +1612,20 @@ h2{font-family:var(--serif);font-weight:900;font-size:26px;line-height:1.3;margi
   function doGrade(g) {
     var s = session, id = s.queue[s.idx];
     if (s.graded) return;
-    if (g === &#x27;know&#x27;) {
-      // 认识：不再展示意思，直接下一个；留 4 秒可以撤回
+    var peeked = s.flipped;
+    // 认识：直接下一个，不展示解释。先翻面看了解释再选“认识”，按“模糊”记，明天再复习
+    // 不认识：没翻面时翻过来看解释；已经看过解释就直接下一个（这一组里会再出现）
+    var rec = g === &#x27;know&#x27; ? (peeked ? &#x27;vague&#x27; : &#x27;know&#x27;) : &#x27;no&#x27;;
+    if (g === &#x27;know&#x27; &amp;&amp; !peeked) {
       undoSnap = { id: id, sess: clone(s), rec: clone(state.cards[id]), day: clone(state.days[today()]) };
       clearTimeout(undoTimer);
       undoTimer = setTimeout(function () { undoSnap = null; var t = $(&#x27;.toast&#x27;); if (t) t.remove(); }, 4000);
-      grade(id, g);
-      if (!(id in s.first)) s.first[id] = g;
-      s.graded = g;
-      next();
-      return;
-    }
-    undoSnap = null; clearTimeout(undoTimer);
-    s.graded = g;
+    } else { undoSnap = null; clearTimeout(undoTimer); }
+    grade(id, rec);
+    if (!(id in s.first)) s.first[id] = rec;
+    s.graded = rec;
+    if (g === &#x27;know&#x27; || peeked) { next(); return; }
     s.flipped = true;
-    grade(id, g);
-    if (!(id in s.first)) s.first[id] = g;
     render();
   }
   function undo() {
@@ -1758,14 +1761,13 @@ h2{font-family:var(--serif);font-weight:900;font-size:26px;line-height:1.3;margi
     if (tab !== &#x27;today&#x27; || !session || session.idx &gt;= session.queue.length) return;
     if (e.target.tagName === &#x27;INPUT&#x27;) return;
     var s = session;
-    if (e.key === &#x27; &#x27; || (e.key === &#x27;Enter&#x27; &amp;&amp; e.target.classList &amp;&amp; e.target.classList.contains(&#x27;front&#x27;))) {
+    if (e.key === &#x27; &#x27; || (e.key === &#x27;Enter&#x27; &amp;&amp; e.target.classList &amp;&amp; e.target.classList.contains(&#x27;front-body&#x27;))) {
       e.preventDefault();
       if (s.graded) next(); else if (!s.flipped) { s.flipped = true; render(); }
       return;
     }
     if (e.key === &#x27;ArrowRight&#x27;) { e.preventDefault(); swipe(1); return; }
     if (e.key === &#x27;ArrowLeft&#x27;) { e.preventDefault(); swipe(-1); return; }
-    if (!s.graded &amp;&amp; e.key === &#x27;ArrowDown&#x27;) { e.preventDefault(); doGrade(&#x27;vague&#x27;); return; }
     if (s.graded &amp;&amp; e.key === &#x27;Enter&#x27;) { e.preventDefault(); next(); }
   });
 

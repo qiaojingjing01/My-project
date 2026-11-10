@@ -146,19 +146,8 @@
     var s = session, id = s.queue[s.idx], w = byId[id];
     var total = s.total, done = s.done;
     var g = s.graded;
-    var bottom;
-    if (!g) {
-      var peek = s.flipped;
-      bottom = '<div class="grade">' +
-        '<button class="g-no" data-grade="no">' + (peek ? '没记住' : '不认识') + '</button>' +
-        '<button class="g-vague" data-grade="vague">模糊</button>' +
-        '<button class="g-know" data-grade="know">' + (peek ? '记得' : '认识') + '</button></div>' +
-        '<p class="keys">' + (peek ? '看完意思，诚实地选一个' : '右滑认识，直接下一个 · 左滑不认识，看意思 · 点卡片翻面') + '</p>';
-    } else {
-      var txt = { vague: '模糊，明天再复习', no: '不认识，这一组里还会再出现' }[g] || '';
-      bottom = '<div class="after"><button class="next" data-act="next">下一个</button>' +
-        '<span class="verdict">' + txt + '　左右滑动也能进入下一个</span></div>';
-    }
+    var pair = '<div class="cbtns"><button class="c-no" data-grade="no">不认识</button><button class="c-know" data-grade="know">认识</button></div>';
+    var backFoot = g ? '<div class="cbtns"><button class="c-next" data-act="next">下一个</button></div>' : pair;
     return '' +
       '<div class="study-top"><button class="quit" data-act="quit" aria-label="结束这一组">' +
         '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>结束</button>' +
@@ -167,13 +156,16 @@
       '<div class="flip' + (s.flipped ? ' flipped' : '') + '" id="card">' +
         '<div class="stamp yes" aria-hidden="true">认识</div><div class="stamp no" aria-hidden="true">' + (g ? '下一个' : '不认识') + '</div>' +
         '<div class="flip-in">' +
-          '<div class="face front" data-act="flip" role="button" tabindex="0" aria-label="翻面查看意思">' +
-            '<span class="badge ' + w.book + '">' + BOOK_NAME[w.book] + '</span>' +
-            '<div class="word">' + esc(w.word) + '</div>' +
-            '<div class="ask">你知道它是什么意思吗？</div>' +
-            '<div class="tap"><span>← 不认识</span><span>点一下翻面</span><span>认识 →</span></div></div>' +
-          '<div class="face back" aria-hidden="' + (s.flipped ? 'false' : 'true') + '"><div class="back-scroll">' + detailHTML(w) + '</div></div>' +
-        '</div></div>' + bottom +
+          '<div class="face front">' +
+            '<div class="front-body" data-act="flip" role="button" tabindex="0" aria-label="翻面查看解释">' +
+              '<span class="badge ' + w.book + '">' + BOOK_NAME[w.book] + '</span>' +
+              '<div class="word">' + esc(w.word) + '</div>' +
+              '<div class="ask">拿不准？点卡片看解释</div></div>' +
+            (s.flipped ? '' : pair) + '</div>' +
+          '<div class="face back" aria-hidden="' + (s.flipped ? 'false' : 'true') + '"><div class="back-scroll">' + detailHTML(w) + '</div>' +
+            (s.flipped ? backFoot : '') + '</div>' +
+        '</div></div>' +
+      '<p class="keys">' + (g === 'no' ? '这个词这一组里还会再出现一次' : (s.flipped ? '看完解释，再选认识或不认识' : '也可以右滑认识、左滑不认识 · 键盘 → 认识 · ← 不认识 · 空格翻面')) + '</p>' +
       (undoSnap ? '<div class="toast" role="status">「' + esc(byId[undoSnap.id].word) + '」记为认识<button data-act="undo">撤回</button></div>' : '');
   }
 
@@ -349,22 +341,20 @@
   function doGrade(g) {
     var s = session, id = s.queue[s.idx];
     if (s.graded) return;
-    if (g === 'know') {
-      // 认识：不再展示意思，直接下一个；留 4 秒可以撤回
+    var peeked = s.flipped;
+    // 认识：直接下一个，不展示解释。先翻面看了解释再选“认识”，按“模糊”记，明天再复习
+    // 不认识：没翻面时翻过来看解释；已经看过解释就直接下一个（这一组里会再出现）
+    var rec = g === 'know' ? (peeked ? 'vague' : 'know') : 'no';
+    if (g === 'know' && !peeked) {
       undoSnap = { id: id, sess: clone(s), rec: clone(state.cards[id]), day: clone(state.days[today()]) };
       clearTimeout(undoTimer);
       undoTimer = setTimeout(function () { undoSnap = null; var t = $('.toast'); if (t) t.remove(); }, 4000);
-      grade(id, g);
-      if (!(id in s.first)) s.first[id] = g;
-      s.graded = g;
-      next();
-      return;
-    }
-    undoSnap = null; clearTimeout(undoTimer);
-    s.graded = g;
+    } else { undoSnap = null; clearTimeout(undoTimer); }
+    grade(id, rec);
+    if (!(id in s.first)) s.first[id] = rec;
+    s.graded = rec;
+    if (g === 'know' || peeked) { next(); return; }
     s.flipped = true;
-    grade(id, g);
-    if (!(id in s.first)) s.first[id] = g;
     render();
   }
   function undo() {
@@ -500,14 +490,13 @@
     if (tab !== 'today' || !session || session.idx >= session.queue.length) return;
     if (e.target.tagName === 'INPUT') return;
     var s = session;
-    if (e.key === ' ' || (e.key === 'Enter' && e.target.classList && e.target.classList.contains('front'))) {
+    if (e.key === ' ' || (e.key === 'Enter' && e.target.classList && e.target.classList.contains('front-body'))) {
       e.preventDefault();
       if (s.graded) next(); else if (!s.flipped) { s.flipped = true; render(); }
       return;
     }
     if (e.key === 'ArrowRight') { e.preventDefault(); swipe(1); return; }
     if (e.key === 'ArrowLeft') { e.preventDefault(); swipe(-1); return; }
-    if (!s.graded && e.key === 'ArrowDown') { e.preventDefault(); doGrade('vague'); return; }
     if (s.graded && e.key === 'Enter') { e.preventDefault(); next(); }
   });
 
