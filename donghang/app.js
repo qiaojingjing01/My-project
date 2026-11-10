@@ -90,10 +90,11 @@
   function render() {
     document.querySelectorAll('.tabs button').forEach(function (b) { b.classList.toggle('on', b.dataset.tab === tab); });
     var s = streak();
-    $('#streak').innerHTML = s ? '连续打卡 <b>' + s + '</b> 天' : '今天还没打卡';
+    $('#streak').textContent = s ? '连续打卡 ' + s + ' 天' : '今天还没打卡';
     var v = $('#view');
+    v.className = 'main' + (tab === 'dict' ? ' wide' : '');
     if (tab === 'today') v.innerHTML = session ? (session.idx < session.queue.length ? studyHTML() : doneHTML()) : todayHTML();
-    else if (tab === 'dict') v.innerHTML = dictHTML();
+    else if (tab === 'dict') { v.innerHTML = dictHTML(); updateDisc(); }
     else v.innerHTML = meHTML();
 
   }
@@ -105,31 +106,51 @@
     }).join('');
   }
 
+  var BOOK_INFO = {
+    ai: { en: 'AI LITERACY', desc: '从提示词到智能体，看懂 AI 的能力和边界' },
+    data: { en: 'DATA THINKING', desc: '指标、漏斗、归因、实验，让数字有依据' },
+    work: { en: 'WORKPLACE', desc: '从对齐到目标，拆开那些熟悉又陌生的说法' }
+  };
+  function weekHTML() {
+    var t = today(), p = t.split('-'), d = new Date(+p[0], +p[1] - 1, +p[2]);
+    var mon = addDays(t, -((d.getDay() + 6) % 7));
+    return ['一', '二', '三', '四', '五', '六', '日'].map(function (n, i) {
+      var day = addDays(mon, i), done = state.days[day] && state.days[day].done;
+      return '<div><small>' + n + '</small><i class="' + (done ? 'done' : '') + (day === t ? ' now' : '') + '">' + (done ? '✓' : '·') + '</i></div>';
+    }).join('');
+  }
   function todayHTML() {
     var p = plan(state.book);
     var n = Math.min(state.goal, p.due.length + p.fresh.length);
-    var mastered = p.pool.filter(function (w) { return isMastered(w.id); }).length;
-    var pct = p.pool.length ? Math.round(mastered / p.pool.length * 100) : 0;
     var doneToday = (state.days[today()] || {}).done || 0;
+    var s = streak();
+    var books = ['ai', 'data', 'work'].map(function (k) {
+      var pool = words.filter(function (w) { return w.book === k; });
+      var m = pool.filter(function (w) { return isMastered(w.id); }).length;
+      var pct = pool.length ? Math.round(m / pool.length * 100) : 0;
+      return '<button class="book ' + k + (state.book === k ? ' on' : '') + '" data-book="' + k + '" aria-pressed="' + (state.book === k) + '">' +
+        '<span class="en">' + BOOK_INFO[k].en + '</span>' +
+        '<span class="t">' + BOOK_NAME[k] + '<small>' + pool.length + ' 词</small></span>' +
+        '<span class="d">' + BOOK_INFO[k].desc + '</span>' +
+        '<span class="m">已掌握 ' + m + ' / ' + pool.length + '</span>' +
+        '<span class="progress"><i style="width:' + pct + '%"></i></span></button>';
+    }).join('');
     return '' +
-      '<h2>' + (doneToday ? '今天已背 ' + doneToday + ' 个词' : '今天背 ' + state.goal + ' 个词') + '</h2>' +
-      '<p class="sub">刚入行就像背单词：先把这个行业里常说的词，一个个弄懂。</p>' +
-      '<div class="panel">' +
-        '<p class="label">选一本词书</p><div class="chips">' + bookChips(state.book, 'data-book') + '</div>' +
-        '<div class="gap"></div><p class="label">每天背几个</p>' +
-        '<div class="seg">' + [10, 20, 30].map(function (g) {
+      '<div class="hero"><span class="kicker">A LITTLE EVERY DAY</span>' +
+        '<h1>今天，想怎么懂行？</h1>' +
+        '<p>选一本词书背一组，也可以去发现，查查你想弄懂的词。</p></div>' +
+      '<div class="week"><div class="week-l"><b>' + (s ? '连续打卡 ' + s + ' 天' : '今天还没打卡') + '</b>' +
+        '<span>' + (doneToday ? '今天已背 ' + doneToday + ' 个词' : '背完一组就算打卡') + '</span></div>' +
+        '<div class="days" aria-label="本周打卡">' + weekHTML() + '</div></div>' +
+      '<div class="sec-h"><h3>选一本词书</h3><button class="all' + (state.book === 'all' ? ' on' : '') + '" data-book="all" aria-pressed="' + (state.book === 'all') + '">全部 ' + words.length + '</button></div>' +
+      '<div class="books">' + books + '</div>' +
+      '<div class="goal-row"><b>每天背几个</b><div class="seg">' + [10, 20, 30].map(function (g) {
           return '<button data-goal="' + g + '" class="' + (state.goal === g ? 'on' : '') + '">' + g + ' 个</button>';
-        }).join('') + '</div>' +
-      '</div>' +
-      '<div class="stats">' +
-        '<div class="stat"><b>' + p.due.length + '</b><span>今天要复习</span></div>' +
-        '<div class="stat"><b>' + p.fresh.length + '</b><span>还没背过</span></div>' +
-        '<div class="stat"><b>' + mastered + '<small style="font-size:13px;color:var(--muted)"> / ' + p.pool.length + '</small></b><span>已掌握</span></div>' +
-      '</div>' +
-      '<div class="progress" aria-label="已掌握进度"><i style="width:' + pct + '%"></i></div>' +
-      '<button class="big" data-act="start"' + (n ? '' : ' disabled') + '>' +
+        }).join('') + '</div></div>' +
+      '<div class="ctas"><button class="big" data-act="start"' + (n ? '' : ' disabled') + '>' +
         (n ? (doneToday ? '再来一组（' + n + ' 个）' : '开始背今天的 ' + n + ' 个词') : '这本词书今天背完了') + '</button>' +
-      '<p class="note">先复习到期的词，再学新词。认识的词间隔会越拉越长，不认识的当天再出现一次。词库更新于 ' + esc(meta.updated || '') + '，共 ' + words.length + ' 个词。</p>';
+        '<button class="ghost" data-tab="dict">去发现查词<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></button></div>' +
+      '<p class="note c">' + (p.due.length ? '今天有 ' + p.due.length + ' 个词到了复习时间。' : '') + '先复习，再认识新词。不用一次记住，明天还会再见。</p>';
   }
 
   function detailHTML(w) {
@@ -146,26 +167,28 @@
     var s = session, id = s.queue[s.idx], w = byId[id];
     var total = s.total, done = s.done;
     var g = s.graded;
-    var pair = '<div class="cbtns"><button class="c-no" data-grade="no">不认识</button><button class="c-know" data-grade="know">认识</button></div>';
-    var backFoot = g ? '<div class="cbtns"><button class="c-next" data-act="next">下一个</button></div>' : pair;
-    return '' +
+    var pair = '<div class="cbtns"><button class="c-no" data-grade="no">不认识<span aria-hidden="true">←</span></button><button class="c-know" data-grade="know">认识<span aria-hidden="true">→</span></button></div>';
+    var backFoot = g ? '<div class="cbtns"><button class="c-next" data-act="next">下一个<span aria-hidden="true">→</span></button></div>' : pair;
+    var seen = Object.keys(state.cards).length;
+    return '<div class="study">' +
       '<div class="study-top"><button class="quit" data-act="quit" aria-label="结束这一组">' +
         '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>结束</button>' +
         '<div class="progress"><i style="width:' + Math.round(done / total * 100) + '%"></i></div>' +
-        '<span class="count">' + done + ' / ' + total + '</span></div>' +
+        '<span class="count">' + Math.min(done + 1, total) + ' / ' + total + '</span></div>' +
       '<div class="flip' + (s.flipped ? ' flipped' : '') + '" id="card">' +
         '<div class="stamp yes" aria-hidden="true">认识</div><div class="stamp no" aria-hidden="true">' + (g ? '下一个' : '不认识') + '</div>' +
         '<div class="flip-in">' +
           '<div class="face front">' +
             '<div class="front-body" data-act="flip" role="button" tabindex="0" aria-label="翻面查看解释">' +
-              '<span class="badge ' + w.book + '">' + BOOK_NAME[w.book] + '</span>' +
+              '<span class="badge lg ' + w.book + '">' + BOOK_NAME[w.book] + '</span>' +
               '<div class="word">' + esc(w.word) + '</div>' +
               '<div class="ask">拿不准？点卡片看解释</div></div>' +
             (s.flipped ? '' : pair) + '</div>' +
           '<div class="face back" aria-hidden="' + (s.flipped ? 'false' : 'true') + '"><div class="back-scroll">' + detailHTML(w) + '</div>' +
             (s.flipped ? backFoot : '') + '</div>' +
         '</div></div>' +
-      '<p class="keys">' + (g === 'no' ? '这个词这一组里还会再出现一次' : (s.flipped ? '看完解释，再选认识或不认识' : '也可以右滑认识、左滑不认识 · 键盘 → 认识 · ← 不认识 · 空格翻面')) + '</p>' +
+      '<p class="keys">' + (g === 'no' ? '这个词这一组里还会再出现一次 · 空格或 → 下一个' : (s.flipped ? '看完解释，再选认识或不认识' : '也可以右滑认识、左滑不认识 · 键盘 → 认识 · ← 不认识 · 空格翻面')) + '</p>' +
+      '<p class="meta">已接触 ' + seen + ' 个词 · 进度只存在这台设备的浏览器里</p></div>' +
       (undoSnap ? '<div class="toast" role="status">「' + esc(byId[undoSnap.id].word) + '」记为认识<button data-act="undo">撤回</button></div>' : '');
   }
 
@@ -174,7 +197,7 @@
     var cnt = { know: 0, vague: 0, no: 0 };
     ids.forEach(function (id) { cnt[s.first[id]]++; });
     var label = { know: '认识', vague: '模糊', no: '不认识' };
-    return '' +
+    return '<div class="study">' +
       '<div class="done-hero"><div class="num">' + ids.length + '</div><p class="sub" style="margin:6px 0 0">这一组背完了，连续打卡 ' + streak() + ' 天</p></div>' +
       '<div class="stats"><div class="stat"><b style="color:var(--green)">' + cnt.know + '</b><span>认识</span></div>' +
       '<div class="stat"><b style="color:var(--amber)">' + cnt.vague + '</b><span>模糊</span></div>' +
@@ -183,8 +206,8 @@
         var w = byId[id], g = s.first[id];
         return '<button class="item" data-open="' + id + '"><span class="w">' + esc(w.word) + '</span><span class="d">' + esc(w.definition) + '</span><span class="st ' + g + '">' + label[g] + '</span></button>';
       }).join('') + '</div>' +
-      '<button class="big" data-act="again">再来一组</button>' +
-      '<button class="ghost" data-act="home">回到今日</button>';
+      '<div class="done-btns"><button class="big" data-act="again">再来一组</button>' +
+      '<button class="ghost" data-act="home">回到首页</button></div></div>';
   }
 
   /* ---------- 发现：大词库 ---------- */
@@ -222,8 +245,8 @@
   function dictHTML() {
     var fresh = freshWords();
     return '' +
-      '<div class="dhero"><small class="kicker">新人入行词典</small>' +
-        '<h2>入行第一步，<br>先听懂行话。</h2>' +
+      '<div class="dhero"><span class="kicker">FIND A WORD</span>' +
+        '<h2>入行第一步，先听懂行话。</h2>' +
         '<p class="sub">AI、数据、职场黑话三本词书，每个词都有人话解释和真实用法。</p></div>' +
       '<div class="disc-search"><label class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg>' +
         '<input id="dictQ" type="search" placeholder="输入一个听不懂的词" value="' + esc(dictQ) + '" aria-label="搜索词条" autocomplete="off"></label>' +
@@ -294,7 +317,7 @@
     var empty = { req: '还没有申请。在「发现」里搜不到的词，可以一键申请收录。', new: '还没有生词。背的时候选“不认识”或“模糊”的词会出现在这里。', star: '还没有收藏。在词条详情里点“收藏”。', master: '还没有掌握的词。同一个词连续几次都选“认识”就会掌握。' };
     var cur = lists[meTab];
     return '' +
-      '<h2>我的</h2><p class="sub">进度只存在这台设备的浏览器里。</p>' +
+      '<h2>我的</h2><p class="sub">进度只存在这台设备的浏览器里，换设备或清缓存会丢失。</p>' +
       '<div class="stats" style="grid-template-columns:repeat(4,1fr)">' +
         '<div class="stat"><b>' + mastered.length + '</b><span>已掌握</span></div>' +
         '<div class="stat"><b>' + learning.length + '</b><span>学习中</span></div>' +
@@ -486,6 +509,19 @@
   });
 
   document.addEventListener('keydown', function (e) {
+    if (e.target.id === 'quickQ') {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        dictQ = e.target.value.trim(); e.target.value = ''; e.target.blur();
+        tab = 'dict'; dictBook = 'all'; if (session && session.idx >= session.queue.length) session = null;
+        render(); window.scrollTo(0, 0);
+      } else if (e.key === 'Escape') e.target.blur();
+      return;
+    }
+    if (e.key === '/' && $('#sheet').hidden && !/INPUT|TEXTAREA/.test(e.target.tagName)) {
+      var qq = $('#quickQ');
+      if (qq && qq.offsetParent) { e.preventDefault(); qq.focus(); return; }
+    }
     if (!$('#sheet').hidden) { if (e.key === 'Escape') closeSheet(); return; }
     if (tab !== 'today' || !session || session.idx >= session.queue.length) return;
     if (e.target.tagName === 'INPUT') return;

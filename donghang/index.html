@@ -12,26 +12,28 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="app">
-  <header class="bar">
+<header class="top">
+  <div class="top-in">
     <div class="brand"><span class="logo">懂行</span><span class="slogan">每天背一组行话</span></div>
-    <div class="streak" id="streak" title="连续打卡天数"></div>
-  </header>
+    <nav class="tabs" aria-label="主导航">
+      <button data-tab="today" class="on">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>首页
+      </button>
+      <button data-tab="dict">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg>发现
+      </button>
+      <button data-tab="me">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20c1.4-3.6 4.2-5.3 7.5-5.3s6.1 1.7 7.5 5.3"/></svg>我的
+      </button>
+    </nav>
+    <div class="top-r">
+      <span class="streak" id="streak" title="连续打卡天数"></span>
+      <label class="qsearch"><input id="quickQ" type="search" placeholder="快速查词" autocomplete="off" aria-label="快速查词，回车搜索"><kbd aria-hidden="true">/</kbd></label>
+    </div>
+  </div>
+</header>
 
-  <main id="view" aria-live="polite"></main>
-
-  <nav class="tabs" aria-label="主导航">
-    <button data-tab="today" class="on">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>今日
-    </button>
-    <button data-tab="dict">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg>发现
-    </button>
-    <button data-tab="me">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20c1.4-3.6 4.2-5.3 7.5-5.3s6.1 1.7 7.5 5.3"/></svg>我的
-    </button>
-  </nav>
-</div>
+<main id="view" class="main" aria-live="polite"></main>
 
 <div class="sheet" id="sheet" hidden>
   <button class="sheet-mask" data-close aria-label="关闭"></button>
