@@ -245,6 +245,16 @@ svg text{font-family:inherit}
 .check{margin-top:14px;background:#e3f5ec;color:#16794d;border-radius:10px;padding:8px 12px;font-size:13px}
 
 
+
+/* ---------- 懂行 v2 ---------- */
+.dh-stage{display:flex;gap:28px;align-items:flex-start;flex-wrap:wrap;justify-content:center;background:linear-gradient(160deg,#fff 0%,#f4f2ea 100%)}
+.dh-rules{margin:4px 0 0;padding-left:18px;display:grid;gap:4px;font-size:13px;color:var(--ink2)}
+.dh-open{display:block;margin-top:14px;text-align:center;background:#1c3fd1;color:#fff;text-decoration:none;border-radius:12px;padding:10px;font-size:14px;font-weight:700}
+.dh-open:hover{background:#122c99}
+.dh-phone{width:min(360px,100%);height:720px;border:10px solid #111;border-radius:38px;overflow:hidden;background:#f6f5f0;box-shadow:0 24px 50px rgba(0,0,0,.18)}
+.dh-phone iframe{display:block;width:100%;height:100%;border:0}
+@media (max-width:560px){.dh-phone{height:640px;border-width:7px;border-radius:30px}}
+
 /* ---------- 懂行 ---------- */
 .dx-stage{padding:0;overflow:hidden;border-color:#d9d6cb}
 .dx-bar{display:flex;align-items:center;gap:7px;padding:10px 14px;background:#efede6;border-bottom:1px solid #e3e1d8}
@@ -652,7 +662,7 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:13px;border-top:1px soli
   <nav class="toc">
     <a href="#flick"><div class="n">01 · 小红书</div><div class="t"><span class="dot" style="background:var(--red)"></span>Flick 与「问 AI」</div><div class="d">企业内部 AI 知识分发：关注、推荐、智能问答</div></a>
     <a href="#colead"><div class="n">02 · 小红书</div><div class="t"><span class="dot" style="background:#c4102c"></span>Colead 会议助手</div><div class="d">会前准备、会中陪跑、会后待办的会议 Agent</div></a>
-    <a href="#donghang"><div class="n">03 · 个人项目</div><div class="t"><span class="dot" style="background:#1c3fd1"></span>懂行 · 入行词典</div><div class="d">会自己扩充的行话词库：搜词、收藏、申请收录</div></a>
+    <a href="#donghang"><div class="n">03 · 个人项目</div><div class="t"><span class="dot" style="background:#1c3fd1"></span>懂行 · 每天背行话</div><div class="d">像百词斩一样每天刷一组行话词卡</div></a>
     <a href="#dash"><div class="n">04 · 特斯拉</div><div class="t"><span class="dot" style="background:#0f1115"></span>售后运营数据看板</div><div class="d">分层指标、口径切换、大区＋门店下钻、异常预警</div></a>
     <a href="#report"><div class="n">05 · Ubras</div><div class="t"><span class="dot" style="background:var(--lark)"></span>对话式 AI 经营报告</div><div class="d">飞书发一句话，智能体在 BI 平台生成报告再推回</div></a>
   </nav>
@@ -1000,206 +1010,711 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:13px;border-top:1px soli
 <!-- ================= 03 懂行 ================= -->
 <section class="case wrap" id="donghang">
   <div class="case-head">
-      <div class="eyebrow">03 · 个人项目 · 产品设计与 AI Coding</div>
-      <h2>懂行 · 新人入行词典</h2>
-      <div class="sub">一个会自己扩充的行话词库</div>
+      <div class="eyebrow">03 · 个人项目 · 开源在 GitHub</div>
+      <h2>懂行 · 每天背一组行话</h2>
+      <div class="sub">新人入行的行话词典，像百词斩一样刷词卡</div>
   </div>
-  <div class="why2"><div><b>痛点</b>新人和校招生刚进一个行业，会上满是 Agent、口径、对齐这样的词。查百科太学术，问同事又不好意思。我在汽车、电商、互联网几段实习里反复遇到，一次面试后面试官也建议我多补 Agent 知识，于是把自己的学习过程做成了产品。</div><div><b>理想态</b>像背单词一样入行：搜一个词，三秒看到人话解释和真实用法；词库跟着行业热词自己更新，查不到的词提交后由 Agent 补全。</div></div>
+  <div class="why2"><div><b>痛点</b>新人和校招生刚进一个行业，会上满是 Agent、口径、对齐这样的词。查百科太学术，问同事又不好意思。我在汽车、电商、互联网几段实习里反复遇到，一次面试后面试官也建议我多补 Agent 知识，于是把自己的学习过程做成了产品。</div><div><b>理想态</b>刚入行就像刚学英语，先把行话当单词背：每天刷一组词卡，翻面就懂；词库跟着行业热词自己长大，不用自己到处找。</div></div>
   <div class="case-grid">
     <div class="featcol"><h4>核心功能，能带来什么</h4><ul class="feat2">
-        <li><b>发现</b>首页只有一个搜索框，聚焦的时候给出「猜你想搜」；下面按 AI、数据、职场黑话三本词书浏览，新人可以按书一个个看过去。</li>
-        <li><b>词条</b>每个词讲四件事：全称、人话解释、打个比方、实际场景里怎么用，再标出容易混淆的地方和参考来源。</li>
-        <li><b>我的词库</b>进来先看到收藏的单个词，再按自建合集整理，和小红书、抖音的「我的」页一样，先看内容再看分组。</li>
-        <li><b>申请收录</b>搜不到时一键申请，Agent 查用法、补全释义后收进词库，进度在「我的申请」里能看到。</li>
-        <li><b>自动扩充（规划中）</b>接入小红书内部的 dibp Agent 和关注 AI 行业热词的 Hot AI Agent 发现新词，再用 Perplexity 这样的检索后端生成解释，审核后补进词库。</li>
+        <li><b>今日刷词</b>选一本词书，每天背 10、20 或 30 个。词卡正面只有词，先判断认识、模糊还是不认识，点一下翻面，看人话解释、打个比方、实际用法和容易弄错的地方。</li>
+        <li><b>间隔复习和打卡</b>认识的词，下次出现的间隔依次拉长到 1、2、4、7、15、30 天；模糊的明天再来；不认识的在这一组里隔 3 张再出现一次。背完一组记一次打卡。</li>
+        <li><b>发现：一个大词库</b>居中搜索，聚焦时给出 12 个「猜你想搜」，按三本词书配额推荐、可以换一批；下面按词书浏览全部词卡。搜不到就一键申请收录。</li>
+        <li><b>我的</b>生词本、收藏、已掌握和我的申请。生词可以单独拿出来再背一组。</li>
+        <li><b>自动扩充（规划中）</b>用 GitHub Actions 每天跑一次，全部基于开源项目：Crawl4AI 抓行业资讯发现新词，Perplexica 联网查资料，千问按格式写解释并附来源，提交 Pull Request，人工审核后入库。</li>
       </ul></div>
-    <div class="stage dx-stage">
-      <div class="dx-bar"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i><span class="url">懂行 · 离线设计预览</span></div>
-      <iframe class="dx-frame" title="懂行 交互 Demo" loading="lazy" srcdoc="&lt;!doctype html&gt;
+    <div class="stage dh-stage">
+      <div class="strat">
+        <h6>背词规则 · 可以直接试</h6>
+        <div class="goal">每天一组，认识的越背越少，不认识的反复出现</div>
+        <ol class="dh-rules">
+          <li>选词书和数量，点「开始背」</li>
+          <li>先判断认识、模糊、不认识</li>
+          <li>点卡片翻面看意思</li>
+          <li>背完看这一组的结果和打卡</li>
+        </ol>
+        <div class="sig"><b>复习间隔</b>：1 → 2 → 4 → 7 → 15 → 30 天<br><b>发现</b>：大词库、猜你想搜、申请收录</div>
+        <a class="dh-open" href="https://qiaojingjing01.github.io/My-project/donghang/" target="_blank" rel="noopener">打开完整版</a>
+      </div>
+      <div class="dh-phone" aria-label="懂行 手机端 Demo">
+        <iframe title="懂行 交互 Demo" loading="lazy" srcdoc="&lt;!doctype html&gt;
 &lt;html lang=&quot;zh-CN&quot;&gt;
-&lt;!-- 懂行设计交接：2026-11-08。单文件离线版本，CSS/JS/58 个词条已内联。
-可编辑样式和交互；个人收藏、自建合集、申请使用内存模拟，刷新恢复初始状态。
-公共分类与个人合集独立；无学习进度/打卡；已有词不显示申请入口。
-搜索为关键词匹配，“猜你想搜”为固定推荐词，不记录搜索历史。
-线上 SSO、数据库、Perplexity 执行端不包含在此文件内。 --&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;title&gt;懂行 · 离线设计预览&lt;/title&gt;&lt;style&gt;
-:root{--paper:#f6f5f0;--ink:#16181d;--muted:#6b6e76;--line:#e3e1d8;--blue:#1c3fd1;--serif:&#x27;Songti SC&#x27;,&#x27;STSong&#x27;,&#x27;Noto Serif SC&#x27;,serif;--mono:&#x27;SFMono-Regular&#x27;,Consolas,monospace}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.6 &#x27;PingFang SC&#x27;,-apple-system,system-ui,sans-serif}button,input{font:inherit}button{cursor:pointer;color:inherit}a{color:var(--blue);text-decoration:none}a:hover{color:#122c99}button:disabled{opacity:.5;cursor:wait}button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--blue);outline-offset:3px}[hidden]{display:none!important}h1,h2,p{margin:0}h1,h2{font-family:var(--serif);font-weight:900}header{position:sticky;top:0;z-index:5;background:#f6f5f0eb;backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}.header-inner{max-width:1248px;margin:auto;padding:14px 24px;display:flex;align-items:center;gap:28px;flex-wrap:wrap}.brand{color:var(--ink);display:flex;align-items:baseline;gap:10px;font-family:var(--serif);font-weight:900;font-size:26px;letter-spacing:2px;white-space:nowrap}.brand span{font-family:&#x27;PingFang SC&#x27;,system-ui,sans-serif;font-size:12.5px;font-weight:400;color:var(--muted);letter-spacing:1px}nav{display:flex;gap:6px}header nav a{color:var(--muted);padding:8px 14px;border-radius:10px;font-size:14px}header nav a.active{background:#eae8df;color:var(--ink);font-weight:700}nav small{font:12px var(--mono);color:var(--muted);margin-left:6px}.library-status{margin-left:auto;display:flex;gap:8px;align-items:center;color:#4a4d55;font-size:12.5px}.library-status i{width:8px;height:8px;flex-shrink:0;border-radius:50%;background:#2f9e6b}#admin-link{font-size:12px;color:var(--muted)}main{max-width:1248px;padding:0 24px 80px;margin:auto;min-height:80vh}.hero{padding:56px 0 28px;display:flex;flex-direction:column;gap:18px}.hero h1{font-size:52px;line-height:1.15;letter-spacing:1px}.hero&gt;p{max-width:620px;color:#4a4d55;font-size:16px}#search-form{display:flex;align-items:center;gap:12px;width:100%;max-width:760px;background:#fff;border:1.5px solid var(--ink);border-radius:14px;padding:6px 6px 6px 18px;box-shadow:4px 4px 0 var(--ink)}#search-form svg{flex-shrink:0}#search{flex:1;min-width:0;border:0;outline:none;font-size:17px;padding:12px 0;background:transparent;color:var(--ink)}#clear-search{border:0;background:#f1efe8;color:#4a4d55;border-radius:10px;padding:10px 14px;font-size:14px}.hot{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--muted)}.hot button,.related button{border:1px solid #d9d6cb;background:#fff;border-radius:999px;padding:5px 12px;font-size:13px}.fresh{background:var(--ink);color:var(--paper);border-radius:18px;padding:20px 22px;margin-bottom:36px}.fresh-title{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;margin-bottom:14px}.fresh-title h2{font-size:22px}.fresh-title p{font-size:13px;color:#b9bac0}.fresh-title&gt;span{margin-left:auto;font:13px var(--mono);color:#b9bac0}.fresh-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}.fresh-grid button{display:flex;flex-direction:column;gap:4px;text-align:left;border:1px solid #33363f;background:#1f2229;color:var(--paper);border-radius:12px;padding:12px 14px}.fresh-grid strong{font:900 19px var(--serif)}.fresh-grid span{font-size:13px;color:#b9bac0;line-height:1.5}.fresh-grid small{color:#8fd3b4;font:11.5px var(--mono);margin-top:4px}.filter-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}.filter-bar&gt;span,.filter-bar&gt;small{font-size:13px;color:var(--muted)}.pills{display:flex;gap:8px;flex-wrap:wrap}.pills button{border:1.5px solid #d9d6cb;background:#fff;border-radius:999px;padding:8px 16px;font-size:14px;min-height:40px}.pills button[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink);font-weight:700}.pills small{margin-left:6px;font:12px var(--mono);opacity:.7}.word-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}.word-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 18px 14px;display:flex;flex-direction:column;gap:8px;transition:border-color .15s}.word-card:hover{border-color:#bbb8ab}.card-top{display:flex;justify-content:space-between;align-items:center;gap:8px}.badge{align-self:flex-start;font-size:12px;font-weight:700;border-radius:6px;padding:2px 8px}.ai{--tint:#e4ebff;--accent:#1c3fd1}.data{--tint:#ffe9d6;--accent:#9a4a0b}.work{--tint:#ece6ff;--accent:#5b3cc4}.badge,.collection,.collection-banner{background:var(--tint);color:var(--accent)}.save{border:1px solid #d9d6cb;background:#fff;border-radius:999px;padding:5px 12px;font-size:13px;min-height:32px}.save.saved{background:var(--ink);color:var(--paper);border-color:var(--ink)}.word-open{border:0;background:none;padding:0;text-align:left;display:flex;flex-direction:column;gap:6px;width:100%}.word-open h2{font-size:28px;line-height:1.2;overflow-wrap:anywhere;margin-top:4px}.full-name{font-family:var(--mono);font-size:12.5px;color:var(--muted);overflow-wrap:anywhere}.word-open p{font-size:15px;line-height:1.6}.example{border-top:1px dashed var(--line);padding-top:8px;font-size:13px;color:var(--muted);margin-top:auto}.profile{padding:40px 0 24px;display:flex;flex-wrap:wrap;align-items:center;gap:24px;border-bottom:1px solid var(--line)}.avatar{width:76px;height:76px;border-radius:50%;background:var(--ink);color:var(--paper);display:flex;align-items:center;justify-content:center;font:900 30px var(--serif)}.profile h1{font-size:28px}.profile p{color:var(--muted);font-size:14px;margin-top:4px}.stats{display:flex;gap:28px;margin-left:auto}.stats&gt;div{display:flex;flex-direction:column}.stats strong{font:500 26px var(--mono)}.stats span{font-size:12.5px;color:var(--muted);margin-top:5px}.me-tabs{display:flex;gap:28px;margin:18px 0 20px;border-bottom:1px solid var(--line)}.me-tabs a{padding:10px 2px;font-size:16px;color:var(--muted);border-bottom:3px solid transparent;margin-bottom:-1px}.me-tabs a.active{font-weight:700;color:var(--ink);border-color:var(--ink)}.my-filters{margin:20px 0 16px}.saved-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}.compact{border-radius:14px;padding:16px;min-height:148px}.compact h2{font-size:24px}.compact .word-open p{font-size:13.5px;color:#4a4d55}.saved-date{margin-top:auto;color:#8a8d94;font-size:12px}.collection-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}.collection{border-radius:18px;padding:20px;display:flex;flex-direction:column}.collection-open{display:flex;flex-direction:column;gap:6px;min-height:210px;text-align:left;border:0;background:none;color:inherit;padding:0}.collection-open&gt;small,.collection-banner&gt;small{font:12px var(--mono);letter-spacing:2px;opacity:.75}.collection h2{font-size:24px}.collection p{font-size:13.5px;opacity:.85}.preview{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.preview span{background:#ffffffbf;border-radius:8px;padding:3px 9px;font-size:13px;color:var(--ink)}.collection-count{margin-top:auto;font:13px var(--mono);padding-top:15px}.collection-subscribe{align-self:start;border:1px solid currentColor;background:transparent;border-radius:8px;padding:5px 10px;font-size:12px;margin-top:18px}.back{display:inline-block;margin:28px 0 18px;font-size:13px}.collection-banner{border-radius:18px;padding:28px}.collection-banner h1{font-size:34px;margin:8px 0}.collection-banner p{margin-bottom:12px}.collection-banner&gt;span{font-size:13px}.collection-banner button{border:1px solid currentColor;border-radius:8px;padding:8px 14px;background:#ffffff99;margin-left:20px}.request-row{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 18px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:10px}.request-row strong{font:900 20px var(--serif)}.request-row small{display:block;color:var(--muted);font-size:12px;margin-top:4px}.request-row&gt;p{flex:1;min-width:150px;font-size:13.5px;color:#4a4d55}.request-row&gt;button,.request-row&gt;a{font-size:13px}.request-row&gt;button:not(.primary){background:transparent;border:0;color:var(--blue)}.status-badge{font-size:12.5px;font-weight:700;color:#9a4a0b;background:#ffe9d6;border-radius:999px;padding:4px 12px}.status-badge.done{color:#1f7a50;background:#e1f3e9}.empty{background:#fff;border:1.5px dashed #c9c5b8;border-radius:18px;padding:40px 28px;text-align:center;color:#4a4d55}.empty h2{font-size:26px;color:var(--ink);margin-bottom:12px}.empty p{max-width:540px;margin:0 auto 18px}.primary{display:inline-block;border:0;background:var(--blue);color:#fff;border-radius:12px;padding:12px 22px;font-size:15px;font-weight:700}.primary:hover{color:white;background:#122c99}.empty&gt;.primary{margin-top:12px}.admin-heading{padding:40px 0 28px}.admin-heading h1{font-size:36px;margin:12px 0}.admin-heading p{color:var(--muted)}details{margin-top:30px}summary{cursor:pointer;margin-bottom:20px}footer{max-width:1200px;margin:auto;border-top:1px solid var(--line);padding:24px 0 32px;display:flex;gap:20px;align-items:center;font-size:12px;color:var(--muted)}footer strong{font:900 22px var(--serif);color:var(--ink)}footer small{margin-left:auto}dialog{background:var(--paper);color:var(--ink);border:1px solid var(--line);padding:28px;width:min(560px,92vw);border-radius:18px;max-height:90dvh}dialog::backdrop{background:#16181d6b}#detail{position:fixed;inset:0 0 0 auto;margin:0;width:min(460px,100%);height:100dvh;max-height:100dvh;border-radius:0;border:0;border-left:1.5px solid var(--ink);padding:26px 28px;overflow-y:auto}#detail-body{display:flex;flex-direction:column;gap:16px;min-height:100%}.drawer-top{display:flex;justify-content:space-between;align-items:center}.close{border:1px solid #d9d6cb;background:#fff;border-radius:10px;width:44px;height:44px;font-size:18px;flex-shrink:0}.drawer-top .badge{align-self:center}#detail h2{font-size:44px;line-height:1.15;overflow-wrap:anywhere}#detail .full-name{font-size:14px;margin-top:-12px}#detail h3{font-size:12px;letter-spacing:2px;color:var(--muted);font-weight:400;margin:0 0 6px}#detail p{font-size:15px}.plain{background:var(--ink);color:var(--paper);border-radius:14px;padding:14px 16px}.plain small{font-size:12px;letter-spacing:2px;color:#b9bac0;display:block;margin-bottom:4px}#detail .plain p{font-size:17px;line-height:1.65}.quote{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:15px}.related{display:flex;gap:8px;flex-wrap:wrap}.sources{border-top:1px dashed #d9d6cb;padding-top:12px;font-size:12.5px;color:var(--muted)}.sources a{display:block;margin-bottom:6px;overflow-wrap:anywhere}.sources small{display:block;font-size:11px;margin-top:8px}.big-save{margin-top:auto;border:1.5px solid var(--blue);background:var(--blue);color:white;border-radius:12px;padding:14px;font-size:16px;font-weight:700;width:100%}.big-save.saved{background:#fff;border-color:var(--ink);color:var(--ink)}#request-close{float:right}#request-dialog h2{font-size:28px;margin:16px 0}#request-dialog&gt;p{color:#4a4d55;font-size:14px}#request-form label{display:block;margin:20px 0 8px}#request-word{width:100%;border:1px solid #c9c5b8;background:#fff;border-radius:10px;padding:12px}#request-form .muted{font-size:12px;color:var(--muted);margin:10px 0 20px}#request-feedback{margin-top:16px}#request-feedback a{display:inline-block;margin-top:14px}.eyebrow{font:11px var(--mono);letter-spacing:2px;color:var(--muted)}#toast{position:fixed;z-index:30;bottom:24px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;border-radius:10px;padding:12px 22px;font-size:13px;opacity:0;pointer-events:none;max-width:90vw}#toast.show{opacity:1}@media(min-width:1100px){.word-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}@media(max-width:1050px){.header-inner{gap:16px}.brand span{display:none}.library-status{font-size:11px}footer{margin:0 24px}}@media(max-width:680px){.header-inner{padding:12px 18px;gap:10px}.brand{font-size:25px}header nav{margin-left:auto}header nav a{padding:7px 10px}.library-status{order:4;width:100%;margin:0}.hero{padding-top:34px}.hero h1{font-size:38px}.hero&gt;p{font-size:14px}main{padding:0 18px 50px}#search{font-size:14px}.hot{font-size:12px;gap:6px}.hot button{font-size:12px}.word-grid{grid-template-columns:1fr}.fresh-title h2{font-size:20px}.fresh-title p{width:100%;order:3}.profile{gap:16px;padding-top:28px}.avatar{width:56px;height:56px;font-size:26px}.profile h1{font-size:25px}.profile p{font-size:12px}.stats{width:100%;margin:8px 0 0;gap:35px}.stats strong{font-size:23px}.me-tabs{gap:24px}.me-tabs a{font-size:14px}.saved-grid{grid-template-columns:1fr}.collection-grid{grid-template-columns:1fr}.collection-banner{padding:22px}.collection-banner h1{font-size:28px}.collection-banner button{display:block;margin:15px 0 0}.request-row{gap:10px}.request-row&gt;p{flex-basis:100%;order:4}.empty{padding:30px 18px}.empty h2{font-size:23px}footer{margin:0 18px;flex-wrap:wrap;gap:10px}footer small{margin:0;width:100%}#detail{padding:22px}#detail h2{font-size:36px}}@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
-
-/* Section counts live inside the corresponding clickable navigation. */
-.profile{border-bottom:0;padding-bottom:12px}.me-tabs{margin-top:12px;gap:28px}.me-tabs a{display:flex;align-items:center;gap:8px;padding:12px 4px;transition:color .15s}.tab-count{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:22px;padding:0 7px;border-radius:7px;font:12px var(--mono);background:#eae8e1;color:#6b6e76}.me-tabs a.active .tab-count{background:#16181d;color:#fff}.me-tabs a:hover{color:#16181d}.me-tabs a:focus-visible{border-radius:4px}@media(max-width:680px){.me-tabs{gap:20px}.me-tabs a{gap:6px;font-size:14px}.tab-count{min-width:20px;padding:0 5px}}
-.collection-toolbar{display:flex;justify-content:space-between;align-items:center;gap:16px;margin:22px 0}.collection-toolbar p{font-size:14px;color:var(--muted)}#organizer h2,#create-collection h2{font-size:26px;margin:8px 0 16px}#organizer-description{font-size:14px;color:var(--muted);margin-bottom:18px}#organizer .close,#create-collection .close{float:right}.organizer-options{max-height:45dvh;overflow-y:auto}.organizer-option{display:flex;gap:12px;align-items:center;padding:14px 10px;border-bottom:1px solid var(--line);cursor:pointer}.organizer-option input{width:18px;height:18px;accent-color:var(--blue);flex-shrink:0}.organizer-option strong{font-size:15px;overflow-wrap:anywhere}.organizer-option small{display:block;font-size:12px;color:var(--muted)}.organizer-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:22px}#inline-create,.remove-saved{border:0;background:transparent;color:var(--blue);font-size:13px}.remove-saved{color:var(--muted);margin-top:18px;padding:0}#create-form label{display:block;margin-bottom:8px}#collection-name{width:100%;padding:12px;border:1px solid var(--line);border-radius:8px;margin-bottom:20px}.collection-open h2{overflow-wrap:anywhere}.collection-toolbar .primary{white-space:nowrap}@media(max-width:680px){.collection-toolbar{align-items:start;flex-direction:column}}
-
-.search-summary{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--muted)}#reset-search{background:#fff;border:1px solid #d9d6cb;color:var(--blue);padding:7px 12px;border-radius:9px;font-size:13px}#search::-webkit-search-cancel-button,#search::-webkit-search-decoration{appearance:none;-webkit-appearance:none}input{font-family:inherit}input:autofill{box-shadow:0 0 0 1000px #fff inset}input:-webkit-autofill{-webkit-box-shadow:0 0 0 1000px #fff inset;-webkit-text-fill-color:var(--ink)}
-
-.search-wrap{position:relative;width:100%;max-width:760px}.search-suggestions{position:absolute;top:calc(100% + 12px);left:0;right:0;z-index:6;border:1px solid var(--line);border-radius:14px;background:#fff;box-shadow:0 12px 28px #16181d14;padding:20px}.suggestion-title{font-size:13px;font-weight:600;color:var(--muted);margin-bottom:12px}.search-suggestions .hot{gap:10px}.search-suggestions .hot button{padding:8px 15px;font-size:14px;border-radius:9px;background:var(--paper)}.search-suggestions .hot button:hover{background:#e4ebff;border-color:#c5cff8;color:var(--blue)}@media(max-width:680px){.search-suggestions{padding:16px}.search-suggestions .hot{gap:8px}.search-suggestions .hot button{font-size:13px;padding:7px 12px}}
-
-.offline-note{font-size:11px;color:#6b6e76;margin-left:10px}
-
-/* ===== 2026-11-08 视觉改版：居中搜索、轻量更新提示、词书式浏览 ===== */
-.hero{padding:72px 0 44px;align-items:center;text-align:center;gap:16px}
-.hero-kicker{font-size:13px;letter-spacing:4px;color:var(--blue);font-weight:600}
-.hero h1{font-size:46px;line-height:1.2;letter-spacing:1px}
-.hero&gt;p{max-width:600px;color:#4a4d55;font-size:16px;margin-bottom:10px}
-.search-wrap{max-width:680px;margin:0 auto;text-align:left}
-#search-form{max-width:none;border:1.5px solid var(--ink);border-radius:16px;padding:6px 6px 6px 20px;box-shadow:0 14px 36px #16181d14}
-#search-form:focus-within{box-shadow:0 0 0 4px #1c3fd11f,0 14px 36px #16181d14}
-.search-go{border:0;background:var(--blue);color:#fff;border-radius:11px;padding:11px 20px;font-size:15px;font-weight:700;white-space:nowrap}
-.search-go:hover{background:#122c99}
-.search-suggestions{top:calc(100% + 10px);padding:10px 8px 8px;border-radius:16px;box-shadow:0 18px 40px #16181d1f}
-.suggestion-title{font-size:12px;letter-spacing:2px;color:var(--muted);margin:2px 12px 6px;font-weight:400}
-.suggestion-title{display:flex;justify-content:space-between;align-items:center}
-#suggest-more{border:0;background:none;color:var(--blue);font-size:13px;letter-spacing:0;padding:4px 2px}
-#suggest-more:hover{text-decoration:underline}
-.suggest-list{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:2px 12px 10px}
-.suggest-list button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 10px;font-size:15px;color:var(--ink);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
-.suggest-list button:hover,.suggest-list button:focus-visible{border-color:var(--ink);background:var(--paper)}
-@media(max-width:680px){.suggest-list{grid-template-columns:repeat(3,minmax(0,1fr))}.suggest-list button{font-size:14px;padding:8px 6px}}
-.fresh{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:4px;background:none;color:var(--muted);padding:0;margin:6px 0 0;border-radius:0;font-size:13px}
-.fresh i{width:6px;height:6px;border-radius:50%;background:#2f9e6b;margin-right:4px}
-.fresh button{border:0;background:none;padding:0;color:var(--ink);font-weight:600;text-decoration:underline;text-decoration-color:#c9c5b8;text-underline-offset:3px}
-.fresh button:hover{color:var(--blue)}
-.fresh em{font-style:normal}
-.fresh-meta{color:#8a8d94}
-.list-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:32px;margin-bottom:14px}
-.list-head h2{font-size:24px}
-.list-head p{font-size:14px;color:var(--muted)}
-.filter-bar{margin-bottom:20px}
-.word-card{padding:20px 20px 16px;gap:6px}
-.word-card:hover{border-color:var(--ink)}
-.card-top .badge{align-self:center}
-.save{width:36px;height:36px;min-height:0;padding:0;display:inline-flex;align-items:center;justify-content:center;border-radius:10px;border-color:transparent;background:transparent;color:#9a9ca3}
-.save:hover{background:var(--paper);color:var(--ink)}
-.save.saved{background:transparent;border-color:transparent;color:var(--blue)}
-.save.saved svg{fill:currentColor}
-.word-open h2{font-size:30px;margin-top:2px}
-.example{font-size:13px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-@media(max-width:680px){.hero{padding:40px 0 28px}.hero h1{font-size:32px}.hero h1 .nb{display:block}.hero&gt;p{font-size:14px}
-#search-form{padding-left:14px}.search-go{padding:10px 14px;font-size:14px}
-
-.list-head{padding-top:24px}}
-&lt;/style&gt;&lt;/head&gt;
-&lt;body&gt;&lt;header&gt;&lt;div class=&quot;header-inner&quot;&gt;&lt;a class=&quot;brand&quot; href=&quot;#discover&quot;&gt;懂行&lt;span&gt;大厂词典 · 黑话 / 缩写 / 英文词&lt;/span&gt;&lt;/a&gt;&lt;nav aria-label=&quot;主导航&quot;&gt;&lt;a data-nav=&quot;discover&quot; href=&quot;#discover&quot;&gt;发现&lt;/a&gt;&lt;a data-nav=&quot;me&quot; href=&quot;#me/words&quot;&gt;我的词库&lt;/a&gt;&lt;/nav&gt;&lt;div class=&quot;library-status&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;span id=&quot;library-status&quot;&gt;正在连接词库&lt;/span&gt;&lt;/div&gt;&lt;a id=&quot;admin-link&quot; href=&quot;#admin&quot; hidden&gt;管理&lt;/a&gt;&lt;/div&gt;&lt;/header&gt;
-&lt;main&gt;&lt;section id=&quot;discovery&quot;&gt;&lt;div class=&quot;hero&quot;&gt;&lt;small class=&quot;hero-kicker&quot;&gt;新人入行词典&lt;/small&gt;&lt;h1&gt;入行第一步，&lt;span class=&quot;nb&quot;&gt;先听懂行话。&lt;/span&gt;&lt;/h1&gt;&lt;p&gt;AI、数据、职场黑话三本词书，每个词都有人话解释和会议里的真实用法。&lt;/p&gt;&lt;div class=&quot;search-wrap&quot;&gt;&lt;form id=&quot;search-form&quot; role=&quot;search&quot; autocomplete=&quot;off&quot;&gt;&lt;svg width=&quot;20&quot; height=&quot;20&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.2&quot; aria-hidden=&quot;true&quot;&gt;&lt;circle cx=&quot;11&quot; cy=&quot;11&quot; r=&quot;7&quot;&gt;&lt;/circle&gt;&lt;path d=&quot;M20 20l-3.6-3.6&quot;/&gt;&lt;/svg&gt;&lt;input type=&quot;search&quot; autocomplete=&quot;off&quot; autocorrect=&quot;off&quot; autocapitalize=&quot;none&quot; spellcheck=&quot;false&quot; id=&quot;search&quot; aria-label=&quot;搜索词语&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;search-suggestions&quot; placeholder=&quot;输入一个听不懂的词，比如 Agent、对齐、口径&quot; disabled&gt;&lt;button type=&quot;button&quot; id=&quot;clear-search&quot; hidden&gt;清空&lt;/button&gt;&lt;button type=&quot;submit&quot; class=&quot;search-go&quot;&gt;查一下&lt;/button&gt;&lt;/form&gt;&lt;div id=&quot;search-suggestions&quot; class=&quot;search-suggestions&quot; role=&quot;region&quot; aria-label=&quot;猜你想搜&quot; hidden&gt;&lt;div class=&quot;suggestion-title&quot;&gt;&lt;span&gt;猜你想搜&lt;/span&gt;&lt;button type=&quot;button&quot; id=&quot;suggest-more&quot;&gt;换一批&lt;/button&gt;&lt;/div&gt;&lt;div class=&quot;suggest-list&quot; id=&quot;suggest-list&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;p id=&quot;fresh&quot; class=&quot;fresh&quot; hidden&gt;&lt;/p&gt;&lt;/div&gt;&lt;div class=&quot;list-head&quot;&gt;&lt;h2&gt;按词书浏览&lt;/h2&gt;&lt;p&gt;先挑一本，像背单词一样一个个看过去。&lt;/p&gt;&lt;/div&gt;&lt;div class=&quot;filter-bar&quot;&gt;&lt;div id=&quot;filters&quot; class=&quot;pills&quot; aria-label=&quot;词典分类&quot;&gt;&lt;/div&gt;&lt;div class=&quot;search-summary&quot;&gt;&lt;span id=&quot;result-label&quot;&gt;&lt;/span&gt;&lt;button id=&quot;reset-search&quot; type=&quot;button&quot; hidden&gt;返回全部词条&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;div id=&quot;discover-results&quot; aria-live=&quot;polite&quot;&gt;&lt;div class=&quot;empty&quot;&gt;正在打开词库…&lt;/div&gt;&lt;/div&gt;&lt;/section&gt;&lt;div id=&quot;view&quot; hidden&gt;&lt;/div&gt;&lt;/main&gt;
-&lt;footer&gt;&lt;strong&gt;懂行&lt;/strong&gt;&lt;span class=&quot;offline-note&quot;&gt;离线设计预览 · 修改仅在本次打开中保留&lt;/span&gt;&lt;span&gt;听懂一个词，多懂一点工作。&lt;/span&gt;&lt;small&gt;指标与用语，以实际业务约定为准。&lt;/small&gt;&lt;/footer&gt;
-&lt;dialog id=&quot;detail&quot; aria-labelledby=&quot;detail-title&quot;&gt;&lt;div id=&quot;detail-body&quot;&gt;&lt;/div&gt;&lt;/dialog&gt;
-&lt;dialog id=&quot;request-dialog&quot; aria-labelledby=&quot;request-title&quot;&gt;&lt;button class=&quot;close&quot; id=&quot;request-close&quot; aria-label=&quot;关闭申请&quot;&gt;✕&lt;/button&gt;&lt;small class=&quot;eyebrow&quot;&gt;LET’S ADD IT&lt;/small&gt;&lt;h2 id=&quot;request-title&quot;&gt;把这个词，交给懂行。&lt;/h2&gt;&lt;p&gt;离线演示不会发送申请或调用 Agent，可体验页面交互。&lt;/p&gt;&lt;form id=&quot;request-form&quot; autocomplete=&quot;off&quot;&gt;&lt;label for=&quot;request-word&quot;&gt;想了解的词语&lt;/label&gt;&lt;input autocomplete=&quot;off&quot; id=&quot;request-word&quot; maxlength=&quot;100&quot; required placeholder=&quot;输入一个词语或缩写&quot;&gt;&lt;p class=&quot;muted&quot;&gt;只填写词语名称，请勿填写公司保密信息。&lt;/p&gt;&lt;button class=&quot;primary&quot; type=&quot;submit&quot;&gt;提交收录申请&lt;/button&gt;&lt;/form&gt;&lt;p id=&quot;request-feedback&quot; role=&quot;status&quot;&gt;&lt;/p&gt;&lt;/dialog&gt;&lt;dialog id=&quot;organizer&quot; aria-labelledby=&quot;organizer-title&quot;&gt;&lt;button class=&quot;close&quot; id=&quot;organizer-close&quot; aria-label=&quot;关闭合集选择&quot;&gt;✕&lt;/button&gt;&lt;h2 id=&quot;organizer-title&quot;&gt;收藏到合集&lt;/h2&gt;&lt;p id=&quot;organizer-description&quot;&gt;&lt;/p&gt;&lt;form id=&quot;organizer-form&quot;&gt;&lt;div id=&quot;organizer-options&quot; class=&quot;organizer-options&quot;&gt;&lt;/div&gt;&lt;div class=&quot;organizer-actions&quot;&gt;&lt;button type=&quot;button&quot; id=&quot;inline-create&quot;&gt;＋ 新建合集&lt;/button&gt;&lt;button type=&quot;submit&quot; class=&quot;primary&quot;&gt;保存&lt;/button&gt;&lt;/div&gt;&lt;button type=&quot;button&quot; id=&quot;remove-saved&quot; class=&quot;remove-saved&quot; hidden&gt;取消收藏此词&lt;/button&gt;&lt;/form&gt;&lt;/dialog&gt;&lt;dialog id=&quot;create-collection&quot; aria-labelledby=&quot;create-title&quot;&gt;&lt;button class=&quot;close&quot; id=&quot;create-close&quot; aria-label=&quot;关闭新建合集&quot;&gt;✕&lt;/button&gt;&lt;h2 id=&quot;create-title&quot;&gt;新建合集&lt;/h2&gt;&lt;form id=&quot;create-form&quot; autocomplete=&quot;off&quot;&gt;&lt;label for=&quot;collection-name&quot;&gt;合集名称&lt;/label&gt;&lt;input autocomplete=&quot;off&quot; id=&quot;collection-name&quot; required maxlength=&quot;60&quot; placeholder=&quot;例如：10 月想了解的词&quot;&gt;&lt;button class=&quot;primary&quot; type=&quot;submit&quot;&gt;创建合集&lt;/button&gt;&lt;/form&gt;&lt;/dialog&gt;&lt;div id=&quot;toast&quot; role=&quot;status&quot;&gt;&lt;/div&gt;&lt;script&gt;
-const $=s=&gt;document.querySelector(s),esc=v=&gt;String(v??&#x27;&#x27;).replace(/[&amp;&lt;&gt;&quot;&#x27;]/g,c=&gt;({&#x27;&amp;&#x27;:&#x27;&amp;amp;&#x27;,&#x27;&lt;&#x27;:&#x27;&amp;lt;&#x27;,&#x27;&gt;&#x27;:&#x27;&amp;gt;&#x27;,&#x27;&quot;&#x27;:&#x27;&amp;quot;&#x27;,&quot;&#x27;&quot;:&#x27;&amp;#39;&#x27;}[c]));
-const books=[{topic:&#x27;AI 产品&#x27;,short:&#x27;AI&#x27;,en:&#x27;AI LITERACY&#x27;,title:&#x27;和 AI 好好协作&#x27;,desc:&#x27;从提示词到智能体，看懂 AI 的能力和边界&#x27;,color:&#x27;ai&#x27;},{topic:&#x27;数据分析&#x27;,short:&#x27;数据&#x27;,en:&#x27;DATA THINKING&#x27;,title:&#x27;先对口径，再看数字&#x27;,desc:&#x27;指标、漏斗、归因、实验，让数字有依据&#x27;,color:&#x27;data&#x27;},{topic:&#x27;职场用语&#x27;,short:&#x27;职场黑话&#x27;,en:&#x27;WORKPLACE&#x27;,title:&#x27;听懂会议里的话&#x27;,desc:&#x27;从对齐到目标，拆开那些熟悉又陌生的说法&#x27;,color:&#x27;work&#x27;}];
-let terms=[],mine={topics:[]},saved=[],collections=[],requests=[],account={},route=&#x27;discover&#x27;,meTab=&#x27;words&#x27;,filter=&#x27;全部&#x27;,myFilter=&#x27;全部&#x27;,currentTopic=&#x27;&#x27;,category=&#x27;全部&#x27;,loaded=false,busy=false,currentTerm=null;
-const reqState={requested:&#x27;待整理&#x27;,queued:&#x27;已安排查询&#x27;,running:&#x27;正在整理&#x27;,available:&#x27;已收录&#x27;,not_added:&#x27;暂未收录&#x27;,blocked:&#x27;等待处理&#x27;,interrupted:&#x27;等待处理&#x27;,failed:&#x27;等待处理&#x27;,cancelled:&#x27;已暂停&#x27;};
-// Offline preview adapter. No network calls, credentials, or live user data.
-const OFFLINE_TERMS=[{&quot;en&quot;: &quot;Agent&quot;, &quot;cn&quot;: &quot;智能体&quot;, &quot;cat&quot;: &quot;智能体与工具&quot;, &quot;definition&quot;: &quot;能围绕目标，选择步骤并调用工具执行任务的 AI 系统。&quot;, &quot;analogy&quot;: &quot;像一位能查资料、做表格的助理。&quot;, &quot;example&quot;: &quot;让它收集竞品资料、比较差异并生成报告。&quot;, &quot;caution&quot;: &quot;自主执行不等于永不出错，关键操作仍需权限与检查。&quot;, &quot;id&quot;: 0, &quot;topic&quot;: &quot;AI 产品&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Skill&quot;, &quot;cn&quot;: &quot;技能包&quot;, &quot;cat&quot;: &quot;智能体与工具&quot;, &quot;definition&quot;: &quot;把某类任务的操作说明、参考资料和可选脚本打包，供 AI 按需使用。&quot;, &quot;analogy&quot;: &quot;像给助理准备的一本岗位操作手册。&quot;, &quot;example&quot;: &quot;把品牌排版规范打包，制作演示文稿时调用。&quot;, &quot;caution&quot;: &quot;技能包不是重新训练模型，也不保证每次执行正确。&quot;, &quot;id&quot;: 1, &quot;topic&quot;: &quot;AI 产品&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Prompt&quot;, &quot;cn&quot;: &quot;提示词&quot;, &quot;cat&quot;: &quot;对话与上下文&quot;, &quot;definition&quot;: &quot;你给 AI 的指令、问题和任务说明。&quot;, &quot;analogy&quot;: &quot;像给设计师写的一份需求简报。&quot;, &quot;example&quot;: &quot;请把这份会议记录总结成三项行动，并标明负责人。&quot;, &quot;caution&quot;: &quot;提示词更长不一定更好，目标清楚、信息充分更重要。&quot;, &quot;id&quot;: 2, &quot;topic&quot;: &quot;AI 产品&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;LLM&quot;, &quot;cn&quot;: &quot;大语言模型&quot;, &quot;cat&quot;: &quot;基础概念&quot;, &quot;definition&quot;: &quot;从大量文本等数据中学习规律，用来理解和生成语言的模型。&quot;, &quot;analogy&quot;: &quot;像读过很多资料、擅长接话的写作伙伴。&quot;, &quot;example&quot;: &quot;解释概念、起草邮件、分析文本。&quot;, &quot;caution&quot;: &quot;流畅的回答不代表事实一定正确。&quot;, &quot;id&quot;: 3, &quot;topic&quot;: &quot;AI 产品&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Token&quot;, &quot;cn&quot;: &quot;词元&quot;, &quot;cat&quot;: &quot;基础概念&quot;, &quot;definition&quot;: &quot;模型处理文本时使用的小单位，可能是字、词的一部分或符号。&quot;, &quot;analogy&quot;: &quot;像拼装文字的积木。&quot;, &quot;example&quot;: &quot;输入和输出的长度与费用常按 token 统计。&quot;, &quot;caution&quot;: &quot;一个 token 不固定等于一个汉字或一个英文单词。&quot;, &quot;id&quot;: 4, &quot;topic&quot;: &quot;AI 产品&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Context window&quot;, &quot;cn&quot;: &quot;上下文窗口&quot;, &quot;cat&quot;: &quot;对话与上下文&quot;, &quot;definition&quot;: &quot;模型一次处理时能容纳的上下文长度范围。&quot;, &quot;analogy&quot;: &quot;像书桌上同时能摊开的资料数量。&quot;, &quot;example&quot;: &quot;长文档和历史对话都会占用上下文空间。&quot;, &quot;caution&quot;: &quot;窗口大不代表模型会同样准确地利用每个细节。&quot;, &quot;id&quot;: 5, &quot;topic&quot;: &quot;AI 产品&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;System prompt&quot;, &quot;cn&quot;: &quot;系统提示词&quot;, &quot;cat&quot;: &quot;对话与上下文&quot;, &quot;definition&quot;: &quot;由应用设置、用于规定模型角色与行为的高优先级指令。&quot;, &quot;analogy&quot;: &quot;像客服上岗前收到的服务规范。&quot;, &quot;example&quot;: &quot;规定助手使用中文，并遵守业务边界。&quot;, &quot;caution&quot;: &quot;它不是密码保险箱，不应放入敏感密钥。&quot;, &quot;id&quot;: 6, &quot;topic&quot;: &quot;AI 产品&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Context engineering&quot;, &quot;cn&quot;: &quot;上下文工程&quot;, &quot;cat&quot;: &quot;对话与上下文&quot;, &quot;definition&quot;: &quot;为模型组织合适的指令、资料、历史与工具信息。&quot;, &quot;analogy&quot;: &quot;像开会前为参会者准备一份恰到好处的材料包。&quot;, &quot;example&quot;: &quot;只检索与当前问题相关的文档片段。&quot;, &quot;caution&quot;: &quot;不只是润色一句提示词。&quot;, &quot;id&quot;: 7, &quot;topic&quot;: &quot;AI 产品&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;RAG&quot;, &quot;cn&quot;: &quot;检索增强生成&quot;, &quot;cat&quot;: &quot;知识与检索&quot;, &quot;definition&quot;: &quot;先检索相关资料，再把资料提供给模型辅助回答。&quot;, &quot;analogy&quot;: &quot;像先翻书，再开卷作答。&quot;, &quot;example&quot;: &quot;客服从产品手册找依据后回答退款规则。&quot;, &quot;caution&quot;: &quot;资料过期或检索错误时，回答仍可能出错。&quot;, &quot;id&quot;: 8, &quot;topic&quot;: &quot;AI 产品&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Embedding&quot;, &quot;cn&quot;: &quot;向量表示&quot;, &quot;cat&quot;: &quot;知识与检索&quot;, &quot;definition&quot;: &quot;把文字、图片等信息变成一组便于计算相似性的数字。&quot;, &quot;analogy&quot;: &quot;像把内容标到一张语义地图上。&quot;, &quot;example&quot;: &quot;用语义相似性找出含义接近的文档。&quot;, &quot;caution&quot;: &quot;相似不等于相同，也不保证内容真实。&quot;, &quot;id&quot;: 9, &quot;topic&quot;: &quot;AI 产品&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Vector database&quot;, &quot;cn&quot;: &quot;向量数据库&quot;, &quot;cat&quot;: &quot;知识与检索&quot;, &quot;definition&quot;: &quot;存储和检索向量表示的数据库。&quot;, &quot;analogy&quot;: &quot;像按意思而非仅按书名找书的图书馆索引。&quot;, &quot;example&quot;: &quot;在大量知识片段中寻找相关内容。&quot;, &quot;caution&quot;: &quot;它本身并不负责生成答案。&quot;, &quot;id&quot;: 10, &quot;topic&quot;: &quot;AI 产品&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;MCP&quot;, &quot;cn&quot;: &quot;模型上下文协议&quot;, &quot;cat&quot;: &quot;智能体与工具&quot;, &quot;definition&quot;: &quot;用于连接 AI 应用与外部工具、数据资源的一种开放协议。&quot;, &quot;analogy&quot;: &quot;像让不同设备能连接的标准插口。&quot;, &quot;example&quot;: &quot;让助手接入文档搜索或业务系统工具。&quot;, &quot;caution&quot;: &quot;连接成功不等于获得所有权限，仍需授权控制。&quot;, &quot;id&quot;: 11, &quot;topic&quot;: &quot;AI 产品&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Tool calling&quot;, &quot;cn&quot;: &quot;工具调用&quot;, &quot;cat&quot;: &quot;智能体与工具&quot;, &quot;definition&quot;: &quot;模型提出调用某个工具及其参数，由应用执行并返回结果。&quot;, &quot;analogy&quot;: &quot;像助理请计算器算数，拿到结果后继续工作。&quot;, &quot;example&quot;: &quot;查询天气或运行数据计算。&quot;, &quot;caution&quot;: &quot;模型说要调用工具，不代表工具已经执行成功。&quot;, &quot;id&quot;: 12, &quot;topic&quot;: &quot;AI 产品&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Workflow&quot;, &quot;cn&quot;: &quot;工作流&quot;, &quot;cat&quot;: &quot;智能体与工具&quot;, &quot;definition&quot;: &quot;按预先安排的步骤组织任务处理流程。&quot;, &quot;analogy&quot;: &quot;像一条有明确工序的流水线。&quot;, &quot;example&quot;: &quot;先提取信息，再分类，最后生成摘要。&quot;, &quot;caution&quot;: &quot;工作流与智能体可组合使用，区别在于步骤由谁决定。&quot;, &quot;id&quot;: 13, &quot;topic&quot;: &quot;AI 产品&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Multi-agent&quot;, &quot;cn&quot;: &quot;多智能体&quot;, &quot;cat&quot;: &quot;智能体与工具&quot;, &quot;definition&quot;: &quot;由多个智能体分工、协作完成任务的系统。&quot;, &quot;analogy&quot;: &quot;像研究、写作和审核各有一人的小组。&quot;, &quot;example&quot;: &quot;一个整理资料，一个撰写，一个检查。&quot;, &quot;caution&quot;: &quot;更多智能体可能增加成本和协调问题。&quot;, &quot;id&quot;: 14, &quot;topic&quot;: &quot;AI 产品&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Fine-tuning&quot;, &quot;cn&quot;: &quot;微调&quot;, &quot;cat&quot;: &quot;模型训练&quot;, &quot;definition&quot;: &quot;在已有模型基础上，用特定数据继续训练以调整行为。&quot;, &quot;analogy&quot;: &quot;像完成通识学习后再参加岗位培训。&quot;, &quot;example&quot;: &quot;训练模型更稳定地输出指定格式。&quot;, &quot;caution&quot;: &quot;更新业务知识并不总需要微调，也可使用检索。&quot;, &quot;id&quot;: 15, &quot;topic&quot;: &quot;AI 产品&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Inference&quot;, &quot;cn&quot;: &quot;推理运行&quot;, &quot;cat&quot;: &quot;模型训练&quot;, &quot;definition&quot;: &quot;使用训练好的模型，对新输入计算并产生输出的过程。&quot;, &quot;analogy&quot;: &quot;像学完知识后现场答题。&quot;, &quot;example&quot;: &quot;用户发送问题后，模型生成回复。&quot;, &quot;caution&quot;: &quot;这里的推理不一定特指逻辑推导。&quot;, &quot;id&quot;: 16, &quot;topic&quot;: &quot;AI 产品&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Reasoning model&quot;, &quot;cn&quot;: &quot;推理模型&quot;, &quot;cat&quot;: &quot;模型训练&quot;, &quot;definition&quot;: &quot;针对多步骤思考和复杂问题求解进行优化的模型。&quot;, &quot;analogy&quot;: &quot;像答题时愿意多打草稿的学生。&quot;, &quot;example&quot;: &quot;处理复杂规划或数学问题。&quot;, &quot;caution&quot;: &quot;花更多计算仍不保证答案正确。&quot;, &quot;id&quot;: 17, &quot;topic&quot;: &quot;AI 产品&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Multimodal&quot;, &quot;cn&quot;: &quot;多模态&quot;, &quot;cat&quot;: &quot;基础概念&quot;, &quot;definition&quot;: &quot;能够处理或生成文本、图片、音频等多类信息。&quot;, &quot;analogy&quot;: &quot;像同时能看、听、说的沟通方式。&quot;, &quot;example&quot;: &quot;上传截图，让模型解释图中内容。&quot;, &quot;caution&quot;: &quot;不同模型支持的输入与输出类型不同。&quot;, &quot;id&quot;: 18, &quot;topic&quot;: &quot;AI 产品&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Hallucination&quot;, &quot;cn&quot;: &quot;幻觉&quot;, &quot;cat&quot;: &quot;可靠性与评估&quot;, &quot;definition&quot;: &quot;模型生成看似合理、却错误或缺乏依据的内容。&quot;, &quot;analogy&quot;: &quot;像把不确定的记忆讲得十分肯定。&quot;, &quot;example&quot;: &quot;编造不存在的论文或引用。&quot;, &quot;caution&quot;: &quot;语气自信和答案准确是两回事。&quot;, &quot;id&quot;: 19, &quot;topic&quot;: &quot;AI 产品&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Temperature&quot;, &quot;cn&quot;: &quot;温度参数&quot;, &quot;cat&quot;: &quot;对话与上下文&quot;, &quot;definition&quot;: &quot;影响输出采样随机性的参数。&quot;, &quot;analogy&quot;: &quot;像调节表达的保守与发散程度。&quot;, &quot;example&quot;: &quot;创意写作可尝试更发散的设置。&quot;, &quot;caution&quot;: &quot;低温度不保证事实正确，各模型参数支持也不同。&quot;, &quot;id&quot;: 20, &quot;topic&quot;: &quot;AI 产品&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Evaluation&quot;, &quot;cn&quot;: &quot;评估&quot;, &quot;cat&quot;: &quot;可靠性与评估&quot;, &quot;definition&quot;: &quot;通过任务、指标与人工判断检查 AI 的实际表现。&quot;, &quot;analogy&quot;: &quot;像用一套试题和评分标准检验能力。&quot;, &quot;example&quot;: &quot;检查客服回答的准确率和任务完成率。&quot;, &quot;caution&quot;: &quot;单个榜单分数不能代表所有业务效果。&quot;, &quot;id&quot;: 21, &quot;topic&quot;: &quot;AI 产品&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Guardrails&quot;, &quot;cn&quot;: &quot;护栏&quot;, &quot;cat&quot;: &quot;可靠性与评估&quot;, &quot;definition&quot;: &quot;对输入、输出或执行动作施加检查和限制的机制。&quot;, &quot;analogy&quot;: &quot;像道路上的限速和防护栏。&quot;, &quot;example&quot;: &quot;付款前要求人工确认。&quot;, &quot;caution&quot;: &quot;护栏能降低风险，无法消除所有错误。&quot;, &quot;id&quot;: 22, &quot;topic&quot;: &quot;AI 产品&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Prompt injection&quot;, &quot;cn&quot;: &quot;提示词注入&quot;, &quot;cat&quot;: &quot;可靠性与评估&quot;, &quot;definition&quot;: &quot;不可信内容试图诱导模型偏离原任务或既定规则。&quot;, &quot;analogy&quot;: &quot;像有人在待处理文件里偷偷夹入冒充领导的指令。&quot;, &quot;example&quot;: &quot;网页文字要求助手忽略用户并泄露信息。&quot;, &quot;caution&quot;: &quot;检索到的文本应当作资料，不应自动获得指令权限。&quot;, &quot;id&quot;: 23, &quot;topic&quot;: &quot;AI 产品&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Agentic AI&quot;, &quot;cn&quot;: &quot;智能体式 AI&quot;, &quot;cat&quot;: &quot;智能体与工具&quot;, &quot;definition&quot;: &quot;强调目标驱动、多步骤决策和执行能力的一类 AI 系统设计。&quot;, &quot;analogy&quot;: &quot;像从回答问题升级为协助把事做完。&quot;, &quot;example&quot;: &quot;持续处理任务，依据工具结果调整下一步。&quot;, &quot;caution&quot;: &quot;这是宽泛用语，不同产品的自主程度差异很大。&quot;, &quot;id&quot;: 24, &quot;topic&quot;: &quot;AI 产品&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Human-in-the-loop&quot;, &quot;cn&quot;: &quot;人在回路&quot;, &quot;cat&quot;: &quot;可靠性与评估&quot;, &quot;definition&quot;: &quot;在 AI 流程的关键环节加入人工判断、反馈或批准。&quot;, &quot;analogy&quot;: &quot;像自动驾驶过程中仍保留人工接管点。&quot;, &quot;example&quot;: &quot;发送重要邮件前由人确认。&quot;, &quot;caution&quot;: &quot;有人参与也需要清晰的责任和足够的信息。&quot;, &quot;id&quot;: 25, &quot;topic&quot;: &quot;AI 产品&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Metric definition&quot;, &quot;cn&quot;: &quot;数据口径&quot;, &quot;cat&quot;: &quot;数据基础&quot;, &quot;definition&quot;: &quot;计算一个数字时共同约定的统计规则，包括对象、时间、条件、去重与计算方式。&quot;, &quot;analogy&quot;: &quot;像大家先约定用厘米还是英寸量身高。&quot;, &quot;example&quot;: &quot;统计日活前约定：北京时间自然日、登录用户、发生一次有效访问、按账号去重。&quot;, &quot;caution&quot;: &quot;同名指标未必同口径；比较前先核对规则。&quot;, &quot;usage&quot;: &quot;先对齐口径：游客算不算，按用户还是设备去重？&quot;, &quot;id&quot;: 26, &quot;topic&quot;: &quot;数据分析&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Metric&quot;, &quot;cn&quot;: &quot;指标&quot;, &quot;cat&quot;: &quot;数据基础&quot;, &quot;definition&quot;: &quot;用来描述业务状态或变化的量化数值。&quot;, &quot;analogy&quot;: &quot;像体检里的血压与心率，各自回答不同问题。&quot;, &quot;example&quot;: &quot;用完成订单数观察交易规模，用退款率观察交易质量。&quot;, &quot;caution&quot;: &quot;单个指标无法代表全部业务，增长也要看质量与成本。&quot;, &quot;usage&quot;: &quot;这个指标想回答什么业务问题？&quot;, &quot;id&quot;: 27, &quot;topic&quot;: &quot;数据分析&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;, &quot;source&quot;: [&quot;Amplitude：基础术语&quot;, &quot;https://amplitude.com/docs/get-started/helpful-definitions&quot;]}, {&quot;en&quot;: &quot;Dimension&quot;, &quot;cn&quot;: &quot;维度&quot;, &quot;cat&quot;: &quot;数据基础&quot;, &quot;definition&quot;: &quot;用来分组观察数据的属性。&quot;, &quot;analogy&quot;: &quot;像把账本按月份、城市或商品类别分开看。&quot;, &quot;example&quot;: &quot;按渠道拆分新增用户，找出增长来自哪里。&quot;, &quot;caution&quot;: &quot;指标是看什么数，维度是从哪个角度拆开看。&quot;, &quot;usage&quot;: &quot;按渠道和新老用户两个维度拆一下。&quot;, &quot;id&quot;: 28, &quot;topic&quot;: &quot;数据分析&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Event tracking&quot;, &quot;cn&quot;: &quot;埋点&quot;, &quot;cat&quot;: &quot;数据基础&quot;, &quot;definition&quot;: &quot;在产品中记录约定行为及其属性，为分析提供数据。&quot;, &quot;analogy&quot;: &quot;像在关键路口装计数器。&quot;, &quot;example&quot;: &quot;记录按钮点击事件、发生时间与页面来源。&quot;, &quot;caution&quot;: &quot;触发不等于业务成功，重复上报、漏报都可能影响数据。&quot;, &quot;usage&quot;: &quot;先确认点击和提交成功是否分别埋点。&quot;, &quot;id&quot;: 29, &quot;topic&quot;: &quot;数据分析&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;, &quot;source&quot;: [&quot;Amplitude：基础术语&quot;, &quot;https://amplitude.com/docs/get-started/helpful-definitions&quot;]}, {&quot;en&quot;: &quot;PV&quot;, &quot;cn&quot;: &quot;页面浏览量&quot;, &quot;cat&quot;: &quot;常用指标&quot;, &quot;definition&quot;: &quot;在指定时间和规则内累计的页面浏览次数。&quot;, &quot;analogy&quot;: &quot;像商店门被推开的总次数。&quot;, &quot;example&quot;: &quot;同一个人浏览同一页面三次，按每次浏览计数时贡献三个 PV。&quot;, &quot;caution&quot;: &quot;刷新、单页应用切换是否算一次，需看埋点规则。&quot;, &quot;usage&quot;: &quot;PV 上涨是访问人数多了，还是人均浏览次数多了？&quot;, &quot;id&quot;: 30, &quot;topic&quot;: &quot;数据分析&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;UV&quot;, &quot;cn&quot;: &quot;独立访客数&quot;, &quot;cat&quot;: &quot;常用指标&quot;, &quot;definition&quot;: &quot;指定时间内，按约定身份标识去重后的访客数量。&quot;, &quot;analogy&quot;: &quot;像一天里来过店的不同客人数。&quot;, &quot;example&quot;: &quot;同一访客一天浏览三次，按同一标识只计一个 UV。&quot;, &quot;caution&quot;: &quot;按账号、设备或 Cookie 去重结果可能不同；每日 UV 不能直接相加当月 UV。&quot;, &quot;usage&quot;: &quot;这个 UV 是按账号还是设备去重？&quot;, &quot;id&quot;: 31, &quot;topic&quot;: &quot;数据分析&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;DAU / WAU / MAU&quot;, &quot;cn&quot;: &quot;日 / 周 / 月活跃用户&quot;, &quot;cat&quot;: &quot;常用指标&quot;, &quot;definition&quot;: &quot;在指定一天、一周或一月内完成约定活跃行为的去重用户数。&quot;, &quot;analogy&quot;: &quot;像不同周期内真正来使用服务的人数。&quot;, &quot;example&quot;: &quot;把打开应用或完成核心操作定义为活跃行为。&quot;, &quot;caution&quot;: &quot;活跃行为、自然周期还是滚动周期都需说明；DAU 相加不等于 MAU。&quot;, &quot;usage&quot;: &quot;我们这里的活跃是打开应用，还是完成一次任务？&quot;, &quot;id&quot;: 32, &quot;topic&quot;: &quot;数据分析&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Conversion rate&quot;, &quot;cn&quot;: &quot;转化率&quot;, &quot;cat&quot;: &quot;常用指标&quot;, &quot;definition&quot;: &quot;在约定人群和时间窗口内，完成目标行为的比例。&quot;, &quot;analogy&quot;: &quot;像进店的人里最终买单的占比。&quot;, &quot;example&quot;: &quot;100 名合格访客中有 8 人在窗口内下单，用户转化率为 8%。&quot;, &quot;caution&quot;: &quot;要明确分母、分子、顺序和转化窗口；人数口径不要混入次数口径。&quot;, &quot;usage&quot;: &quot;从访问到下单的转化窗口设为七天了吗？&quot;, &quot;id&quot;: 33, &quot;topic&quot;: &quot;数据分析&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;CTR&quot;, &quot;cn&quot;: &quot;点击率&quot;, &quot;cat&quot;: &quot;常用指标&quot;, &quot;definition&quot;: &quot;按约定统计方式，点击量与曝光量的比值。&quot;, &quot;analogy&quot;: &quot;像看过海报的人中有多少次进一步点进去。&quot;, &quot;example&quot;: &quot;按次数口径：1000 次曝光产生 30 次点击，CTR 为 3%。&quot;, &quot;caution&quot;: &quot;人数点击率与次数点击率不同；曝光可见性也会影响结果。&quot;, &quot;usage&quot;: &quot;这张图的 CTR 是次数口径还是人数口径？&quot;, &quot;id&quot;: 34, &quot;topic&quot;: &quot;数据分析&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Retention&quot;, &quot;cn&quot;: &quot;留存率&quot;, &quot;cat&quot;: &quot;常用指标&quot;, &quot;definition&quot;: &quot;某批用户在后续指定时间满足回访条件的比例。&quot;, &quot;analogy&quot;: &quot;像第一天来过店的客人，后来有多少又来了。&quot;, &quot;example&quot;: &quot;某日新增 100 人，次日有 20 人完成约定行为，次日留存为 20%。&quot;, &quot;caution&quot;: &quot;第 N 日、N 日内和第 N 日及以后留存不是同一个指标。&quot;, &quot;usage&quot;: &quot;这里看的是次日留存，回访行为定义是什么？&quot;, &quot;id&quot;: 35, &quot;topic&quot;: &quot;数据分析&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Funnel&quot;, &quot;cn&quot;: &quot;漏斗&quot;, &quot;cat&quot;: &quot;分析方法&quot;, &quot;definition&quot;: &quot;按一串关键步骤观察用户逐步完成和流失的分析方式。&quot;, &quot;analogy&quot;: &quot;像一层层筛网，看人在哪一步掉队。&quot;, &quot;example&quot;: &quot;观察浏览商品、加购、提交订单、支付的转化。&quot;, &quot;caution&quot;: &quot;步骤顺序、跨设备识别和时间窗口都会改变结果。&quot;, &quot;usage&quot;: &quot;流失最大的是哪一步，先检查体验还是数据？&quot;, &quot;id&quot;: 36, &quot;topic&quot;: &quot;数据分析&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Cohort&quot;, &quot;cn&quot;: &quot;同群 / 分群&quot;, &quot;cat&quot;: &quot;分析方法&quot;, &quot;definition&quot;: &quot;按共同特征或同一时期行为划分的一组用户。&quot;, &quot;analogy&quot;: &quot;像把同一期入学的学生放在一起比较。&quot;, &quot;example&quot;: &quot;比较一月和二月新增用户的第七日留存。&quot;, &quot;caution&quot;: &quot;不同群体的渠道、规模和观察时长可能不同。&quot;, &quot;usage&quot;: &quot;按注册周分 cohort 看，别把所有用户混在一起。&quot;, &quot;id&quot;: 37, &quot;topic&quot;: &quot;数据分析&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;, &quot;source&quot;: [&quot;Amplitude：基础术语&quot;, &quot;https://amplitude.com/docs/get-started/helpful-definitions&quot;]}, {&quot;en&quot;: &quot;YoY / MoM&quot;, &quot;cn&quot;: &quot;同比 / 环比&quot;, &quot;cat&quot;: &quot;分析方法&quot;, &quot;definition&quot;: &quot;同比与上一年相应时期比较；环比与紧邻的上一个同类周期比较。&quot;, &quot;analogy&quot;: &quot;像既比较去年同月成绩，也比较上个月成绩。&quot;, &quot;example&quot;: &quot;今年三月对去年三月是同比，对今年二月是月环比。&quot;, &quot;caution&quot;: &quot;周期长度、节假日和基数会干扰；基数为零时普通增长率公式不可用。&quot;, &quot;usage&quot;: &quot;这个增长是同比还是环比，绝对量是多少？&quot;, &quot;id&quot;: 38, &quot;topic&quot;: &quot;数据分析&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Percentage point&quot;, &quot;cn&quot;: &quot;百分点&quot;, &quot;cat&quot;: &quot;分析方法&quot;, &quot;definition&quot;: &quot;两个百分比直接相减得到的差。&quot;, &quot;analogy&quot;: &quot;像两个刻度之间的距离。&quot;, &quot;example&quot;: &quot;转化率从 10% 到 12%，上升 2 个百分点，相对增长 20%。&quot;, &quot;caution&quot;: &quot;百分点和百分比增幅不能混用。&quot;, &quot;usage&quot;: &quot;提升了两个百分点，不是相对提升百分之二。&quot;, &quot;id&quot;: 39, &quot;topic&quot;: &quot;数据分析&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;A/B test&quot;, &quot;cn&quot;: &quot;A/B 实验&quot;, &quot;cat&quot;: &quot;分析方法&quot;, &quot;definition&quot;: &quot;把合适的实验对象随机分配到不同方案，比较结果的实验方法。&quot;, &quot;analogy&quot;: &quot;像在相近条件下试两份不同配方。&quot;, &quot;example&quot;: &quot;对照组看旧页面，实验组看新页面，比较预先定义的指标。&quot;, &quot;caution&quot;: &quot;随机化、样本量、实验周期和多重比较都会影响结论；有差异不一定有因果证据。&quot;, &quot;usage&quot;: &quot;主指标和护栏指标先定好，再开始实验。&quot;, &quot;id&quot;: 40, &quot;topic&quot;: &quot;数据分析&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Attribution&quot;, &quot;cn&quot;: &quot;归因&quot;, &quot;cat&quot;: &quot;分析方法&quot;, &quot;definition&quot;: &quot;按一定规则或模型，把结果与可能的触点、来源联系起来。&quot;, &quot;analogy&quot;: &quot;像给进球分配助攻贡献。&quot;, &quot;example&quot;: &quot;按最后一次有效广告点击归属订单来源。&quot;, &quot;caution&quot;: &quot;分配贡献的规则不等于证明因果；换模型可能得出不同结果。&quot;, &quot;usage&quot;: &quot;这是末次点击归因，还是增量实验结果？&quot;, &quot;id&quot;: 41, &quot;topic&quot;: &quot;数据分析&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Mentor&quot;, &quot;cn&quot;: &quot;导师 / 指导者&quot;, &quot;cat&quot;: &quot;角色与协作&quot;, &quot;definition&quot;: &quot;提供经验、建议或成长支持的人。&quot;, &quot;analogy&quot;: &quot;像带你熟悉路线的向导。&quot;, &quot;example&quot;: &quot;新人向 mentor 请教团队协作习惯和专业成长。&quot;, &quot;caution&quot;: &quot;Mentor 不必是直属领导，也未必负责绩效；以团队实际安排为准。&quot;, &quot;usage&quot;: &quot;我先找 mentor 请教一下怎么推进。&quot;, &quot;id&quot;: 42, &quot;topic&quot;: &quot;职场用语&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;, &quot;source&quot;: [&quot;Cambridge：Mentor&quot;, &quot;https://dictionary.cambridge.org/dictionary/english/mentor&quot;]}, {&quot;en&quot;: &quot;+1 / +2&quot;, &quot;cn&quot;: &quot;上一级 / 上两级领导&quot;, &quot;cat&quot;: &quot;角色与协作&quot;, &quot;definition&quot;: &quot;一些团队用来描述汇报链上层级的非正式叫法。&quot;, &quot;analogy&quot;: &quot;像组织树上往上走一层或两层。&quot;, &quot;example&quot;: &quot;常见用法中，+1 指直属领导，+2 指直属领导的上级。&quot;, &quot;caution&quot;: &quot;不是通用职级制度；矩阵汇报时要说明是哪条汇报线。&quot;, &quot;usage&quot;: &quot;这件事先和我的 +1 对齐。&quot;, &quot;id&quot;: 43, &quot;topic&quot;: &quot;职场用语&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Owner&quot;, &quot;cn&quot;: &quot;负责人&quot;, &quot;cat&quot;: &quot;角色与协作&quot;, &quot;definition&quot;: &quot;对某件事的推进和结果承担明确责任的人。&quot;, &quot;analogy&quot;: &quot;像一场活动的总协调人。&quot;, &quot;example&quot;: &quot;一个跨团队项目指定 owner 跟踪进度、协调阻塞。&quot;, &quot;caution&quot;: &quot;负责人不等于亲自做完所有工作，也不天然拥有全部审批权。&quot;, &quot;usage&quot;: &quot;这个事项的 owner 是谁，下一步何时给结果？&quot;, &quot;id&quot;: 44, &quot;topic&quot;: &quot;职场用语&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Stakeholder&quot;, &quot;cn&quot;: &quot;相关方 / 利益相关者&quot;, &quot;cat&quot;: &quot;角色与协作&quot;, &quot;definition&quot;: &quot;会影响项目，或受到项目结果影响的人和群体。&quot;, &quot;analogy&quot;: &quot;像装修时需要沟通的住户、物业和施工方。&quot;, &quot;example&quot;: &quot;产品改版涉及用户、客服、运营与研发。&quot;, &quot;caution&quot;: &quot;相关方不全是审批人，也不限于领导。&quot;, &quot;usage&quot;: &quot;上线前需要让哪些 stakeholder 知情？&quot;, &quot;id&quot;: 45, &quot;topic&quot;: &quot;职场用语&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Alignment&quot;, &quot;cn&quot;: &quot;对齐&quot;, &quot;cat&quot;: &quot;协作表达&quot;, &quot;definition&quot;: &quot;把目标、理解、范围或行动安排沟通到一致。&quot;, &quot;analogy&quot;: &quot;像出发前一起确认目的地和路线。&quot;, &quot;example&quot;: &quot;开工前确认交付范围、负责人和时间。&quot;, &quot;caution&quot;: &quot;说过不等于达成一致，最好记录结论与分歧。&quot;, &quot;usage&quot;: &quot;我们先对齐目标和验收标准。&quot;, &quot;id&quot;: 46, &quot;topic&quot;: &quot;职场用语&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Sync&quot;, &quot;cn&quot;: &quot;同步 / 简短沟通&quot;, &quot;cat&quot;: &quot;协作表达&quot;, &quot;definition&quot;: &quot;分享最新信息，或进行一次快速交流。&quot;, &quot;analogy&quot;: &quot;像接力时交代目前跑到哪。&quot;, &quot;example&quot;: &quot;用十分钟同步进展和阻塞。&quot;, &quot;caution&quot;: &quot;同步消息不代表对方已同意方案。&quot;, &quot;usage&quot;: &quot;下午 sync 一下风险和下一步。&quot;, &quot;id&quot;: 47, &quot;topic&quot;: &quot;职场用语&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Aim&quot;, &quot;cn&quot;: &quot;目标 / 旨在&quot;, &quot;cat&quot;: &quot;职场英语&quot;, &quot;definition&quot;: &quot;作名词表示目标；作动词表示旨在或力求。&quot;, &quot;analogy&quot;: &quot;像箭头指向你想达到的方向。&quot;, &quot;example&quot;: &quot;Our aim is to reduce waiting time. 我们的目标是缩短等待时间。&quot;, &quot;caution&quot;: &quot;aim 不专指某种指标框架；aim to 后通常接动词原形，aim for 后接目标。&quot;, &quot;usage&quot;: &quot;We aim to improve onboarding. 我们希望改善新手体验。&quot;, &quot;id&quot;: 48, &quot;topic&quot;: &quot;职场用语&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;, &quot;source&quot;: [&quot;Cambridge：Aim&quot;, &quot;https://dictionary.cambridge.org/dictionary/english/aim&quot;]}, {&quot;en&quot;: &quot;Deliverable&quot;, &quot;cn&quot;: &quot;交付物&quot;, &quot;cat&quot;: &quot;职场英语&quot;, &quot;definition&quot;: &quot;任务完成后可以交付、检查或验收的成果。&quot;, &quot;analogy&quot;: &quot;像装修结束时能验收的房间。&quot;, &quot;example&quot;: &quot;一份原型、分析报告或上线功能都可以是交付物。&quot;, &quot;caution&quot;: &quot;开过会议、花了工时不一定意味着已产出可验收成果。&quot;, &quot;usage&quot;: &quot;这周的 deliverable 是可评审的原型。&quot;, &quot;id&quot;: 49, &quot;topic&quot;: &quot;职场用语&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Deadline / ETA&quot;, &quot;cn&quot;: &quot;截止时间 / 预计完成时间&quot;, &quot;cat&quot;: &quot;职场英语&quot;, &quot;definition&quot;: &quot;Deadline 是要求完成的期限；ETA 在项目沟通中常指预计完成或可用的时间。&quot;, &quot;analogy&quot;: &quot;像必须赶上的发车时间与预计到站时间。&quot;, &quot;example&quot;: &quot;截止周五，但当前估计周四可以交付。&quot;, &quot;caution&quot;: &quot;预计时间不是承诺期限；ETA 原义是预计到达时间。&quot;, &quot;usage&quot;: &quot;截止时间是周五，你目前的 ETA 是什么时候？&quot;, &quot;id&quot;: 50, &quot;topic&quot;: &quot;职场用语&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Blocker&quot;, &quot;cn&quot;: &quot;阻塞项&quot;, &quot;cat&quot;: &quot;协作表达&quot;, &quot;definition&quot;: &quot;阻止任务继续推进的关键障碍。&quot;, &quot;analogy&quot;: &quot;像道路上必须先搬走的大石头。&quot;, &quot;example&quot;: &quot;缺少接口权限导致联调无法继续。&quot;, &quot;caution&quot;: &quot;普通风险不一定已经构成阻塞；需说清影响和所需支持。&quot;, &quot;usage&quot;: &quot;当前 blocker 是测试账号权限，需要谁协助？&quot;, &quot;id&quot;: 51, &quot;topic&quot;: &quot;职场用语&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Scope&quot;, &quot;cn&quot;: &quot;范围&quot;, &quot;cat&quot;: &quot;职场英语&quot;, &quot;definition&quot;: &quot;项目包含哪些工作、服务对象和交付边界。&quot;, &quot;analogy&quot;: &quot;像在地图上划定这次施工区域。&quot;, &quot;example&quot;: &quot;本期只支持查看数据，编辑功能放到后续版本。&quot;, &quot;caution&quot;: &quot;范围变更会影响排期、资源或质量，需要同步评估。&quot;, &quot;usage&quot;: &quot;这个需求是否在本期 scope 内？&quot;, &quot;id&quot;: 52, &quot;topic&quot;: &quot;职场用语&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;OKR&quot;, &quot;cn&quot;: &quot;目标与关键结果&quot;, &quot;cat&quot;: &quot;目标管理&quot;, &quot;definition&quot;: &quot;用目标描述方向，用关键结果衡量是否取得所期望的成果。&quot;, &quot;analogy&quot;: &quot;像确定目的地，再列出到达的可验证标志。&quot;, &quot;example&quot;: &quot;目标是改善新手体验，关键结果可衡量核心任务完成率。&quot;, &quot;caution&quot;: &quot;关键结果不应只是任务清单；考核方式取决于组织制度。&quot;, &quot;usage&quot;: &quot;这个 KR 衡量的是产出数量还是实际效果？&quot;, &quot;id&quot;: 53, &quot;topic&quot;: &quot;职场用语&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;KPI&quot;, &quot;cn&quot;: &quot;关键绩效指标&quot;, &quot;cat&quot;: &quot;目标管理&quot;, &quot;definition&quot;: &quot;用于衡量关键业务或工作表现的指标。&quot;, &quot;analogy&quot;: &quot;像仪表盘上最需要持续关注的几块表。&quot;, &quot;example&quot;: &quot;关注服务响应时长、有效订单量等。&quot;, &quot;caution&quot;: &quot;KPI 与 OKR 可并存，不能简单等同于惩罚或绩效奖金。&quot;, &quot;usage&quot;: &quot;这个 KPI 的口径、目标值和周期是什么？&quot;, &quot;id&quot;: 54, &quot;topic&quot;: &quot;职场用语&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Review&quot;, &quot;cn&quot;: &quot;评审 / 回顾&quot;, &quot;cat&quot;: &quot;协作表达&quot;, &quot;definition&quot;: &quot;根据语境，指检查方案或成果，也可指回顾表现和经验。&quot;, &quot;analogy&quot;: &quot;像交卷前检查，也像赛后复盘。&quot;, &quot;example&quot;: &quot;Design review 是设计评审，performance review 常指绩效回顾。&quot;, &quot;caution&quot;: &quot;不能只看到 review 就默认是同一种会议。&quot;, &quot;usage&quot;: &quot;这次 review 是做方案决策，还是收集反馈？&quot;, &quot;id&quot;: 55, &quot;topic&quot;: &quot;职场用语&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;en&quot;: &quot;Roadmap&quot;, &quot;cn&quot;: &quot;路线图&quot;, &quot;cat&quot;: &quot;目标管理&quot;, &quot;definition&quot;: &quot;按时间或阶段表达产品方向、优先事项与计划的概览。&quot;, &quot;analogy&quot;: &quot;像旅行的大致路线安排。&quot;, &quot;example&quot;: &quot;展示本季度优先改善体验，下季度探索新场景。&quot;, &quot;caution&quot;: &quot;路线图会随证据变化，不一定是逐项交付承诺。&quot;, &quot;usage&quot;: &quot;roadmap 里的时间是规划还是已承诺的排期？&quot;, &quot;id&quot;: 56, &quot;topic&quot;: &quot;职场用语&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 57, &quot;en&quot;: &quot;GMV&quot;, &quot;cn&quot;: &quot;商品交易总额&quot;, &quot;cat&quot;: &quot;常用指标&quot;, &quot;topic&quot;: &quot;数据分析&quot;, &quot;definition&quot;: &quot;GMV 是一段时间内通过某个平台、商家或渠道卖出的商品（或服务）的总金额，用来看“生意做得有多大”。它在扣除各项费用之前计算，不等于公司收入或利润。&quot;, &quot;analogy&quot;: &quot;就像一个商场统计“全场今天一共卖出了多少钱的东西”，这笔钱大多属于各个商户；商场自己真正赚到的，只是其中的租金和抽成。&quot;, &quot;example&quot;: &quot;【假设】某平台本月卖出 1 万件商品，每件 100 元，按该平台约定的口径，本月 GMV 为 100 万元。如果平台从每笔交易中抽成 5%，平台的佣金收入约 5 万元，远小于 GMV。&quot;, &quot;caution&quot;: &quot;GMV 怎么算，没有统一标准。是否计入未支付、取消、退款订单，以及运费、税费、折扣，都由业务口径约定，不能默认包含或排除。比较不同公司、不同报表或不同时期的 GMV 前，要先确认口径一致。GMV 不等于营收、到账现金或利润；对平台型业务来说，营收通常只占 GMV 的一小部分。&quot;, &quot;sources&quot;: [{&quot;title&quot;: &quot;Gross Merchandise Value (GMV): Meaning and Formula - Shopify&quot;, &quot;url&quot;: &quot;https://www.shopify.com/blog/gross-merchandise-value&quot;, &quot;accessed_at&quot;: &quot;2026-11-06&quot;, &quot;supported_claim&quot;: &quot;GMV 是一段时间内通过企业或平台售出商品的总金额，在扣除经营费用之前计算；各公司算法不同，退款、折扣、运费、税费等的处理取决于公司的报告定义；GMV 不等于营收，平台型业务的营收通常只占 GMV 的一部分。&quot;}, {&quot;title&quot;: &quot;eBay Inc. 2025 Annual Report (SEC.gov)&quot;, &quot;url&quot;: &quot;https://www.sec.gov/Archives/edgar/data/1065088/000155278126000287/e26087_ebay-ars.pdf&quot;, &quot;accessed_at&quot;: &quot;2026-11-06&quot;, &quot;supported_claim&quot;: &quot;公司口径示例：eBay 将 GMV 定义为其 Marketplace 平台上用户之间所有已支付交易的总价值，含运费和税费，不因退货或取消调整。这说明 GMV 口径由各公司自行定义并披露。&quot;}, {&quot;title&quot;: &quot;Gross Merchandise Value (GMV): Understand, Calculate - Investopedia&quot;, &quot;url&quot;: &quot;https://www.investopedia.com/terms/g/gross-merchandise-value.asp&quot;, &quot;accessed_at&quot;: &quot;2026-11-06&quot;, &quot;supported_claim&quot;: &quot;GMV 衡量特定时期内平台上完成交易的销售总额，可理解为商品售价乘以售出数量，在扣除费用之前计算；它反映业务增长，但不代表实际净收入。&quot;}], &quot;checked_at&quot;: &quot;2026-11-06&quot;, &quot;scope&quot;: &quot;电商、交易平台、零售与直播带货等业务中，用来衡量一段时间内交易规模的体量型指标；具体统计口径由各业务或报告自行约定。&quot;, &quot;aliases&quot;: [&quot;Gross Merchandise Value&quot;, &quot;Gross Merchandise Volume&quot;, &quot;成交总额&quot;, &quot;交易总额&quot;]}];
-const offlineStore={saved:[],collections:[],requests:[]};
-const offlineId=()=&gt;typeof crypto.randomUUID===&#x27;function&#x27;?crypto.randomUUID():&#x27;local-&#x27;+Date.now()+&#x27;-&#x27;+Math.random().toString(16).slice(2);
-const offlineClone=x=&gt;JSON.parse(JSON.stringify(x));
-const offlineNorm=s=&gt;String(s).normalize(&#x27;NFKC&#x27;).toLowerCase().replace(/[\s\W_]+/gu,&#x27;&#x27;);
-async function requestJSON(path,body){
- if(body===undefined){
-  if(path===&#x27;terms&#x27;)return {terms:offlineClone(OFFLINE_TERMS)};
-  if(path===&#x27;status&#x27;)return {admin:false,runner_online:false};
-  if(path===&#x27;me/saved&#x27;)return {saved:offlineClone(offlineStore.saved)};
-  if(path===&#x27;me/collections&#x27;)return {collections:offlineClone(offlineStore.collections.filter(c=&gt;!c.archived))};
-  if(path===&#x27;me/requests&#x27;)return {requests:offlineClone(offlineStore.requests.filter(r=&gt;!r.hidden))};
- }
- if(path===&#x27;me/collections&#x27;){
-  const name=String(body.name||&#x27;&#x27;).trim();if(!name||name.length&gt;60)throw Error(&#x27;合集名称请填写 1～60 个字&#x27;);
-  const c={id:offlineId(),name,term_ids:[],created_at:new Date().toISOString()};offlineStore.collections.unshift(c);return {id:c.id};
- }
- if(path===&#x27;me/saved/organize&#x27;||path===&#x27;me/saved&#x27;){
-  const tid=body.term_id;if(!OFFLINE_TERMS.some(t=&gt;t.id===tid))throw Error(&#x27;词条不存在&#x27;);
-  if(path===&#x27;me/saved&#x27;&amp;&amp;!body.saved){offlineStore.saved=offlineStore.saved.filter(s=&gt;s.term_id!==tid);offlineStore.collections.forEach(c=&gt;c.term_ids=c.term_ids.filter(id=&gt;id!==tid));return {ok:true}}
-  if(!offlineStore.saved.some(s=&gt;s.term_id===tid))offlineStore.saved.unshift({term_id:tid,created_at:new Date().toISOString()});
-  if(body.collection_ids)offlineStore.collections.forEach(c=&gt;{c.term_ids=c.term_ids.filter(id=&gt;id!==tid);if(body.collection_ids.includes(c.id))c.term_ids.push(tid)});
-  return {ok:true};
- }
- const cm=path.match(/^me\/collections\/([^/]+)\/(terms|archive)$/);
- if(cm){const c=offlineStore.collections.find(c=&gt;c.id===cm[1]);if(!c)throw Error(&#x27;合集不存在&#x27;);if(cm[2]===&#x27;archive&#x27;)c.archived=true;else c.term_ids=[...new Set(body.term_ids)].filter(id=&gt;offlineStore.saved.some(s=&gt;s.term_id===id));return {ok:true}}
- if(path===&#x27;requests&#x27;){
-  const word=String(body.word||&#x27;&#x27;).trim();if(!word||word.length&gt;100)throw Error(&#x27;请输入 1～100 个字&#x27;);
-  const norm=s=&gt;String(s).normalize(&#x27;NFKC&#x27;).toLowerCase().replace(/[\s\p{P}\p{S}_]+/gu,&#x27;&#x27;);
-  const found=OFFLINE_TERMS.find(t=&gt;[t.en,t.cn,...(t.aliases||[])].flatMap(v=&gt;[v,...v.split(/[/、]/)]).some(v=&gt;norm(v.split(/[（(]/)[0])===norm(word)));
-  if(found)return {status:&#x27;available&#x27;,term_id:found.id};
-  let r=offlineStore.requests.find(r=&gt;r.word===word);if(!r){r={id:offlineId(),word,status:&#x27;requested&#x27;,term_id:null,created_at:new Date().toISOString()};offlineStore.requests.unshift(r)}r.hidden=false;return {status:&#x27;requested&#x27;,id:r.id};
- }
- const rm=path.match(/^me\/requests\/([^/]+)\/hide$/);if(rm){const r=offlineStore.requests.find(r=&gt;r.id===rm[1]);if(r)r.hidden=true;return {ok:true}}
- throw Error(&#x27;离线预览不连接后台服务&#x27;);
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1, viewport-fit=cover&quot;&gt;
+&lt;meta name=&quot;color-scheme&quot; content=&quot;light&quot;&gt;
+&lt;meta name=&quot;description&quot; content=&quot;懂行：新人入行的行话词典。像背单词一样，每天刷一组 AI、数据和职场黑话。&quot;&gt;
+&lt;title&gt;懂行 · 每天背一组行话&lt;/title&gt;
+&lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;&gt;
+&lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&amp;family=Noto+Serif+SC:wght@700;900&amp;display=swap&quot;&gt;
+&lt;style&gt;
+:root{
+  --paper:#f6f5f0;--card:#ffffff;--ink:#16181d;--ink2:#4a4d55;--muted:#8a8d94;--line:#e3e1d8;
+  --blue:#1c3fd1;--blue-soft:#e4ebff;--green:#1f7a50;--green-soft:#e1f3e9;--amber:#9a5b0b;--amber-soft:#fdeed8;
+  --red:#b4232a;--red-soft:#fbe5e5;
+  --ai:#1c3fd1;--ai-soft:#e4ebff;--data:#9a4a0b;--data-soft:#ffe9d6;--work:#5b3cc4;--work-soft:#ece6ff;
+  --serif:&quot;Noto Serif SC&quot;,&quot;Songti SC&quot;,serif;
+  --sans:&quot;Noto Sans SC&quot;,&quot;PingFang SC&quot;,&quot;Microsoft YaHei&quot;,system-ui,sans-serif;
+  color-scheme:light;
 }
-function toast(s){$(&#x27;#toast&#x27;).textContent=s;$(&#x27;#toast&#x27;).classList.add(&#x27;show&#x27;);clearTimeout(toast.timer);toast.timer=setTimeout(()=&gt;$(&#x27;#toast&#x27;).classList.remove(&#x27;show&#x27;),3000)}
-const book=t=&gt;books.find(b=&gt;b.topic===t.topic)||books[0],isSaved=id=&gt;saved.some(s=&gt;s.term_id===id),inTopic=topic=&gt;terms.filter(t=&gt;t.topic===topic);
-function badge(t){return `&lt;span class=&quot;badge ${book(t).color}&quot;&gt;${esc(book(t).short)}&lt;/span&gt;`}
-function saveButton(t,big=false){return `&lt;button class=&quot;${big?&#x27;big-save&#x27;:&#x27;save&#x27;} ${isSaved(t.id)?&#x27;saved&#x27;:&#x27;&#x27;}&quot; data-save=&quot;${t.id}&quot; aria-label=&quot;${isSaved(t.id)?&#x27;管理收藏&#x27;:&#x27;收藏&#x27;} ${esc(t.en)}&quot; aria-pressed=&quot;${isSaved(t.id)}&quot;&gt;${big?(isSaved(t.id)?&#x27;已收藏 · 管理合集&#x27;:&#x27;收进我的词库&#x27;):&#x27;&lt;svg width=&quot;18&quot; height=&quot;18&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M6 3h12v18l-6-4.5L6 21z&quot;/&gt;&lt;/svg&gt;&#x27;}&lt;/button&gt;`}
-function card(t,compact=false){const date=saved.find(s=&gt;s.term_id===t.id)?.created_at;return `&lt;article class=&quot;word-card ${compact?&#x27;compact&#x27;:&#x27;&#x27;}&quot;&gt;&lt;div class=&quot;card-top&quot;&gt;${badge(t)}${saveButton(t)}&lt;/div&gt;&lt;button class=&quot;word-open&quot; data-term=&quot;${t.id}&quot;&gt;&lt;h2&gt;${esc(t.en)}&lt;/h2&gt;&lt;span class=&quot;full-name&quot;&gt;${esc(t.cn)}&lt;/span&gt;&lt;p&gt;${esc(t.definition)}&lt;/p&gt;&lt;/button&gt;${compact?`&lt;small class=&quot;saved-date&quot;&gt;${date?&#x27;收藏于 &#x27;+esc(new Date(date).toLocaleDateString(&#x27;zh-CN&#x27;)):&#x27;&#x27;}&lt;/small&gt;`:`&lt;div class=&quot;example&quot;&gt;“${esc(t.example)}”&lt;/div&gt;`}&lt;/article&gt;`}
-function pills(items,active,attr){return [&#x27;全部&#x27;,...books.map(b=&gt;b.topic)].map(topic=&gt;`&lt;button data-${attr}=&quot;${esc(topic)}&quot; aria-pressed=&quot;${topic===active}&quot;&gt;${topic===&#x27;全部&#x27;?&#x27;全部&#x27;:esc(books.find(b=&gt;b.topic===topic).short)} &lt;small&gt;${items.filter(t=&gt;topic===&#x27;全部&#x27;||t.topic===topic).length}&lt;/small&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}
-function header(){ $(&#x27;#library-status&#x27;).textContent=`共 ${terms.length} 词 · 按领域持续整理`;$(&#x27;#admin-link&#x27;).hidden=!account.admin;document.querySelectorAll(&#x27;[data-nav]&#x27;).forEach(a=&gt;a.classList.toggle(&#x27;active&#x27;,a.dataset.nav===route||(a.dataset.nav===&#x27;me&#x27;&amp;&amp;route===&#x27;collection&#x27;)))}
-function discover(){if(!loaded)return;const q=$(&#x27;#search&#x27;).value.trim(),needle=q.normalize(&#x27;NFKC&#x27;).toLowerCase();$(&#x27;#clear-search&#x27;).hidden=!q;$(&#x27;#reset-search&#x27;).hidden=!q&amp;&amp;filter===&#x27;全部&#x27;;const found=terms.filter(t=&gt;[t.en,t.cn,t.definition,...(t.aliases||[])].join(&#x27; &#x27;).normalize(&#x27;NFKC&#x27;).toLowerCase().includes(needle));const list=found.filter(t=&gt;filter===&#x27;全部&#x27;||t.topic===filter);$(&#x27;#filters&#x27;).innerHTML=pills(found,filter,&#x27;filter&#x27;);$(&#x27;#result-label&#x27;).textContent=q?`“${q}” · ${list.length} 个结果`:`共 ${list.length} 个词条`;
-const fresh=terms.filter(t=&gt;t.checked_at).sort((a,b)=&gt;b.checked_at.localeCompare(a.checked_at)||b.id-a.id).slice(0,4);$(&#x27;#fresh&#x27;).hidden=!!q||!fresh.length;$(&#x27;#fresh&#x27;).innerHTML=`&lt;i&gt;&lt;/i&gt;&lt;span&gt;本周新收录&lt;/span&gt;${fresh.map(t=&gt;`&lt;button data-term=&quot;${t.id}&quot;&gt;${esc(t.en)}&lt;/button&gt;`).join(&#x27;&lt;em&gt;、&lt;/em&gt;&#x27;)}&lt;span class=&quot;fresh-meta&quot;&gt;· Agent 整理于 ${esc(fresh[0]?.checked_at||&#x27;&#x27;)}&lt;/span&gt;`;
-$(&#x27;#discover-results&#x27;).innerHTML=list.length?`&lt;div class=&quot;word-grid&quot;&gt;${list.map(t=&gt;card(t)).join(&#x27;&#x27;)}&lt;/div&gt;`:found.length?&#x27;&lt;div class=&quot;empty&quot;&gt;&lt;h2&gt;这个分类下没有匹配的词&lt;/h2&gt;&lt;p&gt;其他分类中已有相关词条，无需申请。&lt;/p&gt;&lt;button class=&quot;primary&quot; data-filter=&quot;全部&quot;&gt;查看全部结果&lt;/button&gt;&lt;/div&gt;&#x27;:q?`&lt;div class=&quot;empty&quot;&gt;&lt;h2&gt;词库里还没有「${esc(q)}」&lt;/h2&gt;&lt;p&gt;这是离线预览，申请仅用于演示交互，不会发送至线上后台。&lt;/p&gt;&lt;button class=&quot;primary&quot; data-request=&quot;${esc(q.slice(0,100))}&quot;&gt;申请收录「${esc(q.slice(0,100))}」&lt;/button&gt;&lt;/div&gt;`:&#x27;&lt;div class=&quot;empty&quot;&gt;词库暂时为空。&lt;/div&gt;&#x27;}
-function requestRows(list,admin=false){return list.length?list.map(r=&gt;`&lt;article class=&quot;request-row&quot;&gt;&lt;div&gt;&lt;strong&gt;${esc(r.word)}&lt;/strong&gt;&lt;small&gt;${esc(new Date(r.created_at).toLocaleDateString(&#x27;zh-CN&#x27;))} 提交&lt;/small&gt;&lt;/div&gt;&lt;p&gt;${r.status===&#x27;available&#x27;?&#x27;已收录，可以直接查看解释。&#x27;:r.status===&#x27;requested&#x27;?&#x27;已在本地演示中提交，不会发送至线上后台。&#x27;:r.status===&#x27;running&#x27;?&#x27;正在整理释义和分类。&#x27;:&#x27;查询进度会在这里更新。&#x27;}&lt;/p&gt;&lt;span class=&quot;status-badge ${r.status===&#x27;available&#x27;?&#x27;done&#x27;:&#x27;&#x27;}&quot;&gt;${reqState[r.status]||&#x27;处理中&#x27;}&lt;/span&gt;${r.term_id!=null?`&lt;button data-term=&quot;${r.term_id}&quot;&gt;查看解释 ↗&lt;/button&gt;`:admin&amp;&amp;r.status===&#x27;requested&#x27;?`&lt;button class=&quot;primary&quot; data-process=&quot;${r.id}&quot;&gt;安排查询 →&lt;/button&gt;`:&#x27;&#x27;}${!admin?`&lt;button data-hide-request=&quot;${r.id}&quot; aria-label=&quot;移除申请 ${esc(r.word)}&quot;&gt;移除&lt;/button&gt;`:&#x27;&#x27;}&lt;/article&gt;`).join(&#x27;&#x27;):&#x27;&lt;div class=&quot;empty&quot;&gt;还没有收录申请。遇到词库没有的词，可以在「发现」中搜索并申请。&lt;/div&gt;&#x27;}
-function me(){const list=saved.map(s=&gt;terms.find(t=&gt;t.id===s.term_id)).filter(Boolean);$(&#x27;#view&#x27;).innerHTML=`&lt;section class=&quot;profile&quot;&gt;&lt;div class=&quot;avatar&quot;&gt;懂&lt;/div&gt;&lt;div&gt;&lt;h1&gt;我的词库&lt;/h1&gt;&lt;p&gt;先看你收藏的每一个词，再按合集整理&lt;/p&gt;&lt;/div&gt;&lt;/section&gt;&lt;nav class=&quot;me-tabs&quot; aria-label=&quot;我的词库&quot;&gt;${[[&#x27;words&#x27;,&#x27;收藏的词&#x27;,list.length],[&#x27;collections&#x27;,&#x27;我的合集&#x27;,collections.length],[&#x27;requests&#x27;,&#x27;我的申请&#x27;,requests.length]].map(([id,label,n])=&gt;`&lt;a href=&quot;#me/${id}&quot; class=&quot;${id===meTab?&#x27;active&#x27;:&#x27;&#x27;}&quot; ${id===meTab?&#x27;aria-current=&quot;page&quot;&#x27;:&#x27;&#x27;}&gt;${label}&lt;span class=&quot;tab-count&quot;&gt;${n}&lt;/span&gt;&lt;/a&gt;`).join(&#x27;&#x27;)}&lt;/nav&gt;&lt;div id=&quot;me-content&quot;&gt;&lt;/div&gt;`;
-if(meTab===&#x27;requests&#x27;){$(&#x27;#me-content&#x27;).innerHTML=requestRows(requests);return}if(meTab===&#x27;collections&#x27;){$(&#x27;#me-content&#x27;).innerHTML=`&lt;div class=&quot;collection-toolbar&quot;&gt;&lt;p&gt;按你的需要整理收藏，可以跨领域放在一起。&lt;/p&gt;&lt;button class=&quot;primary&quot; data-new-collection&gt;＋ 新建合集&lt;/button&gt;&lt;/div&gt;`+(collections.length?`&lt;div class=&quot;collection-grid&quot;&gt;${collections.map((c,i)=&gt;`&lt;article class=&quot;collection ${[&#x27;ai&#x27;,&#x27;data&#x27;,&#x27;work&#x27;][i%3]}&quot;&gt;&lt;button class=&quot;collection-open&quot; data-open-collection=&quot;${esc(c.id)}&quot;&gt;&lt;small&gt;MY COLLECTION&lt;/small&gt;&lt;h2&gt;${esc(c.name)}&lt;/h2&gt;&lt;div class=&quot;preview&quot;&gt;${c.term_ids.slice(0,4).map(id=&gt;terms.find(t=&gt;t.id===id)).filter(Boolean).map(t=&gt;`&lt;span&gt;${esc(t.en)}&lt;/span&gt;`).join(&#x27;&#x27;)||&#x27;&lt;span&gt;还没有加入词语&lt;/span&gt;&#x27;}&lt;/div&gt;&lt;span class=&quot;collection-count&quot;&gt;${c.term_ids.length} 个词&lt;/span&gt;&lt;/button&gt;&lt;/article&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`:&#x27;&lt;div class=&quot;empty&quot;&gt;&lt;h2&gt;还没有创建合集&lt;/h2&gt;&lt;p&gt;点击右上方「＋ 新建合集」，把收藏的词按自己的需要整理起来。&lt;/p&gt;&lt;p&gt;例如「10 月想了解的词」「项目常用指标」。&lt;/p&gt;&lt;/div&gt;&#x27;);return}
-const filtered=list.filter(t=&gt;myFilter===&#x27;全部&#x27;||t.topic===myFilter);$(&#x27;#me-content&#x27;).innerHTML=`&lt;div class=&quot;pills my-filters&quot;&gt;${pills(list,myFilter,&#x27;my-filter&#x27;)}&lt;/div&gt;`+(filtered.length?`&lt;div class=&quot;saved-grid&quot;&gt;${filtered.map(t=&gt;card(t,true)).join(&#x27;&#x27;)}&lt;/div&gt;`:&#x27;&lt;div class=&quot;empty&quot;&gt;这里还没有收藏的词。去「发现」点一下词卡右上角的「收藏」。&lt;br&gt;&lt;a class=&quot;primary&quot; href=&quot;#discover&quot;&gt;去发现&lt;/a&gt;&lt;/div&gt;&#x27;)}
-function collection(){const c=collections.find(c=&gt;c.id===currentTopic);if(!c){$(&#x27;#view&#x27;).innerHTML=&#x27;&lt;div class=&quot;empty&quot;&gt;这个合集不存在。&lt;br&gt;&lt;a href=&quot;#me/collections&quot;&gt;返回我的合集&lt;/a&gt;&lt;/div&gt;&#x27;;return}const list=c.term_ids.map(id=&gt;terms.find(t=&gt;t.id===id)).filter(Boolean);$(&#x27;#view&#x27;).innerHTML=`&lt;a class=&quot;back&quot; href=&quot;#me/collections&quot;&gt;← 我的合集&lt;/a&gt;&lt;section class=&quot;collection-banner ai&quot;&gt;&lt;small&gt;MY COLLECTION&lt;/small&gt;&lt;h1&gt;${esc(c.name)}&lt;/h1&gt;&lt;p&gt;你整理的 ${list.length} 个收藏词语&lt;/p&gt;&lt;button class=&quot;primary&quot; data-edit-members=&quot;${esc(c.id)}&quot;&gt;从收藏中整理词语&lt;/button&gt;&lt;button data-archive-collection=&quot;${esc(c.id)}&quot;&gt;归档合集&lt;/button&gt;&lt;/section&gt;&lt;div class=&quot;my-filters&quot;&gt;&lt;/div&gt;`+(list.length?`&lt;div class=&quot;word-grid&quot;&gt;${list.map(t=&gt;card(t)).join(&#x27;&#x27;)}&lt;/div&gt;`:&#x27;&lt;div class=&quot;empty&quot;&gt;合集还是空的。点击上方按钮，从已收藏的词语中添加。&lt;/div&gt;&#x27;)}
-function heading(k,title,desc){return `&lt;section class=&quot;admin-heading&quot;&gt;&lt;small&gt;${esc(k)}&lt;/small&gt;&lt;h1&gt;${esc(title)}&lt;/h1&gt;&lt;p&gt;${esc(desc)}&lt;/p&gt;&lt;/section&gt;`}
-async function adminPage(){if(!account.admin){location.hash=&#x27;discover&#x27;;return}$(&#x27;#view&#x27;).innerHTML=heading(&#x27;EDITOR DESK&#x27;,&#x27;把疑问，变成共同的知识。&#x27;,&#x27;申请只记录词语。安排查询后，由 Perplexity 执行端整理，自检通过自动收录。&#x27;)+`&lt;div class=&quot;filter-bar&quot;&gt;&lt;h2&gt;收录申请&lt;/h2&gt;&lt;small&gt;${account.runner_online?&#x27;电脑执行端在线&#x27;:&#x27;电脑执行端离线，任务将排队&#x27;}&lt;/small&gt;&lt;/div&gt;&lt;div id=&quot;admin-requests&quot;&gt;正在加载…&lt;/div&gt;&lt;details&gt;&lt;summary&gt;生成任务记录&lt;/summary&gt;&lt;div id=&quot;admin-jobs&quot;&gt;&lt;/div&gt;&lt;/details&gt;`;try{const [r,j]=await Promise.all([requestJSON(&#x27;admin/requests&#x27;),requestJSON(&#x27;jobs&#x27;)]);if(route!==&#x27;admin&#x27;)return;$(&#x27;#admin-requests&#x27;).innerHTML=requestRows(r.requests,true);$(&#x27;#admin-jobs&#x27;).innerHTML=j.jobs.map(x=&gt;`&lt;article class=&quot;request-row&quot;&gt;&lt;div&gt;&lt;strong&gt;${esc(x.candidates.join(&#x27;、&#x27;))}&lt;/strong&gt;&lt;small&gt;${esc(x.message)}&lt;/small&gt;&lt;/div&gt;&lt;span&gt;${esc(x.status===&#x27;completed&#x27;?&#x27;已完成&#x27;:reqState[x.status]||x.status)}&lt;/span&gt;${x.thread_id?`&lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot; href=&quot;https://www.perplexity.ai/computer/tasks/${encodeURIComponent(x.thread_id)}&quot;&gt;查看任务 ↗&lt;/a&gt;`:&#x27;&#x27;}&lt;/article&gt;`).join(&#x27;&#x27;)}catch(e){toast(e.message)}}
-function render(){if(!loaded)return;header();$(&#x27;#discovery&#x27;).hidden=route!==&#x27;discover&#x27;;$(&#x27;#view&#x27;).hidden=route===&#x27;discover&#x27;;if(route===&#x27;discover&#x27;)discover();else if(route===&#x27;me&#x27;)me();else if(route===&#x27;collection&#x27;)collection();else adminPage()}
-function onRoute(){const [raw,part]=location.hash.slice(1).split(&#x27;/&#x27;);route=raw||&#x27;discover&#x27;;if([&#x27;home&#x27;,&#x27;requests&#x27;].includes(route)){meTab=route===&#x27;requests&#x27;?&#x27;requests&#x27;:&#x27;words&#x27;;route=&#x27;me&#x27;}else if(route===&#x27;me&#x27;)meTab=[&#x27;words&#x27;,&#x27;collections&#x27;,&#x27;requests&#x27;].includes(part)?part:&#x27;words&#x27;;else if(route===&#x27;collection&#x27;){try{currentTopic=decodeURIComponent(part||&#x27;&#x27;)}catch{currentTopic=&#x27;&#x27;}category=&#x27;全部&#x27;}else if(![&#x27;discover&#x27;,&#x27;admin&#x27;].includes(route))route=&#x27;discover&#x27;;render();window.scrollTo(0,0)}
-function openTerm(id){const t=terms.find(x=&gt;x.id===Number(id));if(!t)return;currentTerm=t.id;const defaults={0:{title:&#x27;Building effective agents&#x27;,url:&#x27;https://www.anthropic.com/research/building-effective-agents&#x27;},1:{title:&#x27;Agent Skills&#x27;,url:&#x27;https://www.anthropic.com/research/equipping-agents-for-the-real-world-with-agent-skills&#x27;},8:{title:&#x27;IBM：RAG&#x27;,url:&#x27;https://www.ibm.com/think/topics/retrieval-augmented-generation&#x27;}};const sources=t.sources?.length?t.sources:t.source?[{title:t.source[0],url:t.source[1]}]:defaults[t.id]?[defaults[t.id]]:[];const related=terms.filter(x=&gt;x.id!==t.id&amp;&amp;x.topic===t.topic&amp;&amp;x.cat===t.cat).slice(0,4);$(&#x27;#detail-body&#x27;).innerHTML=`&lt;div class=&quot;drawer-top&quot;&gt;${badge(t)}&lt;button class=&quot;close&quot; data-close-detail aria-label=&quot;关闭词条&quot;&gt;✕&lt;/button&gt;&lt;/div&gt;&lt;h2 id=&quot;detail-title&quot;&gt;${esc(t.en)}&lt;/h2&gt;&lt;div class=&quot;full-name&quot;&gt;${esc(t.cn)}&lt;/div&gt;&lt;section class=&quot;plain&quot;&gt;&lt;small&gt;说人话&lt;/small&gt;&lt;p&gt;${esc(t.definition)}&lt;/p&gt;&lt;/section&gt;&lt;section&gt;&lt;h3&gt;实际场景这样用&lt;/h3&gt;&lt;div class=&quot;quote&quot;&gt;“${esc(t.example)}”&lt;/div&gt;&lt;/section&gt;&lt;section&gt;&lt;h3&gt;打个比方&lt;/h3&gt;&lt;p&gt;${esc(t.analogy)}&lt;/p&gt;&lt;/section&gt;&lt;section&gt;&lt;h3&gt;别混淆&lt;/h3&gt;&lt;p&gt;${esc(t.caution)}&lt;/p&gt;&lt;/section&gt;${related.length?`&lt;section&gt;&lt;h3&gt;相关的词&lt;/h3&gt;&lt;div class=&quot;related&quot;&gt;${related.map(x=&gt;`&lt;button data-term=&quot;${x.id}&quot;&gt;${esc(x.en)}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;&lt;/section&gt;`:&#x27;&#x27;}&lt;section class=&quot;sources&quot;&gt;&lt;h3&gt;参考来源&lt;/h3&gt;${sources.filter(x=&gt;/^https:\/\//.test(x.url)).map(x=&gt;`&lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot; href=&quot;${esc(x.url)}&quot;&gt;${esc(x.title)} ↗&lt;/a&gt;`).join(&#x27;&#x27;)||&#x27;&lt;span&gt;编辑整理&lt;/span&gt;&#x27;}&lt;small&gt;${t.checked_at?&#x27;AI 整理 · &#x27;+esc(t.checked_at)+&#x27; · 程序检查不代表事实核验。&#x27;:&#x27;类比用于辅助理解，以实际业务约定为准。&#x27;}&lt;/small&gt;&lt;/section&gt;${saveButton(t,true)}`;if(!$(&#x27;#detail&#x27;).open)$(&#x27;#detail&#x27;).showModal();$(&#x27;#detail&#x27;).scrollTop=0}
-function requestDialog(word){$(&#x27;#request-word&#x27;).value=word;$(&#x27;#request-feedback&#x27;).textContent=&#x27;&#x27;;$(&#x27;#request-form&#x27;).hidden=false;$(&#x27;#request-dialog&#x27;).showModal()}
-async function action(e){const discoveryLink=e.target.closest(&#x27;a[href=&quot;#discover&quot;]&#x27;);if(discoveryLink){resetSearch();return}const target=e.target.closest(&#x27;button&#x27;);if(!target)return;if(target.hasAttribute(&#x27;data-close-detail&#x27;)){$(&#x27;#detail&#x27;).close();return}if(target.dataset.term!==undefined){openTerm(target.dataset.term);return}if(target.hasAttribute(&#x27;data-new-collection&#x27;)){openCreateCollection();return}if(target.dataset.archiveCollection){target.disabled=true;try{await requestJSON(&#x27;me/collections/&#x27;+target.dataset.archiveCollection+&#x27;/archive&#x27;,{});await refreshPersonal();location.hash=&#x27;me/collections&#x27;;toast(&#x27;合集已归档，收藏的词仍保留&#x27;)}catch(e){target.disabled=false;toast(e.message)}return}if(target.dataset.editMembers){openMembers(target.dataset.editMembers);return}if(target.dataset.save!==undefined){openOrganizer(Number(target.dataset.save));return}if(target.dataset.filter!==undefined){filter=target.dataset.filter;discover();return}if(target.dataset.myFilter!==undefined){myFilter=target.dataset.myFilter;me();return}if(target.dataset.query!==undefined){$(&#x27;#search&#x27;).value=target.dataset.query;filter=&#x27;全部&#x27;;discover();hideSuggestions();return}if(target.dataset.request!==undefined){requestDialog(target.dataset.request);return}if(target.dataset.openCollection!==undefined){location.hash=&#x27;collection/&#x27;+encodeURIComponent(target.dataset.openCollection);return}if(target.dataset.category!==undefined){category=target.dataset.category;collection();return}if(target.dataset.hideRequest){target.disabled=true;try{await requestJSON(&#x27;me/requests/&#x27;+target.dataset.hideRequest+&#x27;/hide&#x27;,{});requests=(await requestJSON(&#x27;me/requests&#x27;)).requests;render();toast(&#x27;已从我的申请移除&#x27;)}catch(e){target.disabled=false;toast(e.message)}return}if(target.dataset.process){target.disabled=true;try{const r=await requestJSON(&#x27;admin/requests/&#x27;+target.dataset.process+&#x27;/process&#x27;,{});toast(r.message);adminPage()}catch(e){target.disabled=false;toast(e.message)}}}
-document.addEventListener(&#x27;click&#x27;,action);window.addEventListener(&#x27;hashchange&#x27;,onRoute);$(&#x27;#search-form&#x27;).onsubmit=e=&gt;{e.preventDefault();discover();hideSuggestions()};$(&#x27;#search&#x27;).oninput=()=&gt;{discover();if($(&#x27;#search&#x27;).value.trim())hideSuggestions();else showSuggestions()};$(&#x27;#clear-search&#x27;).onclick=()=&gt;{resetSearch();$(&#x27;#search&#x27;).focus()};$(&#x27;#reset-search&#x27;).onclick=resetSearch;$(&#x27;#search&#x27;).addEventListener(&#x27;keydown&#x27;,e=&gt;{if(e.key===&#x27;Escape&#x27;){e.preventDefault();if(!$(&#x27;#search-suggestions&#x27;).hidden){hideSuggestions();$(&#x27;#search&#x27;).focus()}else{resetSearch();$(&#x27;#search&#x27;).blur()}}});$(&#x27;#search&#x27;).addEventListener(&#x27;search&#x27;,()=&gt;{if(!$(&#x27;#search&#x27;).value)resetSearch()});$(&#x27;#request-close&#x27;).onclick=()=&gt;$(&#x27;#request-dialog&#x27;).close();for(const dialog of document.querySelectorAll(&#x27;dialog&#x27;))dialog.addEventListener(&#x27;click&#x27;,e=&gt;{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX&lt;r.left||e.clientX&gt;r.right||e.clientY&lt;r.top||e.clientY&gt;r.bottom)dialog.close()}});
-$(&#x27;#request-form&#x27;).onsubmit=async e=&gt;{e.preventDefault();if(busy)return;busy=true;const b=e.target.querySelector(&#x27;button&#x27;);b.disabled=true;try{const r=await requestJSON(&#x27;requests&#x27;,{word:$(&#x27;#request-word&#x27;).value.trim()});if(r.status===&#x27;available&#x27;){$(&#x27;#request-dialog&#x27;).close();openTerm(r.term_id)}else{requests=(await requestJSON(&#x27;me/requests&#x27;)).requests;$(&#x27;#request-form&#x27;).hidden=true;$(&#x27;#request-feedback&#x27;).innerHTML=&#x27;已在本地演示中提交，不会发送至线上后台。&lt;br&gt;&lt;a href=&quot;#me/requests&quot; id=&quot;see-requests&quot;&gt;查看我的申请 →&lt;/a&gt;&#x27;;$(&#x27;#see-requests&#x27;).onclick=()=&gt;$(&#x27;#request-dialog&#x27;).close();if(route===&#x27;me&#x27;)me()}}catch(e){$(&#x27;#request-feedback&#x27;).textContent=e.message}finally{busy=false;b.disabled=false}};
-async function init(){try{const [t,c,s,a,r]=await Promise.all([requestJSON(&#x27;terms&#x27;),requestJSON(&#x27;me/collections&#x27;),requestJSON(&#x27;me/saved&#x27;),requestJSON(&#x27;status&#x27;),requestJSON(&#x27;me/requests&#x27;)]);terms=t.terms;collections=c.collections;saved=s.saved;account=a;requests=r.requests;loaded=true;$(&#x27;#search&#x27;).disabled=false;onRoute()}catch(e){$(&#x27;#discover-results&#x27;).innerHTML=`&lt;div class=&quot;empty&quot;&gt;&lt;h2&gt;暂时无法打开词库&lt;/h2&gt;&lt;p&gt;${esc(e.message)}&lt;/p&gt;&lt;button class=&quot;primary&quot; onclick=&quot;location.reload()&quot;&gt;重新加载&lt;/button&gt;&lt;/div&gt;`;$(&#x27;#library-status&#x27;).textContent=&#x27;连接暂不可用&#x27;}}
-init();setInterval(async()=&gt;{if(document.hidden||!loaded||busy||document.querySelector(&#x27;dialog[open]&#x27;))return;try{if(route===&#x27;me&#x27;&amp;&amp;meTab===&#x27;requests&#x27;){const [t,r]=await Promise.all([requestJSON(&#x27;terms&#x27;),requestJSON(&#x27;me/requests&#x27;)]);terms=t.terms;requests=r.requests;render()}else if(route===&#x27;admin&#x27;){account=await requestJSON(&#x27;status&#x27;);adminPage()}}catch{}},30000);
-let organizerMode=&#x27;term&#x27;,organizerId=null,organizerSelection=new Set(),organizerBusy=false;
-async function refreshPersonal(){const [s,c]=await Promise.all([requestJSON(&#x27;me/saved&#x27;),requestJSON(&#x27;me/collections&#x27;)]);saved=s.saved;collections=c.collections;render();if($(&#x27;#detail&#x27;).open)openTerm(currentTerm)}
-function drawOrganizer(){const termMode=organizerMode===&#x27;term&#x27;,t=terms.find(t=&gt;t.id===organizerId),c=collections.find(c=&gt;c.id===organizerId);$(&#x27;#organizer-title&#x27;).textContent=termMode?&#x27;收藏到合集&#x27;:&#x27;整理合集词语&#x27;;$(&#x27;#organizer-description&#x27;).textContent=termMode?`「${t.en}」可放入多个合集，也可以不选合集，仅收藏。`:`勾选要放入「${c.name}」的词，移出合集不会取消收藏。`;const choices=termMode?collections.map(c=&gt;({id:c.id,name:c.name,note:c.term_ids.length+&#x27; 个词&#x27;})):saved.map(s=&gt;terms.find(t=&gt;t.id===s.term_id)).filter(Boolean).map(t=&gt;({id:String(t.id),name:t.en,note:t.cn}));$(&#x27;#organizer-options&#x27;).innerHTML=choices.length?choices.map(c=&gt;`&lt;label class=&quot;organizer-option&quot;&gt;&lt;input type=&quot;checkbox&quot; value=&quot;${esc(c.id)}&quot; ${organizerSelection.has(String(c.id))?&#x27;checked&#x27;:&#x27;&#x27;}&gt;&lt;span&gt;&lt;strong&gt;${esc(c.name)}&lt;/strong&gt;&lt;small&gt;${esc(c.note)}&lt;/small&gt;&lt;/span&gt;&lt;/label&gt;`).join(&#x27;&#x27;):`&lt;p class=&quot;muted&quot;&gt;${termMode?&#x27;还没有合集。可以在这里新建，或者直接保存到收藏。&#x27;:&#x27;还没有收藏的词，先去发现中收藏感兴趣的词语。&#x27;}&lt;/p&gt;`;$(&#x27;#inline-create&#x27;).hidden=!termMode;$(&#x27;#remove-saved&#x27;).hidden=!termMode||!isSaved(organizerId)}
-function openOrganizer(id){organizerMode=&#x27;term&#x27;;organizerId=id;organizerSelection=new Set(collections.filter(c=&gt;c.term_ids.includes(id)).map(c=&gt;c.id));drawOrganizer();$(&#x27;#organizer&#x27;).showModal()}
-function openMembers(id){organizerMode=&#x27;collection&#x27;;organizerId=id;organizerSelection=new Set(collections.find(c=&gt;c.id===id).term_ids.map(String));drawOrganizer();$(&#x27;#organizer&#x27;).showModal()}
-function openCreateCollection(){if($(&#x27;#organizer&#x27;).open)organizerSelection=new Set([...$(&#x27;#organizer-options&#x27;).querySelectorAll(&#x27;input:checked&#x27;)].map(x=&gt;x.value));$(&#x27;#collection-name&#x27;).value=&#x27;&#x27;;$(&#x27;#create-collection&#x27;).showModal();$(&#x27;#collection-name&#x27;).focus()}
-$(&#x27;#inline-create&#x27;).onclick=openCreateCollection;$(&#x27;#organizer-close&#x27;).onclick=()=&gt;$(&#x27;#organizer&#x27;).close();$(&#x27;#create-close&#x27;).onclick=()=&gt;$(&#x27;#create-collection&#x27;).close();
-$(&#x27;#create-form&#x27;).onsubmit=async e=&gt;{e.preventDefault();const b=e.target.querySelector(&#x27;button&#x27;);b.disabled=true;try{const r=await requestJSON(&#x27;me/collections&#x27;,{name:$(&#x27;#collection-name&#x27;).value.trim()});await refreshPersonal();$(&#x27;#create-collection&#x27;).close();if($(&#x27;#organizer&#x27;).open){organizerSelection.add(r.id);drawOrganizer()}else location.hash=&#x27;collection/&#x27;+r.id;toast(&#x27;合集已创建&#x27;)}catch(e){toast(e.message)}finally{b.disabled=false}};
-$(&#x27;#organizer-form&#x27;).onsubmit=async e=&gt;{e.preventDefault();if(organizerBusy)return;organizerBusy=true;const b=e.target.querySelector(&#x27;[type=submit]&#x27;);b.disabled=true;try{const ids=[...$(&#x27;#organizer-options&#x27;).querySelectorAll(&#x27;input:checked&#x27;)].map(x=&gt;x.value);if(organizerMode===&#x27;term&#x27;)await requestJSON(&#x27;me/saved/organize&#x27;,{term_id:organizerId,collection_ids:ids});else await requestJSON(&#x27;me/collections/&#x27;+organizerId+&#x27;/terms&#x27;,{term_ids:ids.map(Number)});await refreshPersonal();$(&#x27;#organizer&#x27;).close();toast(&#x27;已保存&#x27;)}catch(e){toast(e.message)}finally{b.disabled=false;organizerBusy=false}};
-$(&#x27;#remove-saved&#x27;).onclick=async e=&gt;{if(organizerBusy)return;organizerBusy=true;e.target.disabled=true;try{await requestJSON(&#x27;me/saved&#x27;,{term_id:organizerId,saved:false});await refreshPersonal();$(&#x27;#organizer&#x27;).close();toast(&#x27;已取消收藏，并从个人合集中移除&#x27;)}catch(e){toast(e.message)}finally{e.target.disabled=false;organizerBusy=false}};
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6;-webkit-text-size-adjust:100%}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 
-function resetSearch(){$(&#x27;#search&#x27;).value=&#x27;&#x27;;filter=&#x27;全部&#x27;;if(loaded)discover()}
+.app{max-width:480px;margin:0 auto;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;padding:0 16px calc(84px + env(safe-area-inset-bottom))}
+.bar{display:flex;justify-content:space-between;align-items:center;padding:calc(14px + env(safe-area-inset-top)) 0 10px}
+.brand{display:flex;align-items:baseline;gap:10px}
+.logo{font-family:var(--serif);font-weight:900;font-size:24px;letter-spacing:2px}
+.slogan{font-size:12.5px;color:var(--muted)}
+.streak{font-size:13px;color:var(--ink2);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 11px}
+.streak b{color:var(--amber)}
 
-/* 猜你想搜：12 个词，按三本词书配额 + 新收录优先 + 收藏偏好 + 去重轮换。完整策略见「猜你想搜_策略说明.md」 */
-const SUGGEST_POOL={&#x27;AI 产品&#x27;:[&#x27;Agent&#x27;,&#x27;RAG&#x27;,&#x27;Skill&#x27;,&#x27;Prompt&#x27;,&#x27;LLM&#x27;,&#x27;Token&#x27;,&#x27;MCP&#x27;,&#x27;幻觉&#x27;,&#x27;上下文窗口&#x27;,&#x27;工作流&#x27;,&#x27;微调&#x27;,&#x27;多模态&#x27;],&#x27;数据分析&#x27;:[&#x27;口径&#x27;,&#x27;埋点&#x27;,&#x27;留存率&#x27;,&#x27;转化率&#x27;,&#x27;GMV&#x27;,&#x27;DAU&#x27;,&#x27;A/B 实验&#x27;,&#x27;漏斗&#x27;,&#x27;归因&#x27;,&#x27;环比&#x27;,&#x27;CTR&#x27;,&#x27;维度&#x27;],&#x27;职场用语&#x27;:[&#x27;对齐&#x27;,&#x27;Owner&#x27;,&#x27;OKR&#x27;,&#x27;KPI&#x27;,&#x27;Deadline&#x27;,&#x27;Blocker&#x27;,&#x27;Review&#x27;,&#x27;Roadmap&#x27;,&#x27;Sync&#x27;,&#x27;交付物&#x27;,&#x27;Stakeholder&#x27;,&#x27;Mentor&#x27;]};
-const SUGGEST_N=12;let suggestRound=0;
-function findTerm(q){const k=q.toLowerCase();return terms.find(x=&gt;(x.en+&#x27; &#x27;+x.cn).toLowerCase().includes(k))}
-function pickSuggestions(){
- const topics=Object.keys(SUGGEST_POOL),savedIds=new Set(saved.map(x=&gt;x.term_id));
- const pref=topics.map(t=&gt;[t,saved.filter(x=&gt;{const tm=terms.find(y=&gt;y.id===x.term_id);return tm&amp;&amp;tm.topic===t}).length]).sort((a,b)=&gt;b[1]-a[1]);
- const quota={};topics.forEach(t=&gt;quota[t]=4);if(pref[0][1]&gt;0){quota[pref[0][0]]=6;topics.filter(t=&gt;t!==pref[0][0]).forEach(t=&gt;quota[t]=3)}
- const newest=terms.filter(t=&gt;!savedIds.has(t.id)).sort((a,b)=&gt;(b.checked_at||b.updated||&#x27;&#x27;).localeCompare(a.checked_at||a.updated||&#x27;&#x27;))[0];
- const lists={};
- topics.forEach(t=&gt;{
-  const pool=SUGGEST_POOL[t].map(q=&gt;({q,t:findTerm(q)})).filter(x=&gt;x.t&amp;&amp;!savedIds.has(x.t.id));
-  const isNew=x=&gt;newest&amp;&amp;x.t.id===newest.id,fresh=suggestRound===0?pool.filter(isNew):[],rest=pool.filter(x=&gt;!isNew(x));
-  const off=rest.length?(suggestRound*quota[t])%rest.length:0,rot=rest.slice(off).concat(rest.slice(0,off));
-  lists[t]=fresh.concat(rot).slice(0,quota[t]);
- });
- let out=[];for(let i=0;out.length&lt;SUGGEST_N&amp;&amp;i&lt;SUGGEST_N;i++)topics.forEach(t=&gt;{if(lists[t][i]&amp;&amp;out.length&lt;SUGGEST_N)out.push(lists[t][i])});
- if(out.length&lt;SUGGEST_N){const used=new Set(out.map(x=&gt;x.q));topics.forEach(t=&gt;SUGGEST_POOL[t].forEach(q=&gt;{const tm=findTerm(q);if(out.length&lt;SUGGEST_N&amp;&amp;tm&amp;&amp;!used.has(q)){out.push({q,t:tm});used.add(q)}}))}
- return out.slice(0,SUGGEST_N);
-}
-function drawSuggestions(){$(&#x27;#suggest-list&#x27;).innerHTML=pickSuggestions().map(x=&gt;`&lt;button data-query=&quot;${esc(x.q)}&quot; title=&quot;${esc(x.t.en+&#x27; · &#x27;+x.t.cn)}&quot;&gt;${esc(x.q)}&lt;/button&gt;`).join(&#x27;&#x27;)}
-function showSuggestions(){if(!loaded||route!==&#x27;discover&#x27;||$(&#x27;#search&#x27;).value.trim())return;drawSuggestions();$(&#x27;#search-suggestions&#x27;).hidden=false;$(&#x27;#search&#x27;).setAttribute(&#x27;aria-expanded&#x27;,&#x27;true&#x27;)}
-function hideSuggestions(){$(&#x27;#search-suggestions&#x27;).hidden=true;$(&#x27;#search&#x27;).setAttribute(&#x27;aria-expanded&#x27;,&#x27;false&#x27;)}
-$(&#x27;#search&#x27;).addEventListener(&#x27;focus&#x27;,showSuggestions);$(&#x27;#search&#x27;).addEventListener(&#x27;click&#x27;,showSuggestions);
-document.addEventListener(&#x27;pointerdown&#x27;,e=&gt;{if(!e.target.closest(&#x27;.search-wrap&#x27;))hideSuggestions()});
-$(&#x27;.search-wrap&#x27;).addEventListener(&#x27;focusout&#x27;,e=&gt;{if(!e.currentTarget.contains(e.relatedTarget))hideSuggestions()});
-$(&#x27;.search-wrap&#x27;).addEventListener(&#x27;keydown&#x27;,e=&gt;{if(e.key===&#x27;Escape&#x27;){e.preventDefault();e.stopPropagation();hideSuggestions();$(&#x27;#search&#x27;).focus();hideSuggestions()}if(e.key===&#x27;ArrowDown&#x27;&amp;&amp;e.target===$(&#x27;#search&#x27;)&amp;&amp;!$(&#x27;#search-suggestions&#x27;).hidden){e.preventDefault();$(&#x27;#search-suggestions button&#x27;).focus()}});
-window.addEventListener(&#x27;hashchange&#x27;,hideSuggestions); $(&#x27;#suggest-more&#x27;).addEventListener(&#x27;click&#x27;,()=&gt;{suggestRound++;drawSuggestions()});
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:10;display:flex;justify-content:center;background:rgba(246,245,240,.94);backdrop-filter:blur(8px);border-top:1px solid var(--line);padding:6px 0 calc(6px + env(safe-area-inset-bottom))}
+.tabs button{flex:0 1 160px;border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:1px;font-size:12px;color:var(--muted);padding:4px 0;min-height:48px}
+.tabs button.on{color:var(--ink);font-weight:700}
 
-&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;
+h2{font-family:var(--serif);font-weight:900;font-size:26px;line-height:1.3;margin:10px 0 4px}
+.sub{color:var(--muted);font-size:13.5px;margin:0 0 16px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px}
+.label{font-size:12.5px;color:var(--muted);margin:0 0 8px;letter-spacing:1px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:var(--card);border-radius:999px;padding:7px 14px;font-size:14px;min-height:38px}
+.chip.on{border-color:var(--ink);background:var(--ink);color:#fff;font-weight:700}
+.chip small{opacity:.7;margin-left:4px;font-size:12px}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);background:var(--paper);border-radius:12px;padding:3px}
+.seg button{border:0;background:none;border-radius:9px;padding:8px 0;font-size:14px;color:var(--ink2);min-height:38px}
+.seg button.on{background:var(--card);color:var(--ink);font-weight:700;box-shadow:0 1px 2px rgba(0,0,0,.08)}
+
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 12px}
+.stat b{display:block;font-size:22px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.2}
+.stat span{font-size:12px;color:var(--muted)}
+.progress{height:8px;background:var(--paper);border-radius:99px;overflow:hidden;margin-top:8px}
+.progress i{display:block;height:100%;background:var(--green);border-radius:99px}
+.big{width:100%;border:0;border-radius:16px;background:var(--blue);color:#fff;font-size:17px;font-weight:700;padding:15px;margin-top:16px;min-height:54px}
+.big:disabled{background:#b7bdd0;cursor:default}
+.ghost{width:100%;border:1.5px solid var(--line);border-radius:16px;background:var(--card);font-size:15px;padding:12px;margin-top:10px;min-height:48px}
+.note{font-size:12.5px;color:var(--muted);margin:10px 2px 0}
+.gap{height:14px}
+
+/* ---------- study ---------- */
+.study-top{display:flex;align-items:center;gap:10px;margin:4px 0 12px}
+.study-top .quit{border:0;background:none;padding:6px 8px 6px 0;color:var(--ink2);min-height:44px;display:flex;align-items:center;gap:2px;font-size:14px;white-space:nowrap}
+.study-top .progress{background:var(--line)}
+.study-top .count{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.study-top .progress{flex:1;margin:0}
+.flip{perspective:1400px;height:min(56vh,440px);min-height:340px;margin:0 0 14px}
+.flip-in{position:relative;width:100%;height:100%;transition:transform .5s cubic-bezier(.2,.7,.2,1);transform-style:preserve-3d}
+.flip.flipped .flip-in{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--card);border:1.5px solid var(--ink);border-radius:22px;box-shadow:5px 5px 0 var(--ink);overflow:hidden}
+.front{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:24px;cursor:pointer;border:1.5px solid var(--ink)}
+.front .word{font-family:var(--serif);font-weight:900;font-size:clamp(34px,11vw,52px);line-height:1.15;text-align:center;word-break:break-word}
+.front .ask{font-size:14px;color:var(--muted)}
+.front .tap{position:absolute;bottom:16px;font-size:12.5px;color:var(--muted)}
+.back{transform:rotateY(180deg);display:flex;flex-direction:column}
+.back-scroll{overflow-y:auto;padding:20px 20px 16px;flex:1}
+.back .word{font-family:var(--serif);font-weight:900;font-size:30px;line-height:1.2}
+.back .alt{color:var(--muted);font-size:14px;margin-top:2px}
+.plain{background:var(--ink);color:#f6f5f0;border-radius:14px;padding:12px 14px;margin:14px 0 4px;font-size:16px;line-height:1.7}
+.row{margin-top:12px}
+.row .k{font-size:12px;color:var(--muted);letter-spacing:1px;margin-bottom:2px}
+.row .v{font-size:14.5px;color:var(--ink)}
+.row.warn .v{color:var(--amber)}
+.badge{display:inline-block;font-size:11.5px;font-weight:700;border-radius:6px;padding:1px 8px}
+.badge.ai{color:var(--ai);background:var(--ai-soft)}
+.badge.data{color:var(--data);background:var(--data-soft)}
+.badge.work{color:var(--work);background:var(--work-soft)}
+.badge.cat{color:var(--ink2);background:var(--paper);font-weight:500}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+
+.grade{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.grade button{border:0;border-radius:16px;padding:14px 0;font-size:16px;font-weight:700;min-height:54px}
+.g-know{background:var(--green-soft);color:var(--green)}
+.g-vague{background:var(--amber-soft);color:var(--amber)}
+.g-no{background:var(--red-soft);color:var(--red)}
+.after{display:flex;flex-direction:column;align-items:center;gap:6px}
+.after .verdict{font-size:13.5px;color:var(--ink2)}
+.after .fix{border:0;background:none;color:var(--muted);font-size:13px;text-decoration:underline;text-underline-offset:3px;padding:6px}
+.next{width:100%;border:0;border-radius:16px;background:var(--ink);color:#fff;font-size:17px;font-weight:700;padding:15px;min-height:54px}
+.keys{text-align:center;font-size:12px;color:var(--muted);margin-top:10px}
+
+/* ---------- done ---------- */
+.done-hero{text-align:center;padding:18px 0 6px}
+.done-hero .num{font-family:var(--serif);font-weight:900;font-size:64px;line-height:1}
+.list{display:flex;flex-direction:column;gap:8px}
+.item{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;min-height:56px}
+.item .w{font-family:var(--serif);font-weight:900;font-size:18px;min-width:0}
+.item .d{flex:1;min-width:0;font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.st{font-size:11.5px;font-weight:700;border-radius:6px;padding:1px 7px;white-space:nowrap}
+.st.know{color:var(--green);background:var(--green-soft)}
+.st.vague{color:var(--amber);background:var(--amber-soft)}
+.st.no{color:var(--red);background:var(--red-soft)}
+.st.master{color:var(--blue);background:var(--blue-soft)}
+
+/* ---------- dict ---------- */
+.search{display:flex;align-items:center;gap:10px;background:var(--card);border:1.5px solid var(--ink);border-radius:14px;padding:4px 14px;margin:8px 0 12px}
+.search input{flex:1;min-width:0;border:0;outline:none;background:none;font:inherit;font-size:16px;padding:10px 0}
+.empty{text-align:center;color:var(--muted);padding:36px 12px;background:var(--card);border:1px dashed var(--line);border-radius:16px}
+
+/* ---------- sheet ---------- */
+.sheet{position:fixed;inset:0;z-index:20;display:flex;align-items:flex-end;justify-content:center}
+.sheet[hidden]{display:none}
+.sheet-mask{position:absolute;inset:0;border:0;background:rgba(22,24,29,.42)}
+.sheet-body{position:relative;width:100%;max-width:480px;max-height:86vh;overflow-y:auto;background:var(--card);border-radius:22px 22px 0 0;padding:22px 20px calc(22px + env(safe-area-inset-bottom))}
+.sheet-x{position:absolute;right:12px;top:12px;border:0;background:var(--paper);border-radius:12px;width:44px;height:44px;display:flex;align-items:center;justify-content:center}
+.star{margin-top:16px}
+
+@media (prefers-reduced-motion:reduce){.flip-in{transition:none}}
+@media (min-width:700px){.app{padding-top:12px}}
+
+/* ---------- 发现：大词库 ---------- */
+.dhero{text-align:center;padding:14px 0 4px}
+.kicker{display:block;font-size:12.5px;letter-spacing:4px;color:var(--blue);font-weight:700}
+.dhero h2{font-size:30px;margin:8px 0 6px}
+.dhero .sub{margin-bottom:14px}
+.disc-search{position:relative;margin-bottom:6px}
+.disc-search .search{margin:0;box-shadow:0 10px 26px rgba(22,24,29,.08)}
+.suggest{display:none;margin-top:8px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:10px 12px 12px;box-shadow:0 14px 30px rgba(22,24,29,.10)}
+.disc-search:focus-within .suggest{display:block}
+.suggest.off{display:none!important}
+.sg-head{display:flex;justify-content:space-between;align-items:center;font-size:12px;letter-spacing:2px;color:var(--muted);margin-bottom:8px}
+.sg-more{border:0;background:none;color:var(--blue);font-size:13px;letter-spacing:0;padding:4px 2px}
+.sg-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.sg-grid button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 6px;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-height:38px}
+.sg-grid button:hover{border-color:var(--ink);background:var(--paper)}
+@media (min-width:420px){.sg-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.fresh{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:4px;font-size:12.5px;color:var(--muted);margin:10px 0 0}
+.fresh[hidden]{display:none}
+.fresh i{width:6px;height:6px;border-radius:50%;background:#2f9e6b;margin-right:2px}
+.fresh button{border:0;background:none;padding:0;font-weight:700;color:var(--ink);text-decoration:underline;text-decoration-color:#c9c5b8;text-underline-offset:3px}
+.lhead{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);margin-top:18px;padding-top:16px;margin-bottom:10px}
+.lhead b{font-family:var(--serif);font-weight:900;font-size:19px}
+.lhead span{font-size:12.5px;color:var(--muted)}
+.wgrid{display:grid;grid-template-columns:1fr;gap:10px}
+.wcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px 12px}
+.wtop{display:flex;justify-content:space-between;align-items:center}
+.bm{border:0;background:none;color:#9a9ca3;width:40px;height:40px;margin:-8px -10px -8px 0;display:flex;align-items:center;justify-content:center;border-radius:10px}
+.bm.on{color:var(--blue)}.bm.on svg{fill:currentColor}
+.wopen{display:flex;flex-direction:column;gap:2px;width:100%;border:0;background:none;padding:2px 0 0;text-align:left}
+.ww{font-family:var(--serif);font-weight:900;font-size:24px;line-height:1.25}
+.wa{font-size:12.5px;color:var(--muted)}
+.wd{font-size:14.5px;margin-top:4px}
+.we{border-top:1px dashed var(--line);margin-top:10px;padding-top:8px;font-size:13px;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.empty .miss{display:block;font-family:var(--serif);font-size:20px;color:var(--ink);margin-bottom:6px}
+.empty span{display:block;font-size:13.5px}
+.seg.seg4{grid-template-columns:repeat(4,1fr)}
+.seg.seg4 button{font-size:13px}
+
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;app&quot;&gt;
+  &lt;header class=&quot;bar&quot;&gt;
+    &lt;div class=&quot;brand&quot;&gt;&lt;span class=&quot;logo&quot;&gt;懂行&lt;/span&gt;&lt;span class=&quot;slogan&quot;&gt;每天背一组行话&lt;/span&gt;&lt;/div&gt;
+    &lt;div class=&quot;streak&quot; id=&quot;streak&quot; title=&quot;连续打卡天数&quot;&gt;&lt;/div&gt;
+  &lt;/header&gt;
+
+  &lt;main id=&quot;view&quot; aria-live=&quot;polite&quot;&gt;&lt;/main&gt;
+
+  &lt;nav class=&quot;tabs&quot; aria-label=&quot;主导航&quot;&gt;
+    &lt;button data-tab=&quot;today&quot; class=&quot;on&quot;&gt;
+      &lt;svg viewBox=&quot;0 0 24 24&quot; aria-hidden=&quot;true&quot;&gt;&lt;rect x=&quot;4&quot; y=&quot;3&quot; width=&quot;16&quot; height=&quot;18&quot; rx=&quot;3&quot;/&gt;&lt;path d=&quot;M8 8h8M8 12h8M8 16h5&quot;/&gt;&lt;/svg&gt;今日
+    &lt;/button&gt;
+    &lt;button data-tab=&quot;dict&quot;&gt;
+      &lt;svg viewBox=&quot;0 0 24 24&quot; aria-hidden=&quot;true&quot;&gt;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;8.5&quot;/&gt;&lt;path d=&quot;M15.5 8.5l-2 5-5 2 2-5z&quot;/&gt;&lt;/svg&gt;发现
+    &lt;/button&gt;
+    &lt;button data-tab=&quot;me&quot;&gt;
+      &lt;svg viewBox=&quot;0 0 24 24&quot; aria-hidden=&quot;true&quot;&gt;&lt;circle cx=&quot;12&quot; cy=&quot;8.5&quot; r=&quot;3.8&quot;/&gt;&lt;path d=&quot;M4.5 20c1.4-3.6 4.2-5.3 7.5-5.3s6.1 1.7 7.5 5.3&quot;/&gt;&lt;/svg&gt;我的
+    &lt;/button&gt;
+  &lt;/nav&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;sheet&quot; id=&quot;sheet&quot; hidden&gt;
+  &lt;button class=&quot;sheet-mask&quot; data-close aria-label=&quot;关闭&quot;&gt;&lt;/button&gt;
+  &lt;div class=&quot;sheet-body&quot; role=&quot;dialog&quot; aria-modal=&quot;true&quot; aria-label=&quot;词条详情&quot;&gt;
+    &lt;button class=&quot;sheet-x&quot; data-close aria-label=&quot;关闭&quot;&gt;
+      &lt;svg viewBox=&quot;0 0 24 24&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M6 6l12 12M18 6L6 18&quot;/&gt;&lt;/svg&gt;
+    &lt;/button&gt;
+    &lt;div id=&quot;sheetContent&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;window.DONGHANG_DATA={&quot;version&quot;: 1, &quot;updated&quot;: &quot;2026-11-06&quot;, &quot;books&quot;: [{&quot;key&quot;: &quot;ai&quot;, &quot;name&quot;: &quot;AI&quot;, &quot;title&quot;: &quot;和 AI 好好协作&quot;, &quot;desc&quot;: &quot;从提示词到智能体，看懂 AI 能做什么、不能做什么&quot;}, {&quot;key&quot;: &quot;data&quot;, &quot;name&quot;: &quot;数据&quot;, &quot;title&quot;: &quot;先对口径，再看数字&quot;, &quot;desc&quot;: &quot;指标、漏斗、归因、实验，让数字有依据&quot;}, {&quot;key&quot;: &quot;work&quot;, &quot;name&quot;: &quot;职场黑话&quot;, &quot;title&quot;: &quot;听懂会议里的话&quot;, &quot;desc&quot;: &quot;从对齐到 OKR，拆开熟悉又陌生的说法&quot;}], &quot;words&quot;: [{&quot;id&quot;: 0, &quot;word&quot;: &quot;Agent&quot;, &quot;alt&quot;: &quot;智能体&quot;, &quot;en&quot;: &quot;Agent&quot;, &quot;cn&quot;: &quot;智能体&quot;, &quot;book&quot;: &quot;ai&quot;, &quot;cat&quot;: &quot;智能体与工具&quot;, &quot;definition&quot;: &quot;能围绕目标，选择步骤并调用工具执行任务的 AI 系统。&quot;, &quot;analogy&quot;: &quot;像一位能查资料、做表格的助理。&quot;, &quot;example&quot;: &quot;让它收集竞品资料、比较差异并生成报告。&quot;, &quot;caution&quot;: &quot;自主执行不等于永不出错，关键操作仍需权限与检查。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 1, &quot;word&quot;: &quot;Skill&quot;, &quot;alt&quot;: &quot;技能包&quot;, &quot;en&quot;: &quot;Skill&quot;, &quot;cn&quot;: &quot;技能包&quot;, &quot;book&quot;: &quot;ai&quot;, &quot;cat&quot;: &quot;智能体与工具&quot;, &quot;definition&quot;: &quot;把某类任务的操作说明、参考资料和可选脚本打包，供 AI 按需使用。&quot;, &quot;analogy&quot;: &quot;像给助理准备的一本岗位操作手册。&quot;, &quot;example&quot;: &quot;把品牌排版规范打包，制作演示文稿时调用。&quot;, &quot;caution&quot;: &quot;技能包不是重新训练模型，也不保证每次执行正确。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 2, &quot;word&quot;: &quot;Prompt&quot;, &quot;alt&quot;: &quot;提示词&quot;, &quot;en&quot;: &quot;Prompt&quot;, &quot;cn&quot;: &quot;提示词&quot;, &quot;book&quot;: &quot;ai&quot;, &quot;cat&quot;: &quot;对话与上下文&quot;, &quot;definition&quot;: &quot;你给 AI 的指令、问题和任务说明。&quot;, &quot;analogy&quot;: &quot;像给设计师写的一份需求简报。&quot;, &quot;example&quot;: &quot;请把这份会议记录总结成三项行动，并标明负责人。&quot;, &quot;caution&quot;: &quot;提示词更长不一定更好，目标清楚、信息充分更重要。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 3, &quot;word&quot;: &quot;LLM&quot;, &quot;alt&quot;: &quot;大语言模型&quot;, &quot;en&quot;: &quot;LLM&quot;, &quot;cn&quot;: &quot;大语言模型&quot;, &quot;book&quot;: &quot;ai&quot;, &quot;cat&quot;: &quot;基础概念&quot;, &quot;definition&quot;: &quot;从大量文本等数据中学习规律，用来理解和生成语言的模型。&quot;, &quot;analogy&quot;: &quot;像读过很多资料、擅长接话的写作伙伴。&quot;, &quot;example&quot;: &quot;解释概念、起草邮件、分析文本。&quot;, &quot;caution&quot;: &quot;流畅的回答不代表事实一定正确。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 4, &quot;word&quot;: &quot;Token&quot;, &quot;alt&quot;: &quot;词元&quot;, &quot;en&quot;: &quot;Token&quot;, &quot;cn&quot;: &quot;词元&quot;, &quot;book&quot;: &quot;ai&quot;, &quot;cat&quot;: &quot;基础概念&quot;, &quot;definition&quot;: &quot;模型处理文本时使用的小单位，可能是字、词的一部分或符号。&quot;, &quot;analogy&quot;: &quot;像拼装文字的积木。&quot;, &quot;example&quot;: &quot;输入和输出的长度与费用常按 token 统计。&quot;, &quot;caution&quot;: &quot;一个 token 不固定等于一个汉字或一个英文单词。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 5, &quot;word&quot;: &quot;Context window&quot;, &quot;alt&quot;: &quot;上下文窗口&quot;, &quot;en&quot;: &quot;Context window&quot;, &quot;cn&quot;: &quot;上下文窗口&quot;, &quot;book&quot;: &quot;ai&quot;, &quot;cat&quot;: &quot;对话与上下文&quot;, &quot;definition&quot;: &quot;模型一次处理时能容纳的上下文长度范围。&quot;, &quot;analogy&quot;: &quot;像书桌上同时能摊开的资料数量。&quot;, &quot;example&quot;: &quot;长文档和历史对话都会占用上下文空间。&quot;, &quot;caution&quot;: &quot;窗口大不代表模型会同样准确地利用每个细节。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 6, &quot;word&quot;: &quot;System prompt&quot;, &quot;alt&quot;: &quot;系统提示词&quot;, &quot;en&quot;: &quot;System prompt&quot;, &quot;cn&quot;: &quot;系统提示词&quot;, &quot;book&quot;: &quot;ai&quot;, &quot;cat&quot;: &quot;对话与上下文&quot;, &quot;definition&quot;: &quot;由应用设置、用于规定模型角色与行为的高优先级指令。&quot;, &quot;analogy&quot;: &quot;像客服上岗前收到的服务规范。&quot;, &quot;example&quot;: &quot;规定助手使用中文，并遵守业务边界。&quot;, &quot;caution&quot;: &quot;它不是密码保险箱，不应放入敏感密钥。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 7, &quot;word&quot;: &quot;Context engineering&quot;, &quot;alt&quot;: &quot;上下文工程&quot;, &quot;en&quot;: &quot;Context engineering&quot;, &quot;cn&quot;: &quot;上下文工程&quot;, &quot;book&quot;: &quot;ai&quot;, &quot;cat&quot;: &quot;对话与上下文&quot;, &quot;definition&quot;: &quot;为模型组织合适的指令、资料、历史与工具信息。&quot;, &quot;analogy&quot;: &quot;像开会前为参会者准备一份恰到好处的材料包。&quot;, &quot;example&quot;: &quot;只检索与当前问题相关的文档片段。&quot;, &quot;caution&quot;: &quot;不只是润色一句提示词。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 8, &quot;word&quot;: &quot;RAG&quot;, &quot;alt&quot;: &quot;检索增强生成&quot;, &quot;en&quot;: &quot;RAG&quot;, &quot;cn&quot;: &quot;检索增强生成&quot;, &quot;book&quot;: &quot;ai&quot;, &quot;cat&quot;: &quot;知识与检索&quot;, &quot;definition&quot;: &quot;先检索相关资料，再把资料提供给模型辅助回答。&quot;, &quot;analogy&quot;: &quot;像先翻书，再开卷作答。&quot;, &quot;example&quot;: &quot;客服从产品手册找依据后回答退款规则。&quot;, &quot;caution&quot;: &quot;资料过期或检索错误时，回答仍可能出错。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 9, &quot;word&quot;: &quot;Embedding&quot;, &quot;alt&quot;: &quot;向量表示&quot;, &quot;en&quot;: &quot;Embedding&quot;, &quot;cn&quot;: &quot;向量表示&quot;, &quot;book&quot;: &quot;ai&quot;, &quot;cat&quot;: &quot;知识与检索&quot;, &quot;definition&quot;: &quot;把文字、图片等信息变成一组便于计算相似性的数字。&quot;, &quot;analogy&quot;: &quot;像把内容标到一张语义地图上。&quot;, &quot;example&quot;: &quot;用语义相似性找出含义接近的文档。&quot;, &quot;caution&quot;: &quot;相似不等于相同，也不保证内容真实。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 10, &quot;word&quot;: &quot;Vector database&quot;, &quot;alt&quot;: &quot;向量数据库&quot;, &quot;en&quot;: &quot;Vector database&quot;, &quot;cn&quot;: &quot;向量数据库&quot;, &quot;book&quot;: &quot;ai&quot;, &quot;cat&quot;: &quot;知识与检索&quot;, &quot;definition&quot;: &quot;存储和检索向量表示的数据库。&quot;, &quot;analogy&quot;: &quot;像按意思而非仅按书名找书的图书馆索引。&quot;, &quot;example&quot;: &quot;在大量知识片段中寻找相关内容。&quot;, &quot;caution&quot;: &quot;它本身并不负责生成答案。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 11, &quot;word&quot;: &quot;MCP&quot;, &quot;alt&quot;: &quot;模型上下文协议&quot;, &quot;en&quot;: &quot;MCP&quot;, &quot;cn&quot;: &quot;模型上下文协议&quot;, &quot;book&quot;: &quot;ai&quot;, &quot;cat&quot;: &quot;智能体与工具&quot;, &quot;definition&quot;: &quot;用于连接 AI 应用与外部工具、数据资源的一种开放协议。&quot;, &quot;analogy&quot;: &quot;像让不同设备能连接的标准插口。&quot;, &quot;example&quot;: &quot;让助手接入文档搜索或业务系统工具。&quot;, &quot;caution&quot;: &quot;连接成功不等于获得所有权限，仍需授权控制。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 12, &quot;word&quot;: &quot;Tool calling&quot;, &quot;alt&quot;: &quot;工具调用&quot;, &quot;en&quot;: &quot;Tool calling&quot;, &quot;cn&quot;: &quot;工具调用&quot;, &quot;book&quot;: &quot;ai&quot;, &quot;cat&quot;: &quot;智能体与工具&quot;, &quot;definition&quot;: &quot;模型提出调用某个工具及其参数，由应用执行并返回结果。&quot;, &quot;analogy&quot;: &quot;像助理请计算器算数，拿到结果后继续工作。&quot;, &quot;example&quot;: &quot;查询天气或运行数据计算。&quot;, &quot;caution&quot;: &quot;模型说要调用工具，不代表工具已经执行成功。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 13, &quot;word&quot;: &quot;Workflow&quot;, &quot;alt&quot;: &quot;工作流&quot;, &quot;en&quot;: &quot;Workflow&quot;, &quot;cn&quot;: &quot;工作流&quot;, &quot;book&quot;: &quot;ai&quot;, &quot;cat&quot;: &quot;智能体与工具&quot;, &quot;definition&quot;: &quot;按预先安排的步骤组织任务处理流程。&quot;, &quot;analogy&quot;: &quot;像一条有明确工序的流水线。&quot;, &quot;example&quot;: &quot;先提取信息，再分类，最后生成摘要。&quot;, &quot;caution&quot;: &quot;工作流与智能体可组合使用，区别在于步骤由谁决定。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 14, &quot;word&quot;: &quot;Multi-agent&quot;, &quot;alt&quot;: &quot;多智能体&quot;, &quot;en&quot;: &quot;Multi-agent&quot;, &quot;cn&quot;: &quot;多智能体&quot;, &quot;book&quot;: &quot;ai&quot;, &quot;cat&quot;: &quot;智能体与工具&quot;, &quot;definition&quot;: &quot;由多个智能体分工、协作完成任务的系统。&quot;, &quot;analogy&quot;: &quot;像研究、写作和审核各有一人的小组。&quot;, &quot;example&quot;: &quot;一个整理资料，一个撰写，一个检查。&quot;, &quot;caution&quot;: &quot;更多智能体可能增加成本和协调问题。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 15, &quot;word&quot;: &quot;微调&quot;, &quot;alt&quot;: &quot;Fine-tuning&quot;, &quot;en&quot;: &quot;Fine-tuning&quot;, &quot;cn&quot;: &quot;微调&quot;, &quot;book&quot;: &quot;ai&quot;, &quot;cat&quot;: &quot;模型训练&quot;, &quot;definition&quot;: &quot;在已有模型基础上，用特定数据继续训练以调整行为。&quot;, &quot;analogy&quot;: &quot;像完成通识学习后再参加岗位培训。&quot;, &quot;example&quot;: &quot;训练模型更稳定地输出指定格式。&quot;, &quot;caution&quot;: &quot;更新业务知识并不总需要微调，也可使用检索。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 16, &quot;word&quot;: &quot;Inference&quot;, &quot;alt&quot;: &quot;推理运行&quot;, &quot;en&quot;: &quot;Inference&quot;, &quot;cn&quot;: &quot;推理运行&quot;, &quot;book&quot;: &quot;ai&quot;, &quot;cat&quot;: &quot;模型训练&quot;, &quot;definition&quot;: &quot;使用训练好的模型，对新输入计算并产生输出的过程。&quot;, &quot;analogy&quot;: &quot;像学完知识后现场答题。&quot;, &quot;example&quot;: &quot;用户发送问题后，模型生成回复。&quot;, &quot;caution&quot;: &quot;这里的推理不一定特指逻辑推导。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 17, &quot;word&quot;: &quot;Reasoning model&quot;, &quot;alt&quot;: &quot;推理模型&quot;, &quot;en&quot;: &quot;Reasoning model&quot;, &quot;cn&quot;: &quot;推理模型&quot;, &quot;book&quot;: &quot;ai&quot;, &quot;cat&quot;: &quot;模型训练&quot;, &quot;definition&quot;: &quot;针对多步骤思考和复杂问题求解进行优化的模型。&quot;, &quot;analogy&quot;: &quot;像答题时愿意多打草稿的学生。&quot;, &quot;example&quot;: &quot;处理复杂规划或数学问题。&quot;, &quot;caution&quot;: &quot;花更多计算仍不保证答案正确。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 18, &quot;word&quot;: &quot;多模态&quot;, &quot;alt&quot;: &quot;Multimodal&quot;, &quot;en&quot;: &quot;Multimodal&quot;, &quot;cn&quot;: &quot;多模态&quot;, &quot;book&quot;: &quot;ai&quot;, &quot;cat&quot;: &quot;基础概念&quot;, &quot;definition&quot;: &quot;能够处理或生成文本、图片、音频等多类信息。&quot;, &quot;analogy&quot;: &quot;像同时能看、听、说的沟通方式。&quot;, &quot;example&quot;: &quot;上传截图，让模型解释图中内容。&quot;, &quot;caution&quot;: &quot;不同模型支持的输入与输出类型不同。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 19, &quot;word&quot;: &quot;幻觉&quot;, &quot;alt&quot;: &quot;Hallucination&quot;, &quot;en&quot;: &quot;Hallucination&quot;, &quot;cn&quot;: &quot;幻觉&quot;, &quot;book&quot;: &quot;ai&quot;, &quot;cat&quot;: &quot;可靠性与评估&quot;, &quot;definition&quot;: &quot;模型生成看似合理、却错误或缺乏依据的内容。&quot;, &quot;analogy&quot;: &quot;像把不确定的记忆讲得十分肯定。&quot;, &quot;example&quot;: &quot;编造不存在的论文或引用。&quot;, &quot;caution&quot;: &quot;语气自信和答案准确是两回事。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 20, &quot;word&quot;: &quot;Temperature&quot;, &quot;alt&quot;: &quot;温度参数&quot;, &quot;en&quot;: &quot;Temperature&quot;, &quot;cn&quot;: &quot;温度参数&quot;, &quot;book&quot;: &quot;ai&quot;, &quot;cat&quot;: &quot;对话与上下文&quot;, &quot;definition&quot;: &quot;影响输出采样随机性的参数。&quot;, &quot;analogy&quot;: &quot;像调节表达的保守与发散程度。&quot;, &quot;example&quot;: &quot;创意写作可尝试更发散的设置。&quot;, &quot;caution&quot;: &quot;低温度不保证事实正确，各模型参数支持也不同。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 21, &quot;word&quot;: &quot;Evaluation&quot;, &quot;alt&quot;: &quot;评估&quot;, &quot;en&quot;: &quot;Evaluation&quot;, &quot;cn&quot;: &quot;评估&quot;, &quot;book&quot;: &quot;ai&quot;, &quot;cat&quot;: &quot;可靠性与评估&quot;, &quot;definition&quot;: &quot;通过任务、指标与人工判断检查 AI 的实际表现。&quot;, &quot;analogy&quot;: &quot;像用一套试题和评分标准检验能力。&quot;, &quot;example&quot;: &quot;检查客服回答的准确率和任务完成率。&quot;, &quot;caution&quot;: &quot;单个榜单分数不能代表所有业务效果。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 22, &quot;word&quot;: &quot;Guardrails&quot;, &quot;alt&quot;: &quot;护栏&quot;, &quot;en&quot;: &quot;Guardrails&quot;, &quot;cn&quot;: &quot;护栏&quot;, &quot;book&quot;: &quot;ai&quot;, &quot;cat&quot;: &quot;可靠性与评估&quot;, &quot;definition&quot;: &quot;对输入、输出或执行动作施加检查和限制的机制。&quot;, &quot;analogy&quot;: &quot;像道路上的限速和防护栏。&quot;, &quot;example&quot;: &quot;付款前要求人工确认。&quot;, &quot;caution&quot;: &quot;护栏能降低风险，无法消除所有错误。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 23, &quot;word&quot;: &quot;Prompt injection&quot;, &quot;alt&quot;: &quot;提示词注入&quot;, &quot;en&quot;: &quot;Prompt injection&quot;, &quot;cn&quot;: &quot;提示词注入&quot;, &quot;book&quot;: &quot;ai&quot;, &quot;cat&quot;: &quot;可靠性与评估&quot;, &quot;definition&quot;: &quot;不可信内容试图诱导模型偏离原任务或既定规则。&quot;, &quot;analogy&quot;: &quot;像有人在待处理文件里偷偷夹入冒充领导的指令。&quot;, &quot;example&quot;: &quot;网页文字要求助手忽略用户并泄露信息。&quot;, &quot;caution&quot;: &quot;检索到的文本应当作资料，不应自动获得指令权限。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 24, &quot;word&quot;: &quot;Agentic AI&quot;, &quot;alt&quot;: &quot;智能体式 AI&quot;, &quot;en&quot;: &quot;Agentic AI&quot;, &quot;cn&quot;: &quot;智能体式 AI&quot;, &quot;book&quot;: &quot;ai&quot;, &quot;cat&quot;: &quot;智能体与工具&quot;, &quot;definition&quot;: &quot;强调目标驱动、多步骤决策和执行能力的一类 AI 系统设计。&quot;, &quot;analogy&quot;: &quot;像从回答问题升级为协助把事做完。&quot;, &quot;example&quot;: &quot;持续处理任务，依据工具结果调整下一步。&quot;, &quot;caution&quot;: &quot;这是宽泛用语，不同产品的自主程度差异很大。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 25, &quot;word&quot;: &quot;Human-in-the-loop&quot;, &quot;alt&quot;: &quot;人在回路&quot;, &quot;en&quot;: &quot;Human-in-the-loop&quot;, &quot;cn&quot;: &quot;人在回路&quot;, &quot;book&quot;: &quot;ai&quot;, &quot;cat&quot;: &quot;可靠性与评估&quot;, &quot;definition&quot;: &quot;在 AI 流程的关键环节加入人工判断、反馈或批准。&quot;, &quot;analogy&quot;: &quot;像自动驾驶过程中仍保留人工接管点。&quot;, &quot;example&quot;: &quot;发送重要邮件前由人确认。&quot;, &quot;caution&quot;: &quot;有人参与也需要清晰的责任和足够的信息。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 26, &quot;word&quot;: &quot;口径&quot;, &quot;alt&quot;: &quot;Metric definition&quot;, &quot;en&quot;: &quot;Metric definition&quot;, &quot;cn&quot;: &quot;数据口径&quot;, &quot;book&quot;: &quot;data&quot;, &quot;cat&quot;: &quot;数据基础&quot;, &quot;definition&quot;: &quot;计算一个数字时共同约定的统计规则，包括对象、时间、条件、去重与计算方式。&quot;, &quot;analogy&quot;: &quot;像大家先约定用厘米还是英寸量身高。&quot;, &quot;example&quot;: &quot;统计日活前约定：北京时间自然日、登录用户、发生一次有效访问、按账号去重。&quot;, &quot;caution&quot;: &quot;同名指标未必同口径；比较前先核对规则。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 27, &quot;word&quot;: &quot;指标&quot;, &quot;alt&quot;: &quot;Metric&quot;, &quot;en&quot;: &quot;Metric&quot;, &quot;cn&quot;: &quot;指标&quot;, &quot;book&quot;: &quot;data&quot;, &quot;cat&quot;: &quot;数据基础&quot;, &quot;definition&quot;: &quot;用来描述业务状态或变化的量化数值。&quot;, &quot;analogy&quot;: &quot;像体检里的血压与心率，各自回答不同问题。&quot;, &quot;example&quot;: &quot;用完成订单数观察交易规模，用退款率观察交易质量。&quot;, &quot;caution&quot;: &quot;单个指标无法代表全部业务，增长也要看质量与成本。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 28, &quot;word&quot;: &quot;维度&quot;, &quot;alt&quot;: &quot;Dimension&quot;, &quot;en&quot;: &quot;Dimension&quot;, &quot;cn&quot;: &quot;维度&quot;, &quot;book&quot;: &quot;data&quot;, &quot;cat&quot;: &quot;数据基础&quot;, &quot;definition&quot;: &quot;用来分组观察数据的属性。&quot;, &quot;analogy&quot;: &quot;像把账本按月份、城市或商品类别分开看。&quot;, &quot;example&quot;: &quot;按渠道拆分新增用户，找出增长来自哪里。&quot;, &quot;caution&quot;: &quot;指标是看什么数，维度是从哪个角度拆开看。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 29, &quot;word&quot;: &quot;埋点&quot;, &quot;alt&quot;: &quot;Event tracking&quot;, &quot;en&quot;: &quot;Event tracking&quot;, &quot;cn&quot;: &quot;埋点&quot;, &quot;book&quot;: &quot;data&quot;, &quot;cat&quot;: &quot;数据基础&quot;, &quot;definition&quot;: &quot;在产品中记录约定行为及其属性，为分析提供数据。&quot;, &quot;analogy&quot;: &quot;像在关键路口装计数器。&quot;, &quot;example&quot;: &quot;记录按钮点击事件、发生时间与页面来源。&quot;, &quot;caution&quot;: &quot;触发不等于业务成功，重复上报、漏报都可能影响数据。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 30, &quot;word&quot;: &quot;PV&quot;, &quot;alt&quot;: &quot;页面浏览量&quot;, &quot;en&quot;: &quot;PV&quot;, &quot;cn&quot;: &quot;页面浏览量&quot;, &quot;book&quot;: &quot;data&quot;, &quot;cat&quot;: &quot;常用指标&quot;, &quot;definition&quot;: &quot;在指定时间和规则内累计的页面浏览次数。&quot;, &quot;analogy&quot;: &quot;像商店门被推开的总次数。&quot;, &quot;example&quot;: &quot;同一个人浏览同一页面三次，按每次浏览计数时贡献三个 PV。&quot;, &quot;caution&quot;: &quot;刷新、单页应用切换是否算一次，需看埋点规则。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 31, &quot;word&quot;: &quot;UV&quot;, &quot;alt&quot;: &quot;独立访客数&quot;, &quot;en&quot;: &quot;UV&quot;, &quot;cn&quot;: &quot;独立访客数&quot;, &quot;book&quot;: &quot;data&quot;, &quot;cat&quot;: &quot;常用指标&quot;, &quot;definition&quot;: &quot;指定时间内，按约定身份标识去重后的访客数量。&quot;, &quot;analogy&quot;: &quot;像一天里来过店的不同客人数。&quot;, &quot;example&quot;: &quot;同一访客一天浏览三次，按同一标识只计一个 UV。&quot;, &quot;caution&quot;: &quot;按账号、设备或 Cookie 去重结果可能不同；每日 UV 不能直接相加当月 UV。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 32, &quot;word&quot;: &quot;DAU / WAU / MAU&quot;, &quot;alt&quot;: &quot;日 / 周 / 月活跃用户&quot;, &quot;en&quot;: &quot;DAU / WAU / MAU&quot;, &quot;cn&quot;: &quot;日 / 周 / 月活跃用户&quot;, &quot;book&quot;: &quot;data&quot;, &quot;cat&quot;: &quot;常用指标&quot;, &quot;definition&quot;: &quot;在指定一天、一周或一月内完成约定活跃行为的去重用户数。&quot;, &quot;analogy&quot;: &quot;像不同周期内真正来使用服务的人数。&quot;, &quot;example&quot;: &quot;把打开应用或完成核心操作定义为活跃行为。&quot;, &quot;caution&quot;: &quot;活跃行为、自然周期还是滚动周期都需说明；DAU 相加不等于 MAU。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 33, &quot;word&quot;: &quot;转化率&quot;, &quot;alt&quot;: &quot;Conversion rate&quot;, &quot;en&quot;: &quot;Conversion rate&quot;, &quot;cn&quot;: &quot;转化率&quot;, &quot;book&quot;: &quot;data&quot;, &quot;cat&quot;: &quot;常用指标&quot;, &quot;definition&quot;: &quot;在约定人群和时间窗口内，完成目标行为的比例。&quot;, &quot;analogy&quot;: &quot;像进店的人里最终买单的占比。&quot;, &quot;example&quot;: &quot;100 名合格访客中有 8 人在窗口内下单，用户转化率为 8%。&quot;, &quot;caution&quot;: &quot;要明确分母、分子、顺序和转化窗口；人数口径不要混入次数口径。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 34, &quot;word&quot;: &quot;CTR&quot;, &quot;alt&quot;: &quot;点击率&quot;, &quot;en&quot;: &quot;CTR&quot;, &quot;cn&quot;: &quot;点击率&quot;, &quot;book&quot;: &quot;data&quot;, &quot;cat&quot;: &quot;常用指标&quot;, &quot;definition&quot;: &quot;按约定统计方式，点击量与曝光量的比值。&quot;, &quot;analogy&quot;: &quot;像看过海报的人中有多少次进一步点进去。&quot;, &quot;example&quot;: &quot;按次数口径：1000 次曝光产生 30 次点击，CTR 为 3%。&quot;, &quot;caution&quot;: &quot;人数点击率与次数点击率不同；曝光可见性也会影响结果。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 35, &quot;word&quot;: &quot;留存率&quot;, &quot;alt&quot;: &quot;Retention&quot;, &quot;en&quot;: &quot;Retention&quot;, &quot;cn&quot;: &quot;留存率&quot;, &quot;book&quot;: &quot;data&quot;, &quot;cat&quot;: &quot;常用指标&quot;, &quot;definition&quot;: &quot;某批用户在后续指定时间满足回访条件的比例。&quot;, &quot;analogy&quot;: &quot;像第一天来过店的客人，后来有多少又来了。&quot;, &quot;example&quot;: &quot;某日新增 100 人，次日有 20 人完成约定行为，次日留存为 20%。&quot;, &quot;caution&quot;: &quot;第 N 日、N 日内和第 N 日及以后留存不是同一个指标。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 36, &quot;word&quot;: &quot;漏斗&quot;, &quot;alt&quot;: &quot;Funnel&quot;, &quot;en&quot;: &quot;Funnel&quot;, &quot;cn&quot;: &quot;漏斗&quot;, &quot;book&quot;: &quot;data&quot;, &quot;cat&quot;: &quot;分析方法&quot;, &quot;definition&quot;: &quot;按一串关键步骤观察用户逐步完成和流失的分析方式。&quot;, &quot;analogy&quot;: &quot;像一层层筛网，看人在哪一步掉队。&quot;, &quot;example&quot;: &quot;观察浏览商品、加购、提交订单、支付的转化。&quot;, &quot;caution&quot;: &quot;步骤顺序、跨设备识别和时间窗口都会改变结果。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 37, &quot;word&quot;: &quot;Cohort&quot;, &quot;alt&quot;: &quot;同群 / 分群&quot;, &quot;en&quot;: &quot;Cohort&quot;, &quot;cn&quot;: &quot;同群 / 分群&quot;, &quot;book&quot;: &quot;data&quot;, &quot;cat&quot;: &quot;分析方法&quot;, &quot;definition&quot;: &quot;按共同特征或同一时期行为划分的一组用户。&quot;, &quot;analogy&quot;: &quot;像把同一期入学的学生放在一起比较。&quot;, &quot;example&quot;: &quot;比较一月和二月新增用户的第七日留存。&quot;, &quot;caution&quot;: &quot;不同群体的渠道、规模和观察时长可能不同。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 38, &quot;word&quot;: &quot;同比 / 环比&quot;, &quot;alt&quot;: &quot;YoY / MoM&quot;, &quot;en&quot;: &quot;YoY / MoM&quot;, &quot;cn&quot;: &quot;同比 / 环比&quot;, &quot;book&quot;: &quot;data&quot;, &quot;cat&quot;: &quot;分析方法&quot;, &quot;definition&quot;: &quot;同比与上一年相应时期比较；环比与紧邻的上一个同类周期比较。&quot;, &quot;analogy&quot;: &quot;像既比较去年同月成绩，也比较上个月成绩。&quot;, &quot;example&quot;: &quot;今年三月对去年三月是同比，对今年二月是月环比。&quot;, &quot;caution&quot;: &quot;周期长度、节假日和基数会干扰；基数为零时普通增长率公式不可用。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 39, &quot;word&quot;: &quot;百分点&quot;, &quot;alt&quot;: &quot;Percentage point&quot;, &quot;en&quot;: &quot;Percentage point&quot;, &quot;cn&quot;: &quot;百分点&quot;, &quot;book&quot;: &quot;data&quot;, &quot;cat&quot;: &quot;分析方法&quot;, &quot;definition&quot;: &quot;两个百分比直接相减得到的差。&quot;, &quot;analogy&quot;: &quot;像两个刻度之间的距离。&quot;, &quot;example&quot;: &quot;转化率从 10% 到 12%，上升 2 个百分点，相对增长 20%。&quot;, &quot;caution&quot;: &quot;百分点和百分比增幅不能混用。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 40, &quot;word&quot;: &quot;A/B test&quot;, &quot;alt&quot;: &quot;A/B 实验&quot;, &quot;en&quot;: &quot;A/B test&quot;, &quot;cn&quot;: &quot;A/B 实验&quot;, &quot;book&quot;: &quot;data&quot;, &quot;cat&quot;: &quot;分析方法&quot;, &quot;definition&quot;: &quot;把合适的实验对象随机分配到不同方案，比较结果的实验方法。&quot;, &quot;analogy&quot;: &quot;像在相近条件下试两份不同配方。&quot;, &quot;example&quot;: &quot;对照组看旧页面，实验组看新页面，比较预先定义的指标。&quot;, &quot;caution&quot;: &quot;随机化、样本量、实验周期和多重比较都会影响结论；有差异不一定有因果证据。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 41, &quot;word&quot;: &quot;归因&quot;, &quot;alt&quot;: &quot;Attribution&quot;, &quot;en&quot;: &quot;Attribution&quot;, &quot;cn&quot;: &quot;归因&quot;, &quot;book&quot;: &quot;data&quot;, &quot;cat&quot;: &quot;分析方法&quot;, &quot;definition&quot;: &quot;按一定规则或模型，把结果与可能的触点、来源联系起来。&quot;, &quot;analogy&quot;: &quot;像给进球分配助攻贡献。&quot;, &quot;example&quot;: &quot;按最后一次有效广告点击归属订单来源。&quot;, &quot;caution&quot;: &quot;分配贡献的规则不等于证明因果；换模型可能得出不同结果。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 42, &quot;word&quot;: &quot;Mentor&quot;, &quot;alt&quot;: &quot;导师 / 指导者&quot;, &quot;en&quot;: &quot;Mentor&quot;, &quot;cn&quot;: &quot;导师 / 指导者&quot;, &quot;book&quot;: &quot;work&quot;, &quot;cat&quot;: &quot;角色与协作&quot;, &quot;definition&quot;: &quot;提供经验、建议或成长支持的人。&quot;, &quot;analogy&quot;: &quot;像带你熟悉路线的向导。&quot;, &quot;example&quot;: &quot;新人向 mentor 请教团队协作习惯和专业成长。&quot;, &quot;caution&quot;: &quot;Mentor 不必是直属领导，也未必负责绩效；以团队实际安排为准。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 43, &quot;word&quot;: &quot;+1 / +2&quot;, &quot;alt&quot;: &quot;上一级 / 上两级领导&quot;, &quot;en&quot;: &quot;+1 / +2&quot;, &quot;cn&quot;: &quot;上一级 / 上两级领导&quot;, &quot;book&quot;: &quot;work&quot;, &quot;cat&quot;: &quot;角色与协作&quot;, &quot;definition&quot;: &quot;一些团队用来描述汇报链上层级的非正式叫法。&quot;, &quot;analogy&quot;: &quot;像组织树上往上走一层或两层。&quot;, &quot;example&quot;: &quot;常见用法中，+1 指直属领导，+2 指直属领导的上级。&quot;, &quot;caution&quot;: &quot;不是通用职级制度；矩阵汇报时要说明是哪条汇报线。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 44, &quot;word&quot;: &quot;Owner&quot;, &quot;alt&quot;: &quot;负责人&quot;, &quot;en&quot;: &quot;Owner&quot;, &quot;cn&quot;: &quot;负责人&quot;, &quot;book&quot;: &quot;work&quot;, &quot;cat&quot;: &quot;角色与协作&quot;, &quot;definition&quot;: &quot;对某件事的推进和结果承担明确责任的人。&quot;, &quot;analogy&quot;: &quot;像一场活动的总协调人。&quot;, &quot;example&quot;: &quot;一个跨团队项目指定 owner 跟踪进度、协调阻塞。&quot;, &quot;caution&quot;: &quot;负责人不等于亲自做完所有工作，也不天然拥有全部审批权。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 45, &quot;word&quot;: &quot;Stakeholder&quot;, &quot;alt&quot;: &quot;相关方 / 利益相关者&quot;, &quot;en&quot;: &quot;Stakeholder&quot;, &quot;cn&quot;: &quot;相关方 / 利益相关者&quot;, &quot;book&quot;: &quot;work&quot;, &quot;cat&quot;: &quot;角色与协作&quot;, &quot;definition&quot;: &quot;会影响项目，或受到项目结果影响的人和群体。&quot;, &quot;analogy&quot;: &quot;像装修时需要沟通的住户、物业和施工方。&quot;, &quot;example&quot;: &quot;产品改版涉及用户、客服、运营与研发。&quot;, &quot;caution&quot;: &quot;相关方不全是审批人，也不限于领导。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 46, &quot;word&quot;: &quot;对齐&quot;, &quot;alt&quot;: &quot;Alignment&quot;, &quot;en&quot;: &quot;Alignment&quot;, &quot;cn&quot;: &quot;对齐&quot;, &quot;book&quot;: &quot;work&quot;, &quot;cat&quot;: &quot;协作表达&quot;, &quot;definition&quot;: &quot;把目标、理解、范围或行动安排沟通到一致。&quot;, &quot;analogy&quot;: &quot;像出发前一起确认目的地和路线。&quot;, &quot;example&quot;: &quot;开工前确认交付范围、负责人和时间。&quot;, &quot;caution&quot;: &quot;说过不等于达成一致，最好记录结论与分歧。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 47, &quot;word&quot;: &quot;Sync&quot;, &quot;alt&quot;: &quot;同步 / 简短沟通&quot;, &quot;en&quot;: &quot;Sync&quot;, &quot;cn&quot;: &quot;同步 / 简短沟通&quot;, &quot;book&quot;: &quot;work&quot;, &quot;cat&quot;: &quot;协作表达&quot;, &quot;definition&quot;: &quot;分享最新信息，或进行一次快速交流。&quot;, &quot;analogy&quot;: &quot;像接力时交代目前跑到哪。&quot;, &quot;example&quot;: &quot;用十分钟同步进展和阻塞。&quot;, &quot;caution&quot;: &quot;同步消息不代表对方已同意方案。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 48, &quot;word&quot;: &quot;Aim&quot;, &quot;alt&quot;: &quot;目标 / 旨在&quot;, &quot;en&quot;: &quot;Aim&quot;, &quot;cn&quot;: &quot;目标 / 旨在&quot;, &quot;book&quot;: &quot;work&quot;, &quot;cat&quot;: &quot;职场英语&quot;, &quot;definition&quot;: &quot;作名词表示目标；作动词表示旨在或力求。&quot;, &quot;analogy&quot;: &quot;像箭头指向你想达到的方向。&quot;, &quot;example&quot;: &quot;Our aim is to reduce waiting time. 我们的目标是缩短等待时间。&quot;, &quot;caution&quot;: &quot;aim 不专指某种指标框架；aim to 后通常接动词原形，aim for 后接目标。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 49, &quot;word&quot;: &quot;Deliverable&quot;, &quot;alt&quot;: &quot;交付物&quot;, &quot;en&quot;: &quot;Deliverable&quot;, &quot;cn&quot;: &quot;交付物&quot;, &quot;book&quot;: &quot;work&quot;, &quot;cat&quot;: &quot;职场英语&quot;, &quot;definition&quot;: &quot;任务完成后可以交付、检查或验收的成果。&quot;, &quot;analogy&quot;: &quot;像装修结束时能验收的房间。&quot;, &quot;example&quot;: &quot;一份原型、分析报告或上线功能都可以是交付物。&quot;, &quot;caution&quot;: &quot;开过会议、花了工时不一定意味着已产出可验收成果。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 50, &quot;word&quot;: &quot;Deadline / ETA&quot;, &quot;alt&quot;: &quot;截止时间 / 预计完成时间&quot;, &quot;en&quot;: &quot;Deadline / ETA&quot;, &quot;cn&quot;: &quot;截止时间 / 预计完成时间&quot;, &quot;book&quot;: &quot;work&quot;, &quot;cat&quot;: &quot;职场英语&quot;, &quot;definition&quot;: &quot;Deadline 是要求完成的期限；ETA 在项目沟通中常指预计完成或可用的时间。&quot;, &quot;analogy&quot;: &quot;像必须赶上的发车时间与预计到站时间。&quot;, &quot;example&quot;: &quot;截止周五，但当前估计周四可以交付。&quot;, &quot;caution&quot;: &quot;预计时间不是承诺期限；ETA 原义是预计到达时间。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 51, &quot;word&quot;: &quot;Blocker&quot;, &quot;alt&quot;: &quot;阻塞项&quot;, &quot;en&quot;: &quot;Blocker&quot;, &quot;cn&quot;: &quot;阻塞项&quot;, &quot;book&quot;: &quot;work&quot;, &quot;cat&quot;: &quot;协作表达&quot;, &quot;definition&quot;: &quot;阻止任务继续推进的关键障碍。&quot;, &quot;analogy&quot;: &quot;像道路上必须先搬走的大石头。&quot;, &quot;example&quot;: &quot;缺少接口权限导致联调无法继续。&quot;, &quot;caution&quot;: &quot;普通风险不一定已经构成阻塞；需说清影响和所需支持。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 52, &quot;word&quot;: &quot;Scope&quot;, &quot;alt&quot;: &quot;范围&quot;, &quot;en&quot;: &quot;Scope&quot;, &quot;cn&quot;: &quot;范围&quot;, &quot;book&quot;: &quot;work&quot;, &quot;cat&quot;: &quot;职场英语&quot;, &quot;definition&quot;: &quot;项目包含哪些工作、服务对象和交付边界。&quot;, &quot;analogy&quot;: &quot;像在地图上划定这次施工区域。&quot;, &quot;example&quot;: &quot;本期只支持查看数据，编辑功能放到后续版本。&quot;, &quot;caution&quot;: &quot;范围变更会影响排期、资源或质量，需要同步评估。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 53, &quot;word&quot;: &quot;OKR&quot;, &quot;alt&quot;: &quot;目标与关键结果&quot;, &quot;en&quot;: &quot;OKR&quot;, &quot;cn&quot;: &quot;目标与关键结果&quot;, &quot;book&quot;: &quot;work&quot;, &quot;cat&quot;: &quot;目标管理&quot;, &quot;definition&quot;: &quot;用目标描述方向，用关键结果衡量是否取得所期望的成果。&quot;, &quot;analogy&quot;: &quot;像确定目的地，再列出到达的可验证标志。&quot;, &quot;example&quot;: &quot;目标是改善新手体验，关键结果可衡量核心任务完成率。&quot;, &quot;caution&quot;: &quot;关键结果不应只是任务清单；考核方式取决于组织制度。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 54, &quot;word&quot;: &quot;KPI&quot;, &quot;alt&quot;: &quot;关键绩效指标&quot;, &quot;en&quot;: &quot;KPI&quot;, &quot;cn&quot;: &quot;关键绩效指标&quot;, &quot;book&quot;: &quot;work&quot;, &quot;cat&quot;: &quot;目标管理&quot;, &quot;definition&quot;: &quot;用于衡量关键业务或工作表现的指标。&quot;, &quot;analogy&quot;: &quot;像仪表盘上最需要持续关注的几块表。&quot;, &quot;example&quot;: &quot;关注服务响应时长、有效订单量等。&quot;, &quot;caution&quot;: &quot;KPI 与 OKR 可并存，不能简单等同于惩罚或绩效奖金。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 55, &quot;word&quot;: &quot;Review&quot;, &quot;alt&quot;: &quot;评审 / 回顾&quot;, &quot;en&quot;: &quot;Review&quot;, &quot;cn&quot;: &quot;评审 / 回顾&quot;, &quot;book&quot;: &quot;work&quot;, &quot;cat&quot;: &quot;协作表达&quot;, &quot;definition&quot;: &quot;根据语境，指检查方案或成果，也可指回顾表现和经验。&quot;, &quot;analogy&quot;: &quot;像交卷前检查，也像赛后复盘。&quot;, &quot;example&quot;: &quot;Design review 是设计评审，performance review 常指绩效回顾。&quot;, &quot;caution&quot;: &quot;不能只看到 review 就默认是同一种会议。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 56, &quot;word&quot;: &quot;Roadmap&quot;, &quot;alt&quot;: &quot;路线图&quot;, &quot;en&quot;: &quot;Roadmap&quot;, &quot;cn&quot;: &quot;路线图&quot;, &quot;book&quot;: &quot;work&quot;, &quot;cat&quot;: &quot;目标管理&quot;, &quot;definition&quot;: &quot;按时间或阶段表达产品方向、优先事项与计划的概览。&quot;, &quot;analogy&quot;: &quot;像旅行的大致路线安排。&quot;, &quot;example&quot;: &quot;展示本季度优先改善体验，下季度探索新场景。&quot;, &quot;caution&quot;: &quot;路线图会随证据变化，不一定是逐项交付承诺。&quot;, &quot;source&quot;: &quot;人工整理&quot;, &quot;updated&quot;: &quot;2026-11-04&quot;}, {&quot;id&quot;: 57, &quot;word&quot;: &quot;GMV&quot;, &quot;alt&quot;: &quot;商品交易总额&quot;, &quot;en&quot;: &quot;GMV&quot;, &quot;cn&quot;: &quot;商品交易总额&quot;, &quot;book&quot;: &quot;data&quot;, &quot;cat&quot;: &quot;常用指标&quot;, &quot;definition&quot;: &quot;GMV 是一段时间内通过某个平台、商家或渠道卖出的商品（或服务）的总金额，用来看“生意做得有多大”。它在扣除各项费用之前计算，不等于公司收入或利润。&quot;, &quot;analogy&quot;: &quot;就像一个商场统计“全场今天一共卖出了多少钱的东西”，这笔钱大多属于各个商户；商场自己真正赚到的，只是其中的租金和抽成。&quot;, &quot;example&quot;: &quot;【假设】某平台本月卖出 1 万件商品，每件 100 元，按该平台约定的口径，本月 GMV 为 100 万元。如果平台从每笔交易中抽成 5%，平台的佣金收入约 5 万元，远小于 GMV。&quot;, &quot;caution&quot;: &quot;GMV 怎么算，没有统一标准。是否计入未支付、取消、退款订单，以及运费、税费、折扣，都由业务口径约定，不能默认包含或排除。比较不同公司、不同报表或不同时期的 GMV 前，要先确认口径一致。GMV 不等于营收、到账现金或利润；对平台型业务来说，营收通常只占 GMV 的一小部分。&quot;, &quot;source&quot;: &quot;Agent 整理&quot;, &quot;updated&quot;: &quot;2026-11-06&quot;, &quot;fresh&quot;: true}]};&lt;/script&gt;
+&lt;script&gt;
+/* 懂行：每天背一组行话
+ * 纯静态页面：词库在 data/words.json，学习进度存在浏览器本地（localStorage）。
+ * 复习间隔用简化的间隔重复（Leitner 盒子）：认识就拉长间隔，不认识就当天再来。
+ */
+(function () {
+  &#x27;use strict&#x27;;
+
+  var KEY = &#x27;dongxing:v1&#x27;;
+  var INTERVAL = [0, 1, 2, 4, 7, 15, 30]; // 每个盒子对应的复习间隔（天）
+  var MASTER_BOX = 4;                    // 进入第 4 个盒子算“已掌握”
+  var BOOK_NAME = { all: &#x27;全部&#x27;, ai: &#x27;AI&#x27;, data: &#x27;数据&#x27;, work: &#x27;职场黑话&#x27; };
+
+  var words = [], byId = {}, meta = {};
+  var state = load();
+  var tab = &#x27;today&#x27;;
+  var session = null;   // 正在背的一组
+  var meTab = &#x27;new&#x27;;
+  var dictBook = &#x27;all&#x27;, dictQ = &#x27;&#x27;;
+  var resetArmed = false;
+  var sgRound = 0;
+
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var esc = function (v) {
+    return String(v == null ? &#x27;&#x27; : v).replace(/[&amp;&lt;&gt;&quot;&#x27;]/g, function (c) {
+      return { &#x27;&amp;&#x27;: &#x27;&amp;amp;&#x27;, &#x27;&lt;&#x27;: &#x27;&amp;lt;&#x27;, &#x27;&gt;&#x27;: &#x27;&amp;gt;&#x27;, &#x27;&quot;&#x27;: &#x27;&amp;quot;&#x27;, &quot;&#x27;&quot;: &#x27;&amp;#39;&#x27; }[c];
+    });
+  };
+
+  /* ---------- 存储 ---------- */
+  function load() {
+    var d = { book: &#x27;all&#x27;, goal: 10, cards: {}, days: {}, starred: [], requests: [] };
+    try {
+      var raw = localStorage.getItem(KEY);
+      if (raw) { var p = JSON.parse(raw); for (var k in d) if (p[k] != null) d[k] = p[k]; }
+    } catch (e) { /* 隐私模式等情况下读不到，用默认值 */ }
+    return d;
+  }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { } }
+
+  /* ---------- 日期 ---------- */
+  function today() { return ymd(new Date()); }
+  function ymd(d) {
+    var m = d.getMonth() + 1, day = d.getDate();
+    return d.getFullYear() + &#x27;-&#x27; + (m &lt; 10 ? &#x27;0&#x27; : &#x27;&#x27;) + m + &#x27;-&#x27; + (day &lt; 10 ? &#x27;0&#x27; : &#x27;&#x27;) + day;
+  }
+  function addDays(s, n) { var p = s.split(&#x27;-&#x27;); var d = new Date(+p[0], +p[1] - 1, +p[2]); d.setDate(d.getDate() + n); return ymd(d); }
+
+  /* ---------- 学习状态 ---------- */
+  function rec(id) { return state.cards[id]; }
+  function isMastered(id) { var r = rec(id); return !!r &amp;&amp; r.box &gt;= MASTER_BOX; }
+  function isLearning(id) { var r = rec(id); return !!r &amp;&amp; r.box &lt; MASTER_BOX; }
+  function isWeak(id) { var r = rec(id); return !!r &amp;&amp; r.box &lt; MASTER_BOX &amp;&amp; (r.last === &#x27;no&#x27; || r.last === &#x27;vague&#x27; || (r.wrong || 0) &gt; 0); }
+  function inBook(w, b) { return b === &#x27;all&#x27; || w.book === b; }
+
+  function grade(id, g) {
+    var t = today();
+    var r = rec(id) || { box: 0, seen: 0, wrong: 0 };
+    var first = !r.seen;
+    if (g === &#x27;know&#x27;) r.box = first ? 3 : Math.min(6, r.box + 1);
+    else if (g === &#x27;vague&#x27;) r.box = 1;
+    else { r.box = 0; r.wrong = (r.wrong || 0) + 1; }
+    r.due = addDays(t, INTERVAL[r.box]);
+    r.seen = (r.seen || 0) + 1;
+    r.last = g;
+    r.at = t;
+    state.cards[id] = r;
+    var day = state.days[t] || { done: 0, ids: [] };
+    if (day.ids.indexOf(id) &lt; 0) { day.ids.push(id); day.done = day.ids.length; }
+    state.days[t] = day;
+    save();
+  }
+
+  function streak() {
+    var n = 0, d = today();
+    if (!(state.days[d] &amp;&amp; state.days[d].done)) d = addDays(d, -1);
+    while (state.days[d] &amp;&amp; state.days[d].done) { n++; d = addDays(d, -1); }
+    return n;
+  }
+
+  function plan(book) {
+    var t = today();
+    var pool = words.filter(function (w) { return inBook(w, book); });
+    var due = pool.filter(function (w) { var r = rec(w.id); return r &amp;&amp; r.due &lt;= t; })
+      .sort(function (a, b) { return rec(a.id).due &lt; rec(b.id).due ? -1 : 1; });
+    var fresh = pool.filter(function (w) { return !rec(w.id); });
+    return { due: due, fresh: fresh, pool: pool };
+  }
+
+  /* ---------- 渲染 ---------- */
+  function render() {
+    document.querySelectorAll(&#x27;.tabs button&#x27;).forEach(function (b) { b.classList.toggle(&#x27;on&#x27;, b.dataset.tab === tab); });
+    var s = streak();
+    $(&#x27;#streak&#x27;).innerHTML = s ? &#x27;连续打卡 &lt;b&gt;&#x27; + s + &#x27;&lt;/b&gt; 天&#x27; : &#x27;今天还没打卡&#x27;;
+    var v = $(&#x27;#view&#x27;);
+    if (tab === &#x27;today&#x27;) v.innerHTML = session ? (session.idx &lt; session.queue.length ? studyHTML() : doneHTML()) : todayHTML();
+    else if (tab === &#x27;dict&#x27;) v.innerHTML = dictHTML();
+    else v.innerHTML = meHTML();
+
+  }
+
+  function bookChips(cur, attr) {
+    return [&#x27;all&#x27;, &#x27;ai&#x27;, &#x27;data&#x27;, &#x27;work&#x27;].map(function (k) {
+      var n = words.filter(function (w) { return inBook(w, k); }).length;
+      return &#x27;&lt;button class=&quot;chip&#x27; + (cur === k ? &#x27; on&#x27; : &#x27;&#x27;) + &#x27;&quot; &#x27; + attr + &#x27;=&quot;&#x27; + k + &#x27;&quot;&gt;&#x27; + BOOK_NAME[k] + &#x27;&lt;small&gt;&#x27; + n + &#x27;&lt;/small&gt;&lt;/button&gt;&#x27;;
+    }).join(&#x27;&#x27;);
+  }
+
+  function todayHTML() {
+    var p = plan(state.book);
+    var n = Math.min(state.goal, p.due.length + p.fresh.length);
+    var mastered = p.pool.filter(function (w) { return isMastered(w.id); }).length;
+    var pct = p.pool.length ? Math.round(mastered / p.pool.length * 100) : 0;
+    var doneToday = (state.days[today()] || {}).done || 0;
+    return &#x27;&#x27; +
+      &#x27;&lt;h2&gt;&#x27; + (doneToday ? &#x27;今天已背 &#x27; + doneToday + &#x27; 个词&#x27; : &#x27;今天背 &#x27; + state.goal + &#x27; 个词&#x27;) + &#x27;&lt;/h2&gt;&#x27; +
+      &#x27;&lt;p class=&quot;sub&quot;&gt;刚入行就像背单词：先把这个行业里常说的词，一个个弄懂。&lt;/p&gt;&#x27; +
+      &#x27;&lt;div class=&quot;panel&quot;&gt;&#x27; +
+        &#x27;&lt;p class=&quot;label&quot;&gt;选一本词书&lt;/p&gt;&lt;div class=&quot;chips&quot;&gt;&#x27; + bookChips(state.book, &#x27;data-book&#x27;) + &#x27;&lt;/div&gt;&#x27; +
+        &#x27;&lt;div class=&quot;gap&quot;&gt;&lt;/div&gt;&lt;p class=&quot;label&quot;&gt;每天背几个&lt;/p&gt;&#x27; +
+        &#x27;&lt;div class=&quot;seg&quot;&gt;&#x27; + [10, 20, 30].map(function (g) {
+          return &#x27;&lt;button data-goal=&quot;&#x27; + g + &#x27;&quot; class=&quot;&#x27; + (state.goal === g ? &#x27;on&#x27; : &#x27;&#x27;) + &#x27;&quot;&gt;&#x27; + g + &#x27; 个&lt;/button&gt;&#x27;;
+        }).join(&#x27;&#x27;) + &#x27;&lt;/div&gt;&#x27; +
+      &#x27;&lt;/div&gt;&#x27; +
+      &#x27;&lt;div class=&quot;stats&quot;&gt;&#x27; +
+        &#x27;&lt;div class=&quot;stat&quot;&gt;&lt;b&gt;&#x27; + p.due.length + &#x27;&lt;/b&gt;&lt;span&gt;今天要复习&lt;/span&gt;&lt;/div&gt;&#x27; +
+        &#x27;&lt;div class=&quot;stat&quot;&gt;&lt;b&gt;&#x27; + p.fresh.length + &#x27;&lt;/b&gt;&lt;span&gt;还没背过&lt;/span&gt;&lt;/div&gt;&#x27; +
+        &#x27;&lt;div class=&quot;stat&quot;&gt;&lt;b&gt;&#x27; + mastered + &#x27;&lt;small style=&quot;font-size:13px;color:var(--muted)&quot;&gt; / &#x27; + p.pool.length + &#x27;&lt;/small&gt;&lt;/b&gt;&lt;span&gt;已掌握&lt;/span&gt;&lt;/div&gt;&#x27; +
+      &#x27;&lt;/div&gt;&#x27; +
+      &#x27;&lt;div class=&quot;progress&quot; aria-label=&quot;已掌握进度&quot;&gt;&lt;i style=&quot;width:&#x27; + pct + &#x27;%&quot;&gt;&lt;/i&gt;&lt;/div&gt;&#x27; +
+      &#x27;&lt;button class=&quot;big&quot; data-act=&quot;start&quot;&#x27; + (n ? &#x27;&#x27; : &#x27; disabled&#x27;) + &#x27;&gt;&#x27; +
+        (n ? (doneToday ? &#x27;再来一组（&#x27; + n + &#x27; 个）&#x27; : &#x27;开始背今天的 &#x27; + n + &#x27; 个词&#x27;) : &#x27;这本词书今天背完了&#x27;) + &#x27;&lt;/button&gt;&#x27; +
+      &#x27;&lt;p class=&quot;note&quot;&gt;先复习到期的词，再学新词。认识的词间隔会越拉越长，不认识的当天再出现一次。词库更新于 &#x27; + esc(meta.updated || &#x27;&#x27;) + &#x27;，共 &#x27; + words.length + &#x27; 个词。&lt;/p&gt;&#x27;;
+  }
+
+  function detailHTML(w) {
+    return &#x27;&#x27; +
+      &#x27;&lt;div class=&quot;tags&quot;&gt;&lt;span class=&quot;badge &#x27; + w.book + &#x27;&quot;&gt;&#x27; + BOOK_NAME[w.book] + &#x27;&lt;/span&gt;&lt;span class=&quot;badge cat&quot;&gt;&#x27; + esc(w.cat) + &#x27;&lt;/span&gt;&lt;/div&gt;&#x27; +
+      &#x27;&lt;div class=&quot;word&quot;&gt;&#x27; + esc(w.word) + &#x27;&lt;/div&gt;&lt;div class=&quot;alt&quot;&gt;&#x27; + esc(w.alt) + &#x27;&lt;/div&gt;&#x27; +
+      &#x27;&lt;div class=&quot;plain&quot;&gt;&#x27; + esc(w.definition) + &#x27;&lt;/div&gt;&#x27; +
+      &#x27;&lt;div class=&quot;row&quot;&gt;&lt;div class=&quot;k&quot;&gt;打个比方&lt;/div&gt;&lt;div class=&quot;v&quot;&gt;&#x27; + esc(w.analogy) + &#x27;&lt;/div&gt;&lt;/div&gt;&#x27; +
+      &#x27;&lt;div class=&quot;row&quot;&gt;&lt;div class=&quot;k&quot;&gt;实际这样用&lt;/div&gt;&lt;div class=&quot;v&quot;&gt;&#x27; + esc(w.example) + &#x27;&lt;/div&gt;&lt;/div&gt;&#x27; +
+      &#x27;&lt;div class=&quot;row warn&quot;&gt;&lt;div class=&quot;k&quot;&gt;容易弄错&lt;/div&gt;&lt;div class=&quot;v&quot;&gt;&#x27; + esc(w.caution) + &#x27;&lt;/div&gt;&lt;/div&gt;&#x27;;
+  }
+
+  function studyHTML() {
+    var s = session, id = s.queue[s.idx], w = byId[id];
+    var total = s.total, done = s.done;
+    var g = s.graded;
+    var bottom;
+    if (!s.flipped &amp;&amp; !g) {
+      bottom = &#x27;&lt;div class=&quot;grade&quot;&gt;&#x27; +
+        &#x27;&lt;button class=&quot;g-know&quot; data-grade=&quot;know&quot;&gt;认识&lt;/button&gt;&#x27; +
+        &#x27;&lt;button class=&quot;g-vague&quot; data-grade=&quot;vague&quot;&gt;模糊&lt;/button&gt;&#x27; +
+        &#x27;&lt;button class=&quot;g-no&quot; data-grade=&quot;no&quot;&gt;不认识&lt;/button&gt;&lt;/div&gt;&#x27; +
+        &#x27;&lt;p class=&quot;keys&quot;&gt;点卡片翻面看意思 · 键盘 1 认识 · 2 模糊 · 3 不认识 · 空格翻面&lt;/p&gt;&#x27;;
+    } else if (!g) {
+      bottom = &#x27;&lt;div class=&quot;grade&quot;&gt;&#x27; +
+        &#x27;&lt;button class=&quot;g-know&quot; data-grade=&quot;know&quot;&gt;记得&lt;/button&gt;&#x27; +
+        &#x27;&lt;button class=&quot;g-vague&quot; data-grade=&quot;vague&quot;&gt;模糊&lt;/button&gt;&#x27; +
+        &#x27;&lt;button class=&quot;g-no&quot; data-grade=&quot;no&quot;&gt;没记住&lt;/button&gt;&lt;/div&gt;&#x27; +
+        &#x27;&lt;p class=&quot;keys&quot;&gt;看完意思，诚实地选一个&lt;/p&gt;&#x27;;
+    } else {
+      var txt = { know: &#x27;认识，间隔会拉长&#x27;, vague: &#x27;模糊，明天再复习&#x27;, no: &#x27;不认识，这一组里还会再出现&#x27; }[g];
+      bottom = &#x27;&lt;div class=&quot;after&quot;&gt;&lt;button class=&quot;next&quot; data-act=&quot;next&quot;&gt;下一个&lt;/button&gt;&#x27; +
+        &#x27;&lt;span class=&quot;verdict&quot;&gt;&#x27; + txt + &#x27;&lt;/span&gt;&#x27; +
+        (g !== &#x27;no&#x27; ? &#x27;&lt;button class=&quot;fix&quot; data-act=&quot;fix&quot;&gt;其实没记住&lt;/button&gt;&#x27; : &#x27;&#x27;) + &#x27;&lt;/div&gt;&#x27;;
+    }
+    return &#x27;&#x27; +
+      &#x27;&lt;div class=&quot;study-top&quot;&gt;&lt;button class=&quot;quit&quot; data-act=&quot;quit&quot; aria-label=&quot;结束这一组&quot;&gt;&#x27; +
+        &#x27;&lt;svg viewBox=&quot;0 0 24 24&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M15 5l-7 7 7 7&quot;/&gt;&lt;/svg&gt;结束&lt;/button&gt;&#x27; +
+        &#x27;&lt;div class=&quot;progress&quot;&gt;&lt;i style=&quot;width:&#x27; + Math.round(done / total * 100) + &#x27;%&quot;&gt;&lt;/i&gt;&lt;/div&gt;&#x27; +
+        &#x27;&lt;span class=&quot;count&quot;&gt;&#x27; + done + &#x27; / &#x27; + total + &#x27;&lt;/span&gt;&lt;/div&gt;&#x27; +
+      &#x27;&lt;div class=&quot;flip&#x27; + (s.flipped ? &#x27; flipped&#x27; : &#x27;&#x27;) + &#x27;&quot;&gt;&#x27; +
+        &#x27;&lt;div class=&quot;flip-in&quot;&gt;&#x27; +
+          &#x27;&lt;div class=&quot;face front&quot; data-act=&quot;flip&quot; role=&quot;button&quot; tabindex=&quot;0&quot; aria-label=&quot;翻面查看意思&quot;&gt;&#x27; +
+            &#x27;&lt;span class=&quot;badge &#x27; + w.book + &#x27;&quot;&gt;&#x27; + BOOK_NAME[w.book] + &#x27;&lt;/span&gt;&#x27; +
+            &#x27;&lt;div class=&quot;word&quot;&gt;&#x27; + esc(w.word) + &#x27;&lt;/div&gt;&#x27; +
+            &#x27;&lt;div class=&quot;ask&quot;&gt;你知道它是什么意思吗？&lt;/div&gt;&#x27; +
+            &#x27;&lt;div class=&quot;tap&quot;&gt;点一下翻面&lt;/div&gt;&lt;/div&gt;&#x27; +
+          &#x27;&lt;div class=&quot;face back&quot; aria-hidden=&quot;&#x27; + (s.flipped ? &#x27;false&#x27; : &#x27;true&#x27;) + &#x27;&quot;&gt;&lt;div class=&quot;back-scroll&quot;&gt;&#x27; + detailHTML(w) + &#x27;&lt;/div&gt;&lt;/div&gt;&#x27; +
+        &#x27;&lt;/div&gt;&lt;/div&gt;&#x27; + bottom;
+  }
+
+  function doneHTML() {
+    var s = session, ids = s.order;
+    var cnt = { know: 0, vague: 0, no: 0 };
+    ids.forEach(function (id) { cnt[s.first[id]]++; });
+    var label = { know: &#x27;认识&#x27;, vague: &#x27;模糊&#x27;, no: &#x27;不认识&#x27; };
+    return &#x27;&#x27; +
+      &#x27;&lt;div class=&quot;done-hero&quot;&gt;&lt;div class=&quot;num&quot;&gt;&#x27; + ids.length + &#x27;&lt;/div&gt;&lt;p class=&quot;sub&quot; style=&quot;margin:6px 0 0&quot;&gt;这一组背完了，连续打卡 &#x27; + streak() + &#x27; 天&lt;/p&gt;&lt;/div&gt;&#x27; +
+      &#x27;&lt;div class=&quot;stats&quot;&gt;&lt;div class=&quot;stat&quot;&gt;&lt;b style=&quot;color:var(--green)&quot;&gt;&#x27; + cnt.know + &#x27;&lt;/b&gt;&lt;span&gt;认识&lt;/span&gt;&lt;/div&gt;&#x27; +
+      &#x27;&lt;div class=&quot;stat&quot;&gt;&lt;b style=&quot;color:var(--amber)&quot;&gt;&#x27; + cnt.vague + &#x27;&lt;/b&gt;&lt;span&gt;模糊&lt;/span&gt;&lt;/div&gt;&#x27; +
+      &#x27;&lt;div class=&quot;stat&quot;&gt;&lt;b style=&quot;color:var(--red)&quot;&gt;&#x27; + cnt.no + &#x27;&lt;/b&gt;&lt;span&gt;不认识&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&#x27; +
+      &#x27;&lt;div class=&quot;list&quot;&gt;&#x27; + ids.map(function (id) {
+        var w = byId[id], g = s.first[id];
+        return &#x27;&lt;button class=&quot;item&quot; data-open=&quot;&#x27; + id + &#x27;&quot;&gt;&lt;span class=&quot;w&quot;&gt;&#x27; + esc(w.word) + &#x27;&lt;/span&gt;&lt;span class=&quot;d&quot;&gt;&#x27; + esc(w.definition) + &#x27;&lt;/span&gt;&lt;span class=&quot;st &#x27; + g + &#x27;&quot;&gt;&#x27; + label[g] + &#x27;&lt;/span&gt;&lt;/button&gt;&#x27;;
+      }).join(&#x27;&#x27;) + &#x27;&lt;/div&gt;&#x27; +
+      &#x27;&lt;button class=&quot;big&quot; data-act=&quot;again&quot;&gt;再来一组&lt;/button&gt;&#x27; +
+      &#x27;&lt;button class=&quot;ghost&quot; data-act=&quot;home&quot;&gt;回到今日&lt;/button&gt;&#x27;;
+  }
+
+  /* ---------- 发现：大词库 ---------- */
+  var SUGGEST = { ai: [0, 8, 1, 2, 3, 4, 11, 19, 5, 13, 15, 18], data: [26, 29, 35, 33, 57, 32, 40, 36, 41, 38, 34, 28], work: [46, 44, 53, 54, 50, 51, 55, 56, 47, 49, 45, 42] };
+  var SHORT = { 5: &#x27;上下文窗口&#x27;, 50: &#x27;Deadline&#x27;, 32: &#x27;DAU&#x27;, 40: &#x27;A/B 实验&#x27;, 25: &#x27;人在回路&#x27; };
+  function pickSuggest() {
+    // 12 个：三本词书各 4 个；收藏和在学最多的那本 6 个、其余各 3 个；不推已收藏、已掌握的词；“换一批”轮换
+    var books = [&#x27;ai&#x27;, &#x27;data&#x27;, &#x27;work&#x27;];
+    var score = {}; books.forEach(function (b) { score[b] = 0; });
+    words.forEach(function (w) { if (state.starred.indexOf(w.id) &gt;= 0 || isLearning(w.id)) score[w.book]++; });
+    var top = books.slice().sort(function (a, b) { return score[b] - score[a]; })[0];
+    var quota = {}; books.forEach(function (b) { quota[b] = score[top] &gt; 0 ? (b === top ? 6 : 3) : 4; });
+    var lists = {};
+    books.forEach(function (b) {
+      var pool = SUGGEST[b].filter(function (id) { return byId[id] &amp;&amp; state.starred.indexOf(id) &lt; 0 &amp;&amp; !isMastered(id); });
+      var off = pool.length ? (sgRound * quota[b]) % pool.length : 0;
+      lists[b] = pool.slice(off).concat(pool.slice(0, off)).slice(0, quota[b]);
+    });
+    var out = [];
+    for (var i = 0; i &lt; 6; i++) books.forEach(function (b) { if (lists[b][i] != null &amp;&amp; out.length &lt; 12) out.push(lists[b][i]); });
+    if (out.length &lt; 12) words.forEach(function (w) { if (out.length &lt; 12 &amp;&amp; out.indexOf(w.id) &lt; 0) out.push(w.id); });
+    return out;
+  }
+  function freshWords() {
+    var max = &#x27;&#x27;; words.forEach(function (w) { if ((w.updated || &#x27;&#x27;) &gt; max) max = w.updated; });
+    return words.filter(function (w) { return w.updated === max &amp;&amp; w.fresh; });
+  }
+  function suggestHTML() {
+    return &#x27;&lt;div class=&quot;sg-head&quot;&gt;&lt;span&gt;猜你想搜&lt;/span&gt;&lt;button type=&quot;button&quot; class=&quot;sg-more&quot; data-act=&quot;more&quot;&gt;换一批&lt;/button&gt;&lt;/div&gt;&#x27; +
+      &#x27;&lt;div class=&quot;sg-grid&quot;&gt;&#x27; + pickSuggest().map(function (id) {
+        var w = byId[id];
+        return &#x27;&lt;button type=&quot;button&quot; data-q=&quot;&#x27; + esc(w.word) + &#x27;&quot;&gt;&#x27; + esc(SHORT[id] || w.word) + &#x27;&lt;/button&gt;&#x27;;
+      }).join(&#x27;&#x27;) + &#x27;&lt;/div&gt;&#x27;;
+  }
+  function dictHTML() {
+    var fresh = freshWords();
+    return &#x27;&#x27; +
+      &#x27;&lt;div class=&quot;dhero&quot;&gt;&lt;small class=&quot;kicker&quot;&gt;新人入行词典&lt;/small&gt;&#x27; +
+        &#x27;&lt;h2&gt;入行第一步，&lt;br&gt;先听懂行话。&lt;/h2&gt;&#x27; +
+        &#x27;&lt;p class=&quot;sub&quot;&gt;AI、数据、职场黑话三本词书，每个词都有人话解释和真实用法。&lt;/p&gt;&lt;/div&gt;&#x27; +
+      &#x27;&lt;div class=&quot;disc-search&quot;&gt;&lt;label class=&quot;search&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot; aria-hidden=&quot;true&quot;&gt;&lt;circle cx=&quot;11&quot; cy=&quot;11&quot; r=&quot;6.5&quot;/&gt;&lt;path d=&quot;M20 20l-4.2-4.2&quot;/&gt;&lt;/svg&gt;&#x27; +
+        &#x27;&lt;input id=&quot;dictQ&quot; type=&quot;search&quot; placeholder=&quot;输入一个听不懂的词&quot; value=&quot;&#x27; + esc(dictQ) + &#x27;&quot; aria-label=&quot;搜索词条&quot; autocomplete=&quot;off&quot;&gt;&lt;/label&gt;&#x27; +
+        &#x27;&lt;div class=&quot;suggest&quot; id=&quot;suggest&quot;&gt;&#x27; + suggestHTML() + &#x27;&lt;/div&gt;&lt;/div&gt;&#x27; +
+      (fresh.length ? &#x27;&lt;p class=&quot;fresh&quot; id=&quot;freshLine&quot;&gt;&lt;i&gt;&lt;/i&gt;本周新收录 &#x27; + fresh.map(function (w) {
+        return &#x27;&lt;button type=&quot;button&quot; data-open=&quot;&#x27; + w.id + &#x27;&quot;&gt;&#x27; + esc(w.word) + &#x27;&lt;/button&gt;&#x27;; }).join(&#x27;、&#x27;) +
+        &#x27;&lt;span&gt;· Agent 整理于 &#x27; + esc(fresh[0].updated) + &#x27;&lt;/span&gt;&lt;/p&gt;&#x27; : &#x27;&#x27;) +
+      &#x27;&lt;div id=&quot;discRes&quot;&gt;&#x27; + discResHTML() + &#x27;&lt;/div&gt;&#x27;;
+  }
+  function discResHTML() {
+    var q = dictQ.trim().toLowerCase();
+    var inQ = words.filter(function (w) {
+      return !q || (w.word + &#x27; &#x27; + w.alt + &#x27; &#x27; + w.en + &#x27; &#x27; + w.cn + &#x27; &#x27; + w.definition).toLowerCase().indexOf(q) &gt;= 0;
+    });
+    var list = inQ.filter(function (w) { return inBook(w, dictBook); });
+    var chips = [&#x27;all&#x27;, &#x27;ai&#x27;, &#x27;data&#x27;, &#x27;work&#x27;].map(function (k) {
+      var n = inQ.filter(function (w) { return inBook(w, k); }).length;
+      return &#x27;&lt;button class=&quot;chip&#x27; + (dictBook === k ? &#x27; on&#x27; : &#x27;&#x27;) + &#x27;&quot; data-dbook=&quot;&#x27; + k + &#x27;&quot;&gt;&#x27; + BOOK_NAME[k] + &#x27;&lt;small&gt;&#x27; + n + &#x27;&lt;/small&gt;&lt;/button&gt;&#x27;;
+    }).join(&#x27;&#x27;);
+    var head = &#x27;&lt;div class=&quot;lhead&quot;&gt;&lt;b&gt;&#x27; + (q ? &#x27;搜索结果&#x27; : &#x27;按词书浏览&#x27;) + &#x27;&lt;/b&gt;&lt;span&gt;&#x27; + (q ? &#x27;找到 &#x27; + list.length + &#x27; 个词&#x27; : &#x27;像背单词一样，一本一本看过去&#x27;) + &#x27;&lt;/span&gt;&lt;/div&gt;&#x27;;
+    if (q &amp;&amp; !inQ.length) {
+      var asked = state.requests.some(function (r) { return r.q === dictQ.trim(); });
+      return &#x27;&lt;div class=&quot;empty&quot;&gt;&lt;b class=&quot;miss&quot;&gt;词库里还没有「&#x27; + esc(dictQ.trim()) + &#x27;」&lt;/b&gt;&#x27; +
+        (asked ? &#x27;&lt;span&gt;已提交，Agent 查资料、补全解释后会收进词库，进度在「我的 · 申请」里。&lt;/span&gt;&#x27;
+               : &#x27;&lt;span&gt;提交后，Agent 会查它的用法、补全解释，审核通过后收进词库。&lt;/span&gt;&lt;button class=&quot;big&quot; data-act=&quot;request&quot;&gt;申请收录「&#x27; + esc(dictQ.trim()) + &#x27;」&lt;/button&gt;&#x27;) + &#x27;&lt;/div&gt;&#x27;;
+    }
+    return head + &#x27;&lt;div class=&quot;chips&quot; style=&quot;margin-bottom:12px&quot;&gt;&#x27; + chips + &#x27;&lt;/div&gt;&#x27; +
+      &#x27;&lt;div class=&quot;wgrid&quot;&gt;&#x27; + list.map(wcardHTML).join(&#x27;&#x27;) + &#x27;&lt;/div&gt;&#x27;;
+  }
+  function wcardHTML(w) {
+    var on = state.starred.indexOf(w.id) &gt;= 0;
+    return &#x27;&lt;article class=&quot;wcard&quot;&gt;&lt;div class=&quot;wtop&quot;&gt;&lt;span class=&quot;badge &#x27; + w.book + &#x27;&quot;&gt;&#x27; + BOOK_NAME[w.book] + &#x27;&lt;/span&gt;&#x27; +
+      &#x27;&lt;button class=&quot;bm&#x27; + (on ? &#x27; on&#x27; : &#x27;&#x27;) + &#x27;&quot; data-star-card=&quot;&#x27; + w.id + &#x27;&quot; aria-label=&quot;&#x27; + (on ? &#x27;取消收藏 &#x27; : &#x27;收藏 &#x27;) + esc(w.word) + &#x27;&quot;&gt;&#x27; +
+      &#x27;&lt;svg viewBox=&quot;0 0 24 24&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M6 3h12v18l-6-4.5L6 21z&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;&lt;/div&gt;&#x27; +
+      &#x27;&lt;button class=&quot;wopen&quot; data-open=&quot;&#x27; + w.id + &#x27;&quot;&gt;&lt;span class=&quot;ww&quot;&gt;&#x27; + esc(w.word) + &#x27;&lt;/span&gt;&lt;span class=&quot;wa&quot;&gt;&#x27; + esc(w.alt) + &#x27;&lt;/span&gt;&#x27; +
+      &#x27;&lt;span class=&quot;wd&quot;&gt;&#x27; + esc(w.definition) + &#x27;&lt;/span&gt;&lt;/button&gt;&#x27; +
+      &#x27;&lt;div class=&quot;we&quot;&gt;“&#x27; + esc(w.example) + &#x27;”&lt;/div&gt;&lt;/article&gt;&#x27;;
+  }
+  function updateDisc() {
+    var r = $(&#x27;#discRes&#x27;); if (r) r.innerHTML = discResHTML();
+    var has = !!dictQ.trim();
+    var f = $(&#x27;#freshLine&#x27;); if (f) f.hidden = has;
+    var s = $(&#x27;#suggest&#x27;); if (s) s.classList.toggle(&#x27;off&#x27;, has);
+  }
+
+  function statusOf(id) {
+    if (isMastered(id)) return [&#x27;master&#x27;, &#x27;已掌握&#x27;];
+    var r = rec(id);
+    if (!r) return null;
+    if (r.last === &#x27;no&#x27;) return [&#x27;no&#x27;, &#x27;生词&#x27;];
+    if (r.last === &#x27;vague&#x27;) return [&#x27;vague&#x27;, &#x27;模糊&#x27;];
+    return [&#x27;know&#x27;, &#x27;学习中&#x27;];
+  }
+  function itemHTML(w) {
+    var st = statusOf(w.id);
+    return &#x27;&lt;button class=&quot;item&quot; data-open=&quot;&#x27; + w.id + &#x27;&quot;&gt;&lt;span class=&quot;w&quot;&gt;&#x27; + esc(w.word) + &#x27;&lt;/span&gt;&lt;span class=&quot;d&quot;&gt;&#x27; + esc(w.alt + &#x27; · &#x27; + w.definition) + &#x27;&lt;/span&gt;&#x27; +
+      (st ? &#x27;&lt;span class=&quot;st &#x27; + st[0] + &#x27;&quot;&gt;&#x27; + st[1] + &#x27;&lt;/span&gt;&#x27; : &#x27;&#x27;) + &#x27;&lt;/button&gt;&#x27;;
+  }
+
+  function meHTML() {
+    var mastered = words.filter(function (w) { return isMastered(w.id); });
+    var learning = words.filter(function (w) { return isLearning(w.id); });
+    var weak = words.filter(function (w) { return isWeak(w.id); })
+      .sort(function (a, b) { return (rec(b.id).wrong || 0) - (rec(a.id).wrong || 0); });
+    var starred = state.starred.map(function (id) { return byId[id]; }).filter(Boolean);
+    var days = Object.keys(state.days).filter(function (d) { return state.days[d].done; }).length;
+    var lists = { new: weak, star: starred, master: mastered, req: [] };
+    var empty = { req: &#x27;还没有申请。在「发现」里搜不到的词，可以一键申请收录。&#x27;, new: &#x27;还没有生词。背的时候选“不认识”或“模糊”的词会出现在这里。&#x27;, star: &#x27;还没有收藏。在词条详情里点“收藏”。&#x27;, master: &#x27;还没有掌握的词。同一个词连续几次都选“认识”就会掌握。&#x27; };
+    var cur = lists[meTab];
+    return &#x27;&#x27; +
+      &#x27;&lt;h2&gt;我的&lt;/h2&gt;&lt;p class=&quot;sub&quot;&gt;进度只存在这台设备的浏览器里。&lt;/p&gt;&#x27; +
+      &#x27;&lt;div class=&quot;stats&quot; style=&quot;grid-template-columns:repeat(4,1fr)&quot;&gt;&#x27; +
+        &#x27;&lt;div class=&quot;stat&quot;&gt;&lt;b&gt;&#x27; + mastered.length + &#x27;&lt;/b&gt;&lt;span&gt;已掌握&lt;/span&gt;&lt;/div&gt;&#x27; +
+        &#x27;&lt;div class=&quot;stat&quot;&gt;&lt;b&gt;&#x27; + learning.length + &#x27;&lt;/b&gt;&lt;span&gt;学习中&lt;/span&gt;&lt;/div&gt;&#x27; +
+        &#x27;&lt;div class=&quot;stat&quot;&gt;&lt;b&gt;&#x27; + weak.length + &#x27;&lt;/b&gt;&lt;span&gt;生词&lt;/span&gt;&lt;/div&gt;&#x27; +
+        &#x27;&lt;div class=&quot;stat&quot;&gt;&lt;b&gt;&#x27; + days + &#x27;&lt;/b&gt;&lt;span&gt;打卡天数&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&#x27; +
+      &#x27;&lt;div class=&quot;seg seg4&quot; style=&quot;margin-bottom:12px&quot;&gt;&#x27; +
+        &#x27;&lt;button data-me=&quot;new&quot; class=&quot;&#x27; + (meTab === &#x27;new&#x27; ? &#x27;on&#x27; : &#x27;&#x27;) + &#x27;&quot;&gt;生词本 &#x27; + weak.length + &#x27;&lt;/button&gt;&#x27; +
+        &#x27;&lt;button data-me=&quot;star&quot; class=&quot;&#x27; + (meTab === &#x27;star&#x27; ? &#x27;on&#x27; : &#x27;&#x27;) + &#x27;&quot;&gt;收藏 &#x27; + starred.length + &#x27;&lt;/button&gt;&#x27; +
+        &#x27;&lt;button data-me=&quot;master&quot; class=&quot;&#x27; + (meTab === &#x27;master&#x27; ? &#x27;on&#x27; : &#x27;&#x27;) + &#x27;&quot;&gt;已掌握 &#x27; + mastered.length + &#x27;&lt;/button&gt;&#x27; +
+        &#x27;&lt;button data-me=&quot;req&quot; class=&quot;&#x27; + (meTab === &#x27;req&#x27; ? &#x27;on&#x27; : &#x27;&#x27;) + &#x27;&quot;&gt;申请 &#x27; + state.requests.length + &#x27;&lt;/button&gt;&lt;/div&gt;&#x27; +
+      (meTab === &#x27;req&#x27; ? (state.requests.length ? &#x27;&lt;div class=&quot;list&quot;&gt;&#x27; + state.requests.map(function (r) {
+          return &#x27;&lt;div class=&quot;item&quot;&gt;&lt;span class=&quot;w&quot;&gt;&#x27; + esc(r.q) + &#x27;&lt;/span&gt;&lt;span class=&quot;d&quot;&gt;&#x27; + esc(r.at) + &#x27; 提交 · Agent 查找用法中&lt;/span&gt;&lt;span class=&quot;st vague&quot;&gt;待收录&lt;/span&gt;&lt;/div&gt;&#x27;;
+        }).join(&#x27;&#x27;) + &#x27;&lt;/div&gt;&#x27; : &#x27;&lt;div class=&quot;empty&quot;&gt;&#x27; + empty.req + &#x27;&lt;/div&gt;&#x27;)
+        : (cur.length ? &#x27;&lt;div class=&quot;list&quot;&gt;&#x27; + cur.map(itemHTML).join(&#x27;&#x27;) + &#x27;&lt;/div&gt;&#x27; : &#x27;&lt;div class=&quot;empty&quot;&gt;&#x27; + empty[meTab] + &#x27;&lt;/div&gt;&#x27;)) +
+      (meTab === &#x27;new&#x27; &amp;&amp; weak.length ? &#x27;&lt;button class=&quot;big&quot; data-act=&quot;drill&quot;&gt;只背生词（&#x27; + Math.min(weak.length, state.goal) + &#x27; 个）&lt;/button&gt;&#x27; : &#x27;&#x27;) +
+      &#x27;&lt;button class=&quot;ghost&quot; data-act=&quot;reset&quot;&gt;&#x27; + (resetArmed ? &#x27;再点一次，确认清空全部进度&#x27; : &#x27;清空学习进度&#x27;) + &#x27;&lt;/button&gt;&#x27;;
+  }
+
+  /* ---------- 详情弹层 ---------- */
+  function openSheet(id) {
+    var w = byId[id]; if (!w) return;
+    var on = state.starred.indexOf(id) &gt;= 0;
+    $(&#x27;#sheetContent&#x27;).innerHTML = detailHTML(w) +
+      &#x27;&lt;button class=&quot;ghost star&quot; data-star=&quot;&#x27; + id + &#x27;&quot;&gt;&#x27; + (on ? &#x27;已收藏，点击取消&#x27; : &#x27;收藏这个词&#x27;) + &#x27;&lt;/button&gt;&#x27;;
+    $(&#x27;#sheet&#x27;).hidden = false;
+    $(&#x27;.sheet-x&#x27;).focus();
+  }
+  function closeSheet() { $(&#x27;#sheet&#x27;).hidden = true; }
+
+  /* ---------- 背词流程 ---------- */
+  function startSession(ids) {
+    if (!ids.length) return;
+    session = { queue: ids.slice(), order: ids.slice(), idx: 0, total: ids.length, done: 0, first: {}, again: {}, flipped: false, graded: null };
+    tab = &#x27;today&#x27;;
+    render();
+  }
+  function startToday() {
+    var p = plan(state.book);
+    var ids = p.due.concat(p.fresh).slice(0, state.goal).map(function (w) { return w.id; });
+    startSession(ids);
+  }
+  function doGrade(g) {
+    var s = session, id = s.queue[s.idx];
+    if (s.graded) return;
+    s.graded = g;
+    s.flipped = true;
+    grade(id, g);
+    if (!(id in s.first)) s.first[id] = g;
+    render();
+  }
+  function fixGrade() {
+    var s = session, id = s.queue[s.idx];
+    s.graded = &#x27;no&#x27;;
+    s.first[id] = &#x27;no&#x27;;
+    grade(id, &#x27;no&#x27;);
+    render();
+  }
+  function next() {
+    var s = session, id = s.queue[s.idx];
+    if (s.graded === &#x27;no&#x27; &amp;&amp; !s.again[id]) {
+      s.again[id] = true;                         // 不认识的词，隔 3 张再出现一次
+      s.queue.splice(Math.min(s.idx + 4, s.queue.length), 0, id);
+    } else if (s.queue.indexOf(id, s.idx + 1) &lt; 0) {
+      s.done++;
+    }
+    s.idx++;
+    s.flipped = false;
+    s.graded = null;
+    render();
+  }
+
+  /* ---------- 事件 ---------- */
+  document.addEventListener(&#x27;click&#x27;, function (e) {
+    var t = e.target.closest(&#x27;button,[data-act]&#x27;);
+    if (!t) return;
+    if (t.dataset.tab) { tab = t.dataset.tab; resetArmed = false; if (tab !== &#x27;today&#x27; &amp;&amp; session &amp;&amp; session.idx &gt;= session.queue.length) session = null; render(); window.scrollTo(0, 0); return; }
+    if (t.dataset.book) { state.book = t.dataset.book; save(); render(); return; }
+    if (t.dataset.goal) { state.goal = +t.dataset.goal; save(); render(); return; }
+    if (t.dataset.dbook) { dictBook = t.dataset.dbook; updateDisc(); return; }
+    if (t.dataset.me) { meTab = t.dataset.me; resetArmed = false; render(); return; }
+    if (t.dataset.grade) { doGrade(t.dataset.grade); return; }
+    if (t.dataset.q != null) { dictQ = t.dataset.q; var inp = $(&#x27;#dictQ&#x27;); if (inp) { inp.value = dictQ; inp.blur(); } updateDisc(); return; }
+    if (t.dataset.starCard) {
+      var sid = +t.dataset.starCard, si = state.starred.indexOf(sid);
+      if (si &gt;= 0) state.starred.splice(si, 1); else state.starred.unshift(sid);
+      save(); updateDisc(); return;
+    }
+    if (t.dataset.open) { openSheet(+t.dataset.open); return; }
+    if (t.dataset.star) {
+      var id = +t.dataset.star, i = state.starred.indexOf(id);
+      if (i &gt;= 0) state.starred.splice(i, 1); else state.starred.unshift(id);
+      save(); openSheet(id); if (tab === &#x27;dict&#x27;) updateDisc(); else render(); return;
+    }
+    if (t.hasAttribute(&#x27;data-close&#x27;)) { closeSheet(); return; }
+    switch (t.dataset.act) {
+      case &#x27;start&#x27;: startToday(); break;
+      case &#x27;more&#x27;: sgRound++; var sg = $(&#x27;#suggest&#x27;); if (sg) sg.innerHTML = suggestHTML(); break;
+      case &#x27;request&#x27;:
+        var rq = dictQ.trim();
+        if (rq &amp;&amp; !state.requests.some(function (r) { return r.q === rq; })) { state.requests.unshift({ q: rq, at: today() }); save(); }
+        updateDisc(); break;
+      case &#x27;flip&#x27;: if (session &amp;&amp; !session.flipped) { session.flipped = true; render(); } break;
+      case &#x27;next&#x27;: next(); break;
+      case &#x27;fix&#x27;: fixGrade(); break;
+      case &#x27;quit&#x27;: session = null; render(); break;
+      case &#x27;again&#x27;: session = null; startToday(); if (!session) render(); break;
+      case &#x27;home&#x27;: session = null; render(); break;
+      case &#x27;drill&#x27;:
+        startSession(words.filter(function (w) { return isWeak(w.id); }).slice(0, state.goal).map(function (w) { return w.id; }));
+        break;
+      case &#x27;reset&#x27;:
+        if (!resetArmed) { resetArmed = true; render(); break; }
+        state.cards = {}; state.days = {}; state.starred = []; state.requests = []; resetArmed = false; session = null; save(); render(); break;
+    }
+  });
+
+  document.addEventListener(&#x27;pointerdown&#x27;, function (e) {
+    if (e.target.closest(&#x27;.suggest&#x27;)) e.preventDefault();
+  });
+
+  document.addEventListener(&#x27;input&#x27;, function (e) {
+    if (e.target.id === &#x27;dictQ&#x27;) { dictQ = e.target.value; updateDisc(); }
+  });
+
+  document.addEventListener(&#x27;keydown&#x27;, function (e) {
+    if (!$(&#x27;#sheet&#x27;).hidden) { if (e.key === &#x27;Escape&#x27;) closeSheet(); return; }
+    if (tab !== &#x27;today&#x27; || !session || session.idx &gt;= session.queue.length) return;
+    if (e.target.tagName === &#x27;INPUT&#x27;) return;
+    var s = session;
+    if (e.key === &#x27; &#x27; || (e.key === &#x27;Enter&#x27; &amp;&amp; e.target.classList &amp;&amp; e.target.classList.contains(&#x27;front&#x27;))) {
+      e.preventDefault();
+      if (s.graded) next(); else if (!s.flipped) { s.flipped = true; render(); }
+      return;
+    }
+    if (!s.graded &amp;&amp; (e.key === &#x27;1&#x27; || e.key === &#x27;2&#x27; || e.key === &#x27;3&#x27;)) { doGrade({ &#x27;1&#x27;: &#x27;know&#x27;, &#x27;2&#x27;: &#x27;vague&#x27;, &#x27;3&#x27;: &#x27;no&#x27; }[e.key]); return; }
+    if (s.graded &amp;&amp; (e.key === &#x27;Enter&#x27; || e.key === &#x27;ArrowRight&#x27;)) { e.preventDefault(); next(); }
+  });
+
+  /* ---------- 启动 ---------- */
+  (window.DONGHANG_DATA ? Promise.resolve(window.DONGHANG_DATA) : fetch(&#x27;data/words.json&#x27;, { cache: &#x27;no-cache&#x27; })
+    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }))
+    .then(function (d) {
+      meta = d; words = d.words || [];
+      words.forEach(function (w) { byId[w.id] = w; });
+      render();
+    })
+    .catch(function () {
+      $(&#x27;#view&#x27;).innerHTML = &#x27;&lt;div class=&quot;empty&quot;&gt;词库没有加载出来。请通过网页地址打开（直接双击本地文件时浏览器会拦截读取词库）。&lt;/div&gt;&#x27;;
+    });
+})();
+
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 "></iframe>
-      <div class="dx-tip">可以直接搜词、点开词条、收藏到合集、申请收录；离线预览里的操作只在本次打开中保留。</div>
+      </div>
     </div>
   </div>
   <div class="case-foot">
     <div class="diffrow"><h4>和其他产品有什么不同</h4><ul class="diffgrid">
-        <li><b>对比百科和搜索引擎</b>解释写给新人看，不堆定义；每个词都放回会议和工作场景里讲，还会提醒容易混淆的地方。</li>
-        <li><b>对比静态术语表</b>词库会自己长大：热词由 Agent 发现，缺词由用户触发，收录后可以追溯来源，不会过时。</li>
+        <li><b>对比百词斩</b>百词斩背的是英语单词，懂行背的是一个行业的行话；每个词都放回会议和工作场景里讲，还提醒容易弄错的地方。</li>
+        <li><b>对比百科和静态术语表</b>词库会自己长大：新词由 Agent 发现，缺词由用户申请，入库前人工审核，每条都能追溯来源。</li>
       </ul></div>
   </div>
 </section>

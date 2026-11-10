@@ -17,6 +17,7 @@
   var meTab = 'new';
   var dictBook = 'all', dictQ = '';
   var resetArmed = false;
+  var sgRound = 0;
 
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var esc = function (v) {
@@ -27,7 +28,7 @@
 
   /* ---------- 存储 ---------- */
   function load() {
-    var d = { book: 'all', goal: 10, cards: {}, days: {}, starred: [] };
+    var d = { book: 'all', goal: 10, cards: {}, days: {}, starred: [], requests: [] };
     try {
       var raw = localStorage.getItem(KEY);
       if (raw) { var p = JSON.parse(raw); for (var k in d) if (p[k] != null) d[k] = p[k]; }
@@ -94,10 +95,7 @@
     if (tab === 'today') v.innerHTML = session ? (session.idx < session.queue.length ? studyHTML() : doneHTML()) : todayHTML();
     else if (tab === 'dict') v.innerHTML = dictHTML();
     else v.innerHTML = meHTML();
-    if (tab === 'dict') {
-      var inp = $('#dictQ');
-      if (inp && document.activeElement !== inp && dictQ) { inp.focus(); inp.setSelectionRange(dictQ.length, dictQ.length); }
-    }
+
   }
 
   function bookChips(cur, attr) {
@@ -201,18 +199,86 @@
       '<button class="ghost" data-act="home">回到今日</button>';
   }
 
-  function dictHTML() {
-    var q = dictQ.trim().toLowerCase();
-    var list = words.filter(function (w) {
-      return inBook(w, dictBook) && (!q || (w.word + ' ' + w.alt + ' ' + w.en + ' ' + w.cn + ' ' + w.definition).toLowerCase().indexOf(q) >= 0);
+  /* ---------- 发现：大词库 ---------- */
+  var SUGGEST = { ai: [0, 8, 1, 2, 3, 4, 11, 19, 5, 13, 15, 18], data: [26, 29, 35, 33, 57, 32, 40, 36, 41, 38, 34, 28], work: [46, 44, 53, 54, 50, 51, 55, 56, 47, 49, 45, 42] };
+  var SHORT = { 5: '上下文窗口', 50: 'Deadline', 32: 'DAU', 40: 'A/B 实验', 25: '人在回路' };
+  function pickSuggest() {
+    // 12 个：三本词书各 4 个；收藏和在学最多的那本 6 个、其余各 3 个；不推已收藏、已掌握的词；“换一批”轮换
+    var books = ['ai', 'data', 'work'];
+    var score = {}; books.forEach(function (b) { score[b] = 0; });
+    words.forEach(function (w) { if (state.starred.indexOf(w.id) >= 0 || isLearning(w.id)) score[w.book]++; });
+    var top = books.slice().sort(function (a, b) { return score[b] - score[a]; })[0];
+    var quota = {}; books.forEach(function (b) { quota[b] = score[top] > 0 ? (b === top ? 6 : 3) : 4; });
+    var lists = {};
+    books.forEach(function (b) {
+      var pool = SUGGEST[b].filter(function (id) { return byId[id] && state.starred.indexOf(id) < 0 && !isMastered(id); });
+      var off = pool.length ? (sgRound * quota[b]) % pool.length : 0;
+      lists[b] = pool.slice(off).concat(pool.slice(0, off)).slice(0, quota[b]);
     });
+    var out = [];
+    for (var i = 0; i < 6; i++) books.forEach(function (b) { if (lists[b][i] != null && out.length < 12) out.push(lists[b][i]); });
+    if (out.length < 12) words.forEach(function (w) { if (out.length < 12 && out.indexOf(w.id) < 0) out.push(w.id); });
+    return out;
+  }
+  function freshWords() {
+    var max = ''; words.forEach(function (w) { if ((w.updated || '') > max) max = w.updated; });
+    return words.filter(function (w) { return w.updated === max && w.fresh; });
+  }
+  function suggestHTML() {
+    return '<div class="sg-head"><span>猜你想搜</span><button type="button" class="sg-more" data-act="more">换一批</button></div>' +
+      '<div class="sg-grid">' + pickSuggest().map(function (id) {
+        var w = byId[id];
+        return '<button type="button" data-q="' + esc(w.word) + '">' + esc(SHORT[id] || w.word) + '</button>';
+      }).join('') + '</div>';
+  }
+  function dictHTML() {
+    var fresh = freshWords();
     return '' +
-      '<h2>词典</h2><p class="sub">查一个会上听到、没听懂的词。</p>' +
-      '<label class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg>' +
-        '<input id="dictQ" type="search" placeholder="比如 RAG、口径、对齐" value="' + esc(dictQ) + '" aria-label="搜索词条" autocomplete="off"></label>' +
-      '<div class="chips" style="margin-bottom:12px">' + bookChips(dictBook, 'data-dbook') + '</div>' +
-      (list.length ? '<div class="list">' + list.map(itemHTML).join('') + '</div>'
-        : '<div class="empty">词库里还没有「' + esc(dictQ) + '」。<br>以后这里可以一键申请收录，由 Agent 查资料补全。</div>');
+      '<div class="dhero"><small class="kicker">新人入行词典</small>' +
+        '<h2>入行第一步，<br>先听懂行话。</h2>' +
+        '<p class="sub">AI、数据、职场黑话三本词书，每个词都有人话解释和真实用法。</p></div>' +
+      '<div class="disc-search"><label class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg>' +
+        '<input id="dictQ" type="search" placeholder="输入一个听不懂的词" value="' + esc(dictQ) + '" aria-label="搜索词条" autocomplete="off"></label>' +
+        '<div class="suggest" id="suggest">' + suggestHTML() + '</div></div>' +
+      (fresh.length ? '<p class="fresh" id="freshLine"><i></i>本周新收录 ' + fresh.map(function (w) {
+        return '<button type="button" data-open="' + w.id + '">' + esc(w.word) + '</button>'; }).join('、') +
+        '<span>· Agent 整理于 ' + esc(fresh[0].updated) + '</span></p>' : '') +
+      '<div id="discRes">' + discResHTML() + '</div>';
+  }
+  function discResHTML() {
+    var q = dictQ.trim().toLowerCase();
+    var inQ = words.filter(function (w) {
+      return !q || (w.word + ' ' + w.alt + ' ' + w.en + ' ' + w.cn + ' ' + w.definition).toLowerCase().indexOf(q) >= 0;
+    });
+    var list = inQ.filter(function (w) { return inBook(w, dictBook); });
+    var chips = ['all', 'ai', 'data', 'work'].map(function (k) {
+      var n = inQ.filter(function (w) { return inBook(w, k); }).length;
+      return '<button class="chip' + (dictBook === k ? ' on' : '') + '" data-dbook="' + k + '">' + BOOK_NAME[k] + '<small>' + n + '</small></button>';
+    }).join('');
+    var head = '<div class="lhead"><b>' + (q ? '搜索结果' : '按词书浏览') + '</b><span>' + (q ? '找到 ' + list.length + ' 个词' : '像背单词一样，一本一本看过去') + '</span></div>';
+    if (q && !inQ.length) {
+      var asked = state.requests.some(function (r) { return r.q === dictQ.trim(); });
+      return '<div class="empty"><b class="miss">词库里还没有「' + esc(dictQ.trim()) + '」</b>' +
+        (asked ? '<span>已提交，Agent 查资料、补全解释后会收进词库，进度在「我的 · 申请」里。</span>'
+               : '<span>提交后，Agent 会查它的用法、补全解释，审核通过后收进词库。</span><button class="big" data-act="request">申请收录「' + esc(dictQ.trim()) + '」</button>') + '</div>';
+    }
+    return head + '<div class="chips" style="margin-bottom:12px">' + chips + '</div>' +
+      '<div class="wgrid">' + list.map(wcardHTML).join('') + '</div>';
+  }
+  function wcardHTML(w) {
+    var on = state.starred.indexOf(w.id) >= 0;
+    return '<article class="wcard"><div class="wtop"><span class="badge ' + w.book + '">' + BOOK_NAME[w.book] + '</span>' +
+      '<button class="bm' + (on ? ' on' : '') + '" data-star-card="' + w.id + '" aria-label="' + (on ? '取消收藏 ' : '收藏 ') + esc(w.word) + '">' +
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-6-4.5L6 21z"/></svg></button></div>' +
+      '<button class="wopen" data-open="' + w.id + '"><span class="ww">' + esc(w.word) + '</span><span class="wa">' + esc(w.alt) + '</span>' +
+      '<span class="wd">' + esc(w.definition) + '</span></button>' +
+      '<div class="we">“' + esc(w.example) + '”</div></article>';
+  }
+  function updateDisc() {
+    var r = $('#discRes'); if (r) r.innerHTML = discResHTML();
+    var has = !!dictQ.trim();
+    var f = $('#freshLine'); if (f) f.hidden = has;
+    var s = $('#suggest'); if (s) s.classList.toggle('off', has);
   }
 
   function statusOf(id) {
@@ -236,8 +302,8 @@
       .sort(function (a, b) { return (rec(b.id).wrong || 0) - (rec(a.id).wrong || 0); });
     var starred = state.starred.map(function (id) { return byId[id]; }).filter(Boolean);
     var days = Object.keys(state.days).filter(function (d) { return state.days[d].done; }).length;
-    var lists = { new: weak, star: starred, master: mastered };
-    var empty = { new: '还没有生词。背的时候选“不认识”或“模糊”的词会出现在这里。', star: '还没有收藏。在词条详情里点“收藏”。', master: '还没有掌握的词。同一个词连续几次都选“认识”就会掌握。' };
+    var lists = { new: weak, star: starred, master: mastered, req: [] };
+    var empty = { req: '还没有申请。在「发现」里搜不到的词，可以一键申请收录。', new: '还没有生词。背的时候选“不认识”或“模糊”的词会出现在这里。', star: '还没有收藏。在词条详情里点“收藏”。', master: '还没有掌握的词。同一个词连续几次都选“认识”就会掌握。' };
     var cur = lists[meTab];
     return '' +
       '<h2>我的</h2><p class="sub">进度只存在这台设备的浏览器里。</p>' +
@@ -246,11 +312,15 @@
         '<div class="stat"><b>' + learning.length + '</b><span>学习中</span></div>' +
         '<div class="stat"><b>' + weak.length + '</b><span>生词</span></div>' +
         '<div class="stat"><b>' + days + '</b><span>打卡天数</span></div></div>' +
-      '<div class="seg" style="margin-bottom:12px">' +
+      '<div class="seg seg4" style="margin-bottom:12px">' +
         '<button data-me="new" class="' + (meTab === 'new' ? 'on' : '') + '">生词本 ' + weak.length + '</button>' +
         '<button data-me="star" class="' + (meTab === 'star' ? 'on' : '') + '">收藏 ' + starred.length + '</button>' +
-        '<button data-me="master" class="' + (meTab === 'master' ? 'on' : '') + '">已掌握 ' + mastered.length + '</button></div>' +
-      (cur.length ? '<div class="list">' + cur.map(itemHTML).join('') + '</div>' : '<div class="empty">' + empty[meTab] + '</div>') +
+        '<button data-me="master" class="' + (meTab === 'master' ? 'on' : '') + '">已掌握 ' + mastered.length + '</button>' +
+        '<button data-me="req" class="' + (meTab === 'req' ? 'on' : '') + '">申请 ' + state.requests.length + '</button></div>' +
+      (meTab === 'req' ? (state.requests.length ? '<div class="list">' + state.requests.map(function (r) {
+          return '<div class="item"><span class="w">' + esc(r.q) + '</span><span class="d">' + esc(r.at) + ' 提交 · Agent 查找用法中</span><span class="st vague">待收录</span></div>';
+        }).join('') + '</div>' : '<div class="empty">' + empty.req + '</div>')
+        : (cur.length ? '<div class="list">' + cur.map(itemHTML).join('') + '</div>' : '<div class="empty">' + empty[meTab] + '</div>')) +
       (meTab === 'new' && weak.length ? '<button class="big" data-act="drill">只背生词（' + Math.min(weak.length, state.goal) + ' 个）</button>' : '') +
       '<button class="ghost" data-act="reset">' + (resetArmed ? '再点一次，确认清空全部进度' : '清空学习进度') + '</button>';
   }
@@ -315,18 +385,29 @@
     if (t.dataset.tab) { tab = t.dataset.tab; resetArmed = false; if (tab !== 'today' && session && session.idx >= session.queue.length) session = null; render(); window.scrollTo(0, 0); return; }
     if (t.dataset.book) { state.book = t.dataset.book; save(); render(); return; }
     if (t.dataset.goal) { state.goal = +t.dataset.goal; save(); render(); return; }
-    if (t.dataset.dbook) { dictBook = t.dataset.dbook; render(); return; }
+    if (t.dataset.dbook) { dictBook = t.dataset.dbook; updateDisc(); return; }
     if (t.dataset.me) { meTab = t.dataset.me; resetArmed = false; render(); return; }
     if (t.dataset.grade) { doGrade(t.dataset.grade); return; }
+    if (t.dataset.q != null) { dictQ = t.dataset.q; var inp = $('#dictQ'); if (inp) { inp.value = dictQ; inp.blur(); } updateDisc(); return; }
+    if (t.dataset.starCard) {
+      var sid = +t.dataset.starCard, si = state.starred.indexOf(sid);
+      if (si >= 0) state.starred.splice(si, 1); else state.starred.unshift(sid);
+      save(); updateDisc(); return;
+    }
     if (t.dataset.open) { openSheet(+t.dataset.open); return; }
     if (t.dataset.star) {
       var id = +t.dataset.star, i = state.starred.indexOf(id);
       if (i >= 0) state.starred.splice(i, 1); else state.starred.unshift(id);
-      save(); openSheet(id); render(); return;
+      save(); openSheet(id); if (tab === 'dict') updateDisc(); else render(); return;
     }
     if (t.hasAttribute('data-close')) { closeSheet(); return; }
     switch (t.dataset.act) {
       case 'start': startToday(); break;
+      case 'more': sgRound++; var sg = $('#suggest'); if (sg) sg.innerHTML = suggestHTML(); break;
+      case 'request':
+        var rq = dictQ.trim();
+        if (rq && !state.requests.some(function (r) { return r.q === rq; })) { state.requests.unshift({ q: rq, at: today() }); save(); }
+        updateDisc(); break;
       case 'flip': if (session && !session.flipped) { session.flipped = true; render(); } break;
       case 'next': next(); break;
       case 'fix': fixGrade(); break;
@@ -338,12 +419,16 @@
         break;
       case 'reset':
         if (!resetArmed) { resetArmed = true; render(); break; }
-        state.cards = {}; state.days = {}; state.starred = []; resetArmed = false; session = null; save(); render(); break;
+        state.cards = {}; state.days = {}; state.starred = []; state.requests = []; resetArmed = false; session = null; save(); render(); break;
     }
   });
 
+  document.addEventListener('pointerdown', function (e) {
+    if (e.target.closest('.suggest')) e.preventDefault();
+  });
+
   document.addEventListener('input', function (e) {
-    if (e.target.id === 'dictQ') { dictQ = e.target.value; render(); }
+    if (e.target.id === 'dictQ') { dictQ = e.target.value; updateDisc(); }
   });
 
   document.addEventListener('keydown', function (e) {
@@ -361,8 +446,8 @@
   });
 
   /* ---------- 启动 ---------- */
-  fetch('data/words.json', { cache: 'no-cache' })
-    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+  (window.DONGHANG_DATA ? Promise.resolve(window.DONGHANG_DATA) : fetch('data/words.json', { cache: 'no-cache' })
+    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }))
     .then(function (d) {
       meta = d; words = d.words || [];
       words.forEach(function (w) { byId[w.id] = w; });
