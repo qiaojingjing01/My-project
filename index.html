@@ -1017,7 +1017,7 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:13px;border-top:1px soli
   <div class="why2"><div><b>痛点</b>新人和校招生刚进一个行业，会上满是 Agent、口径、对齐这样的词。查百科太学术，问同事又不好意思。我在汽车、电商、互联网几段实习里反复遇到，一次面试后面试官也建议我多补 Agent 知识，于是把自己的学习过程做成了产品。</div><div><b>理想态</b>刚入行就像刚学英语，先把行话当单词背：每天刷一组词卡，翻面就懂；词库跟着行业热词自己长大，不用自己到处找。</div></div>
   <div class="case-grid">
     <div class="featcol"><h4>核心功能，能带来什么</h4><ul class="feat2">
-        <li><b>今日刷词</b>选一本词书，每天背 10、20 或 30 个。词卡正面只有词，先判断认识、模糊还是不认识，点一下翻面，看人话解释、打个比方、实际用法和容易弄错的地方。</li>
+        <li><b>今日刷词</b>选一本词书，每天背 10、20 或 30 个。词卡正面只有词：右滑是认识，直接下一个；左滑是不认识，卡片翻面，看人话解释、打个比方、实际用法和容易弄错的地方。</li>
         <li><b>间隔复习和打卡</b>认识的词，下次出现的间隔依次拉长到 1、2、4、7、15、30 天；模糊的明天再来；不认识的在这一组里隔 3 张再出现一次。背完一组记一次打卡。</li>
         <li><b>发现：一个大词库</b>居中搜索，聚焦时给出 12 个「猜你想搜」，按三本词书配额推荐、可以换一批；下面按词书浏览全部词卡。搜不到就一键申请收录。</li>
         <li><b>我的</b>生词本、收藏、已掌握和我的申请。生词可以单独拿出来再背一组。</li>
@@ -1029,8 +1029,8 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:13px;border-top:1px soli
         <div class="goal">每天一组，认识的越背越少，不认识的反复出现</div>
         <ol class="dh-rules">
           <li>选词书和数量，点「开始背」</li>
-          <li>先判断认识、模糊、不认识</li>
-          <li>点卡片翻面看意思</li>
+          <li>右滑认识，直接下一个</li>
+          <li>左滑不认识，翻面看意思</li>
           <li>背完看这一组的结果和打卡</li>
         </ol>
         <div class="sig"><b>复习间隔</b>：1 → 2 → 4 → 7 → 15 → 30 天<br><b>发现</b>：大词库、猜你想搜、申请收录</div>
@@ -1207,6 +1207,18 @@ h2{font-family:var(--serif);font-weight:900;font-size:26px;line-height:1.3;margi
 .empty span{display:block;font-size:13.5px}
 .seg.seg4{grid-template-columns:repeat(4,1fr)}
 .seg.seg4 button{font-size:13px}
+
+/* ---------- 左右滑动 ---------- */
+.flip{position:relative;touch-action:pan-y;transition:transform .25s ease, opacity .25s ease;user-select:none;-webkit-user-select:none}
+.flip.dragging{transition:none}
+.stamp{position:absolute;top:22px;z-index:3;font-weight:900;font-size:20px;padding:4px 14px;border-radius:10px;border:3px solid;opacity:0;pointer-events:none;background:rgba(255,255,255,.9)}
+.stamp.yes{left:22px;color:var(--green);transform:rotate(-12deg)}
+.stamp.no{right:22px;color:var(--red);transform:rotate(12deg)}
+.front .tap{left:18px;right:18px;display:flex;justify-content:space-between}
+.front .tap span:first-child{color:var(--red)}
+.front .tap span:last-child{color:var(--green)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(86px + env(safe-area-inset-bottom));z-index:15;display:flex;align-items:center;gap:12px;background:var(--ink);color:#fff;border-radius:999px;padding:8px 8px 8px 16px;font-size:13.5px;box-shadow:0 10px 24px rgba(0,0,0,.2);white-space:nowrap}
+.toast button{border:0;background:#fff;color:var(--ink);border-radius:999px;padding:5px 12px;font-size:13px;font-weight:700;min-height:32px}
 
 &lt;/style&gt;
 &lt;/head&gt;
@@ -1393,38 +1405,34 @@ h2{font-family:var(--serif);font-weight:900;font-size:26px;line-height:1.3;margi
     var total = s.total, done = s.done;
     var g = s.graded;
     var bottom;
-    if (!s.flipped &amp;&amp; !g) {
+    if (!g) {
+      var peek = s.flipped;
       bottom = &#x27;&lt;div class=&quot;grade&quot;&gt;&#x27; +
-        &#x27;&lt;button class=&quot;g-know&quot; data-grade=&quot;know&quot;&gt;认识&lt;/button&gt;&#x27; +
+        &#x27;&lt;button class=&quot;g-no&quot; data-grade=&quot;no&quot;&gt;&#x27; + (peek ? &#x27;没记住&#x27; : &#x27;不认识&#x27;) + &#x27;&lt;/button&gt;&#x27; +
         &#x27;&lt;button class=&quot;g-vague&quot; data-grade=&quot;vague&quot;&gt;模糊&lt;/button&gt;&#x27; +
-        &#x27;&lt;button class=&quot;g-no&quot; data-grade=&quot;no&quot;&gt;不认识&lt;/button&gt;&lt;/div&gt;&#x27; +
-        &#x27;&lt;p class=&quot;keys&quot;&gt;点卡片翻面看意思 · 键盘 1 认识 · 2 模糊 · 3 不认识 · 空格翻面&lt;/p&gt;&#x27;;
-    } else if (!g) {
-      bottom = &#x27;&lt;div class=&quot;grade&quot;&gt;&#x27; +
-        &#x27;&lt;button class=&quot;g-know&quot; data-grade=&quot;know&quot;&gt;记得&lt;/button&gt;&#x27; +
-        &#x27;&lt;button class=&quot;g-vague&quot; data-grade=&quot;vague&quot;&gt;模糊&lt;/button&gt;&#x27; +
-        &#x27;&lt;button class=&quot;g-no&quot; data-grade=&quot;no&quot;&gt;没记住&lt;/button&gt;&lt;/div&gt;&#x27; +
-        &#x27;&lt;p class=&quot;keys&quot;&gt;看完意思，诚实地选一个&lt;/p&gt;&#x27;;
+        &#x27;&lt;button class=&quot;g-know&quot; data-grade=&quot;know&quot;&gt;&#x27; + (peek ? &#x27;记得&#x27; : &#x27;认识&#x27;) + &#x27;&lt;/button&gt;&lt;/div&gt;&#x27; +
+        &#x27;&lt;p class=&quot;keys&quot;&gt;&#x27; + (peek ? &#x27;看完意思，诚实地选一个&#x27; : &#x27;右滑认识，直接下一个 · 左滑不认识，看意思 · 点卡片翻面&#x27;) + &#x27;&lt;/p&gt;&#x27;;
     } else {
-      var txt = { know: &#x27;认识，间隔会拉长&#x27;, vague: &#x27;模糊，明天再复习&#x27;, no: &#x27;不认识，这一组里还会再出现&#x27; }[g];
+      var txt = { vague: &#x27;模糊，明天再复习&#x27;, no: &#x27;不认识，这一组里还会再出现&#x27; }[g] || &#x27;&#x27;;
       bottom = &#x27;&lt;div class=&quot;after&quot;&gt;&lt;button class=&quot;next&quot; data-act=&quot;next&quot;&gt;下一个&lt;/button&gt;&#x27; +
-        &#x27;&lt;span class=&quot;verdict&quot;&gt;&#x27; + txt + &#x27;&lt;/span&gt;&#x27; +
-        (g !== &#x27;no&#x27; ? &#x27;&lt;button class=&quot;fix&quot; data-act=&quot;fix&quot;&gt;其实没记住&lt;/button&gt;&#x27; : &#x27;&#x27;) + &#x27;&lt;/div&gt;&#x27;;
+        &#x27;&lt;span class=&quot;verdict&quot;&gt;&#x27; + txt + &#x27;　左右滑动也能进入下一个&lt;/span&gt;&lt;/div&gt;&#x27;;
     }
     return &#x27;&#x27; +
       &#x27;&lt;div class=&quot;study-top&quot;&gt;&lt;button class=&quot;quit&quot; data-act=&quot;quit&quot; aria-label=&quot;结束这一组&quot;&gt;&#x27; +
         &#x27;&lt;svg viewBox=&quot;0 0 24 24&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M15 5l-7 7 7 7&quot;/&gt;&lt;/svg&gt;结束&lt;/button&gt;&#x27; +
         &#x27;&lt;div class=&quot;progress&quot;&gt;&lt;i style=&quot;width:&#x27; + Math.round(done / total * 100) + &#x27;%&quot;&gt;&lt;/i&gt;&lt;/div&gt;&#x27; +
         &#x27;&lt;span class=&quot;count&quot;&gt;&#x27; + done + &#x27; / &#x27; + total + &#x27;&lt;/span&gt;&lt;/div&gt;&#x27; +
-      &#x27;&lt;div class=&quot;flip&#x27; + (s.flipped ? &#x27; flipped&#x27; : &#x27;&#x27;) + &#x27;&quot;&gt;&#x27; +
+      &#x27;&lt;div class=&quot;flip&#x27; + (s.flipped ? &#x27; flipped&#x27; : &#x27;&#x27;) + &#x27;&quot; id=&quot;card&quot;&gt;&#x27; +
+        &#x27;&lt;div class=&quot;stamp yes&quot; aria-hidden=&quot;true&quot;&gt;认识&lt;/div&gt;&lt;div class=&quot;stamp no&quot; aria-hidden=&quot;true&quot;&gt;&#x27; + (g ? &#x27;下一个&#x27; : &#x27;不认识&#x27;) + &#x27;&lt;/div&gt;&#x27; +
         &#x27;&lt;div class=&quot;flip-in&quot;&gt;&#x27; +
           &#x27;&lt;div class=&quot;face front&quot; data-act=&quot;flip&quot; role=&quot;button&quot; tabindex=&quot;0&quot; aria-label=&quot;翻面查看意思&quot;&gt;&#x27; +
             &#x27;&lt;span class=&quot;badge &#x27; + w.book + &#x27;&quot;&gt;&#x27; + BOOK_NAME[w.book] + &#x27;&lt;/span&gt;&#x27; +
             &#x27;&lt;div class=&quot;word&quot;&gt;&#x27; + esc(w.word) + &#x27;&lt;/div&gt;&#x27; +
             &#x27;&lt;div class=&quot;ask&quot;&gt;你知道它是什么意思吗？&lt;/div&gt;&#x27; +
-            &#x27;&lt;div class=&quot;tap&quot;&gt;点一下翻面&lt;/div&gt;&lt;/div&gt;&#x27; +
+            &#x27;&lt;div class=&quot;tap&quot;&gt;&lt;span&gt;← 不认识&lt;/span&gt;&lt;span&gt;点一下翻面&lt;/span&gt;&lt;span&gt;认识 →&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&#x27; +
           &#x27;&lt;div class=&quot;face back&quot; aria-hidden=&quot;&#x27; + (s.flipped ? &#x27;false&#x27; : &#x27;true&#x27;) + &#x27;&quot;&gt;&lt;div class=&quot;back-scroll&quot;&gt;&#x27; + detailHTML(w) + &#x27;&lt;/div&gt;&lt;/div&gt;&#x27; +
-        &#x27;&lt;/div&gt;&lt;/div&gt;&#x27; + bottom;
+        &#x27;&lt;/div&gt;&lt;/div&gt;&#x27; + bottom +
+      (undoSnap ? &#x27;&lt;div class=&quot;toast&quot; role=&quot;status&quot;&gt;「&#x27; + esc(byId[undoSnap.id].word) + &#x27;」记为认识&lt;button data-act=&quot;undo&quot;&gt;撤回&lt;/button&gt;&lt;/div&gt;&#x27; : &#x27;&#x27;);
   }
 
   function doneHTML() {
@@ -1594,20 +1602,37 @@ h2{font-family:var(--serif);font-weight:900;font-size:26px;line-height:1.3;margi
     var ids = p.due.concat(p.fresh).slice(0, state.goal).map(function (w) { return w.id; });
     startSession(ids);
   }
+  var undoSnap = null, undoTimer = null;
+  function clone(o) { return o == null ? null : JSON.parse(JSON.stringify(o)); }
   function doGrade(g) {
     var s = session, id = s.queue[s.idx];
     if (s.graded) return;
+    if (g === &#x27;know&#x27;) {
+      // 认识：不再展示意思，直接下一个；留 4 秒可以撤回
+      undoSnap = { id: id, sess: clone(s), rec: clone(state.cards[id]), day: clone(state.days[today()]) };
+      clearTimeout(undoTimer);
+      undoTimer = setTimeout(function () { undoSnap = null; var t = $(&#x27;.toast&#x27;); if (t) t.remove(); }, 4000);
+      grade(id, g);
+      if (!(id in s.first)) s.first[id] = g;
+      s.graded = g;
+      next();
+      return;
+    }
+    undoSnap = null; clearTimeout(undoTimer);
     s.graded = g;
     s.flipped = true;
     grade(id, g);
     if (!(id in s.first)) s.first[id] = g;
     render();
   }
-  function fixGrade() {
-    var s = session, id = s.queue[s.idx];
-    s.graded = &#x27;no&#x27;;
-    s.first[id] = &#x27;no&#x27;;
-    grade(id, &#x27;no&#x27;);
+  function undo() {
+    if (!undoSnap) return;
+    var u = undoSnap, t = today();
+    session = u.sess;
+    if (u.rec) state.cards[u.id] = u.rec; else delete state.cards[u.id];
+    if (u.day) state.days[t] = u.day; else delete state.days[t];
+    save();
+    undoSnap = null; clearTimeout(undoTimer);
     render();
   }
   function next() {
@@ -1621,11 +1646,62 @@ h2{font-family:var(--serif);font-weight:900;font-size:26px;line-height:1.3;margi
     s.idx++;
     s.flipped = false;
     s.graded = null;
+    if (s.idx &gt;= s.queue.length) { undoSnap = null; clearTimeout(undoTimer); }
     render();
   }
 
+  /* ---------- 左右滑动 ---------- */
+  var drag = null, swallowClick = false;
+  function flyOut(dir, then) {
+    var c = $(&#x27;#card&#x27;); if (!c) { then(); return; }
+    c.classList.remove(&#x27;dragging&#x27;);
+    c.style.transition = &#x27;transform .22s ease-in, opacity .22s ease-in&#x27;;
+    c.style.transform = &#x27;translateX(&#x27; + (dir * 130) + &#x27;%) rotate(&#x27; + (dir * 14) + &#x27;deg)&#x27;;
+    c.style.opacity = &#x27;0&#x27;;
+    setTimeout(then, 200);
+  }
+  function swipe(dir) {
+    if (!session || session.idx &gt;= session.queue.length) return;
+    var s = session;
+    if (s.graded) { flyOut(dir, next); return; }
+    if (dir &gt; 0) flyOut(1, function () { doGrade(&#x27;know&#x27;); });
+    else doGrade(&#x27;no&#x27;);
+  }
+  document.addEventListener(&#x27;pointerdown&#x27;, function (e) {
+    var c = e.target.closest(&#x27;#card&#x27;);
+    if (!c || e.button &gt; 0) return;
+    drag = { x: e.clientX, y: e.clientY, dx: 0, on: false, el: c, id: e.pointerId };
+  });
+  document.addEventListener(&#x27;pointermove&#x27;, function (e) {
+    if (!drag || e.pointerId !== drag.id) return;
+    var dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+    if (!drag.on) {
+      if (Math.abs(dx) &lt; 8 || Math.abs(dx) &lt; Math.abs(dy)) return;
+      drag.on = true; drag.el.classList.add(&#x27;dragging&#x27;);
+      try { drag.el.setPointerCapture(e.pointerId); } catch (err) { }
+    }
+    drag.dx = dx;
+    drag.el.style.transform = &#x27;translateX(&#x27; + dx + &#x27;px) rotate(&#x27; + (dx / 22) + &#x27;deg)&#x27;;
+    var k = Math.min(1, Math.abs(dx) / 90);
+    drag.el.querySelector(&#x27;.stamp.yes&#x27;).style.opacity = dx &gt; 0 ? k : 0;
+    drag.el.querySelector(&#x27;.stamp.no&#x27;).style.opacity = dx &lt; 0 ? k : 0;
+  });
+  function endDrag(e) {
+    if (!drag || (e &amp;&amp; e.pointerId !== drag.id)) return;
+    var d = drag; drag = null;
+    if (!d.on) return;
+    swallowClick = true; setTimeout(function () { swallowClick = false; }, 0);
+    if (Math.abs(d.dx) &gt; 90) { swipe(d.dx &gt; 0 ? 1 : -1); return; }
+    d.el.classList.remove(&#x27;dragging&#x27;);
+    d.el.style.transform = &#x27;&#x27;;
+    d.el.querySelectorAll(&#x27;.stamp&#x27;).forEach(function (x) { x.style.opacity = 0; });
+  }
+  document.addEventListener(&#x27;pointerup&#x27;, endDrag);
+  document.addEventListener(&#x27;pointercancel&#x27;, endDrag);
+
   /* ---------- 事件 ---------- */
   document.addEventListener(&#x27;click&#x27;, function (e) {
+    if (swallowClick &amp;&amp; e.target.closest(&#x27;#card&#x27;)) { swallowClick = false; return; }
     var t = e.target.closest(&#x27;button,[data-act]&#x27;);
     if (!t) return;
     if (t.dataset.tab) { tab = t.dataset.tab; resetArmed = false; if (tab !== &#x27;today&#x27; &amp;&amp; session &amp;&amp; session.idx &gt;= session.queue.length) session = null; render(); window.scrollTo(0, 0); return; }
@@ -1656,8 +1732,8 @@ h2{font-family:var(--serif);font-weight:900;font-size:26px;line-height:1.3;margi
         updateDisc(); break;
       case &#x27;flip&#x27;: if (session &amp;&amp; !session.flipped) { session.flipped = true; render(); } break;
       case &#x27;next&#x27;: next(); break;
-      case &#x27;fix&#x27;: fixGrade(); break;
-      case &#x27;quit&#x27;: session = null; render(); break;
+      case &#x27;undo&#x27;: undo(); break;
+      case &#x27;quit&#x27;: session = null; undoSnap = null; render(); break;
       case &#x27;again&#x27;: session = null; startToday(); if (!session) render(); break;
       case &#x27;home&#x27;: session = null; render(); break;
       case &#x27;drill&#x27;:
@@ -1687,8 +1763,10 @@ h2{font-family:var(--serif);font-weight:900;font-size:26px;line-height:1.3;margi
       if (s.graded) next(); else if (!s.flipped) { s.flipped = true; render(); }
       return;
     }
-    if (!s.graded &amp;&amp; (e.key === &#x27;1&#x27; || e.key === &#x27;2&#x27; || e.key === &#x27;3&#x27;)) { doGrade({ &#x27;1&#x27;: &#x27;know&#x27;, &#x27;2&#x27;: &#x27;vague&#x27;, &#x27;3&#x27;: &#x27;no&#x27; }[e.key]); return; }
-    if (s.graded &amp;&amp; (e.key === &#x27;Enter&#x27; || e.key === &#x27;ArrowRight&#x27;)) { e.preventDefault(); next(); }
+    if (e.key === &#x27;ArrowRight&#x27;) { e.preventDefault(); swipe(1); return; }
+    if (e.key === &#x27;ArrowLeft&#x27;) { e.preventDefault(); swipe(-1); return; }
+    if (!s.graded &amp;&amp; e.key === &#x27;ArrowDown&#x27;) { e.preventDefault(); doGrade(&#x27;vague&#x27;); return; }
+    if (s.graded &amp;&amp; e.key === &#x27;Enter&#x27;) { e.preventDefault(); next(); }
   });
 
   /* ---------- 启动 ---------- */

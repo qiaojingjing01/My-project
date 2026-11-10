@@ -147,38 +147,34 @@
     var total = s.total, done = s.done;
     var g = s.graded;
     var bottom;
-    if (!s.flipped && !g) {
+    if (!g) {
+      var peek = s.flipped;
       bottom = '<div class="grade">' +
-        '<button class="g-know" data-grade="know">认识</button>' +
+        '<button class="g-no" data-grade="no">' + (peek ? '没记住' : '不认识') + '</button>' +
         '<button class="g-vague" data-grade="vague">模糊</button>' +
-        '<button class="g-no" data-grade="no">不认识</button></div>' +
-        '<p class="keys">点卡片翻面看意思 · 键盘 1 认识 · 2 模糊 · 3 不认识 · 空格翻面</p>';
-    } else if (!g) {
-      bottom = '<div class="grade">' +
-        '<button class="g-know" data-grade="know">记得</button>' +
-        '<button class="g-vague" data-grade="vague">模糊</button>' +
-        '<button class="g-no" data-grade="no">没记住</button></div>' +
-        '<p class="keys">看完意思，诚实地选一个</p>';
+        '<button class="g-know" data-grade="know">' + (peek ? '记得' : '认识') + '</button></div>' +
+        '<p class="keys">' + (peek ? '看完意思，诚实地选一个' : '右滑认识，直接下一个 · 左滑不认识，看意思 · 点卡片翻面') + '</p>';
     } else {
-      var txt = { know: '认识，间隔会拉长', vague: '模糊，明天再复习', no: '不认识，这一组里还会再出现' }[g];
+      var txt = { vague: '模糊，明天再复习', no: '不认识，这一组里还会再出现' }[g] || '';
       bottom = '<div class="after"><button class="next" data-act="next">下一个</button>' +
-        '<span class="verdict">' + txt + '</span>' +
-        (g !== 'no' ? '<button class="fix" data-act="fix">其实没记住</button>' : '') + '</div>';
+        '<span class="verdict">' + txt + '　左右滑动也能进入下一个</span></div>';
     }
     return '' +
       '<div class="study-top"><button class="quit" data-act="quit" aria-label="结束这一组">' +
         '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>结束</button>' +
         '<div class="progress"><i style="width:' + Math.round(done / total * 100) + '%"></i></div>' +
         '<span class="count">' + done + ' / ' + total + '</span></div>' +
-      '<div class="flip' + (s.flipped ? ' flipped' : '') + '">' +
+      '<div class="flip' + (s.flipped ? ' flipped' : '') + '" id="card">' +
+        '<div class="stamp yes" aria-hidden="true">认识</div><div class="stamp no" aria-hidden="true">' + (g ? '下一个' : '不认识') + '</div>' +
         '<div class="flip-in">' +
           '<div class="face front" data-act="flip" role="button" tabindex="0" aria-label="翻面查看意思">' +
             '<span class="badge ' + w.book + '">' + BOOK_NAME[w.book] + '</span>' +
             '<div class="word">' + esc(w.word) + '</div>' +
             '<div class="ask">你知道它是什么意思吗？</div>' +
-            '<div class="tap">点一下翻面</div></div>' +
+            '<div class="tap"><span>← 不认识</span><span>点一下翻面</span><span>认识 →</span></div></div>' +
           '<div class="face back" aria-hidden="' + (s.flipped ? 'false' : 'true') + '"><div class="back-scroll">' + detailHTML(w) + '</div></div>' +
-        '</div></div>' + bottom;
+        '</div></div>' + bottom +
+      (undoSnap ? '<div class="toast" role="status">「' + esc(byId[undoSnap.id].word) + '」记为认识<button data-act="undo">撤回</button></div>' : '');
   }
 
   function doneHTML() {
@@ -348,20 +344,37 @@
     var ids = p.due.concat(p.fresh).slice(0, state.goal).map(function (w) { return w.id; });
     startSession(ids);
   }
+  var undoSnap = null, undoTimer = null;
+  function clone(o) { return o == null ? null : JSON.parse(JSON.stringify(o)); }
   function doGrade(g) {
     var s = session, id = s.queue[s.idx];
     if (s.graded) return;
+    if (g === 'know') {
+      // 认识：不再展示意思，直接下一个；留 4 秒可以撤回
+      undoSnap = { id: id, sess: clone(s), rec: clone(state.cards[id]), day: clone(state.days[today()]) };
+      clearTimeout(undoTimer);
+      undoTimer = setTimeout(function () { undoSnap = null; var t = $('.toast'); if (t) t.remove(); }, 4000);
+      grade(id, g);
+      if (!(id in s.first)) s.first[id] = g;
+      s.graded = g;
+      next();
+      return;
+    }
+    undoSnap = null; clearTimeout(undoTimer);
     s.graded = g;
     s.flipped = true;
     grade(id, g);
     if (!(id in s.first)) s.first[id] = g;
     render();
   }
-  function fixGrade() {
-    var s = session, id = s.queue[s.idx];
-    s.graded = 'no';
-    s.first[id] = 'no';
-    grade(id, 'no');
+  function undo() {
+    if (!undoSnap) return;
+    var u = undoSnap, t = today();
+    session = u.sess;
+    if (u.rec) state.cards[u.id] = u.rec; else delete state.cards[u.id];
+    if (u.day) state.days[t] = u.day; else delete state.days[t];
+    save();
+    undoSnap = null; clearTimeout(undoTimer);
     render();
   }
   function next() {
@@ -375,11 +388,62 @@
     s.idx++;
     s.flipped = false;
     s.graded = null;
+    if (s.idx >= s.queue.length) { undoSnap = null; clearTimeout(undoTimer); }
     render();
   }
 
+  /* ---------- 左右滑动 ---------- */
+  var drag = null, swallowClick = false;
+  function flyOut(dir, then) {
+    var c = $('#card'); if (!c) { then(); return; }
+    c.classList.remove('dragging');
+    c.style.transition = 'transform .22s ease-in, opacity .22s ease-in';
+    c.style.transform = 'translateX(' + (dir * 130) + '%) rotate(' + (dir * 14) + 'deg)';
+    c.style.opacity = '0';
+    setTimeout(then, 200);
+  }
+  function swipe(dir) {
+    if (!session || session.idx >= session.queue.length) return;
+    var s = session;
+    if (s.graded) { flyOut(dir, next); return; }
+    if (dir > 0) flyOut(1, function () { doGrade('know'); });
+    else doGrade('no');
+  }
+  document.addEventListener('pointerdown', function (e) {
+    var c = e.target.closest('#card');
+    if (!c || e.button > 0) return;
+    drag = { x: e.clientX, y: e.clientY, dx: 0, on: false, el: c, id: e.pointerId };
+  });
+  document.addEventListener('pointermove', function (e) {
+    if (!drag || e.pointerId !== drag.id) return;
+    var dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+    if (!drag.on) {
+      if (Math.abs(dx) < 8 || Math.abs(dx) < Math.abs(dy)) return;
+      drag.on = true; drag.el.classList.add('dragging');
+      try { drag.el.setPointerCapture(e.pointerId); } catch (err) { }
+    }
+    drag.dx = dx;
+    drag.el.style.transform = 'translateX(' + dx + 'px) rotate(' + (dx / 22) + 'deg)';
+    var k = Math.min(1, Math.abs(dx) / 90);
+    drag.el.querySelector('.stamp.yes').style.opacity = dx > 0 ? k : 0;
+    drag.el.querySelector('.stamp.no').style.opacity = dx < 0 ? k : 0;
+  });
+  function endDrag(e) {
+    if (!drag || (e && e.pointerId !== drag.id)) return;
+    var d = drag; drag = null;
+    if (!d.on) return;
+    swallowClick = true; setTimeout(function () { swallowClick = false; }, 0);
+    if (Math.abs(d.dx) > 90) { swipe(d.dx > 0 ? 1 : -1); return; }
+    d.el.classList.remove('dragging');
+    d.el.style.transform = '';
+    d.el.querySelectorAll('.stamp').forEach(function (x) { x.style.opacity = 0; });
+  }
+  document.addEventListener('pointerup', endDrag);
+  document.addEventListener('pointercancel', endDrag);
+
   /* ---------- 事件 ---------- */
   document.addEventListener('click', function (e) {
+    if (swallowClick && e.target.closest('#card')) { swallowClick = false; return; }
     var t = e.target.closest('button,[data-act]');
     if (!t) return;
     if (t.dataset.tab) { tab = t.dataset.tab; resetArmed = false; if (tab !== 'today' && session && session.idx >= session.queue.length) session = null; render(); window.scrollTo(0, 0); return; }
@@ -410,8 +474,8 @@
         updateDisc(); break;
       case 'flip': if (session && !session.flipped) { session.flipped = true; render(); } break;
       case 'next': next(); break;
-      case 'fix': fixGrade(); break;
-      case 'quit': session = null; render(); break;
+      case 'undo': undo(); break;
+      case 'quit': session = null; undoSnap = null; render(); break;
       case 'again': session = null; startToday(); if (!session) render(); break;
       case 'home': session = null; render(); break;
       case 'drill':
@@ -441,8 +505,10 @@
       if (s.graded) next(); else if (!s.flipped) { s.flipped = true; render(); }
       return;
     }
-    if (!s.graded && (e.key === '1' || e.key === '2' || e.key === '3')) { doGrade({ '1': 'know', '2': 'vague', '3': 'no' }[e.key]); return; }
-    if (s.graded && (e.key === 'Enter' || e.key === 'ArrowRight')) { e.preventDefault(); next(); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); swipe(1); return; }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); swipe(-1); return; }
+    if (!s.graded && e.key === 'ArrowDown') { e.preventDefault(); doGrade('vague'); return; }
+    if (s.graded && e.key === 'Enter') { e.preventDefault(); next(); }
   });
 
   /* ---------- 启动 ---------- */
