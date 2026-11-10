@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<meta name="description" content="懂行：新人入行的行话词典。像背单词一样，每天刷一组 AI、数据和职场黑话。">
+<title>懂行 · 每天背一组行话</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@700;900&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <header class="bar">
+    <div class="brand"><span class="logo">懂行</span><span class="slogan">每天背一组行话</span></div>
+    <div class="streak" id="streak" title="连续打卡天数"></div>
+  </header>
+
+  <main id="view" aria-live="polite"></main>
+
+  <nav class="tabs" aria-label="主导航">
+    <button data-tab="today" class="on">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>今日
+    </button>
+    <button data-tab="dict">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg>词典
+    </button>
+    <button data-tab="me">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20c1.4-3.6 4.2-5.3 7.5-5.3s6.1 1.7 7.5 5.3"/></svg>我的
+    </button>
+  </nav>
+</div>
+
+<div class="sheet" id="sheet" hidden>
+  <button class="sheet-mask" data-close aria-label="关闭"></button>
+  <div class="sheet-body" role="dialog" aria-modal="true" aria-label="词条详情">
+    <button class="sheet-x" data-close aria-label="关闭">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <div id="sheetContent"></div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
