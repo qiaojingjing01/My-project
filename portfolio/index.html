@@ -649,9 +649,33 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:13px;border-top:1px soli
   .row .att{display:none}
 }
 </style>
+<style>
+.solo-nav{position:fixed;left:16px;bottom:16px;z-index:9999;display:flex;gap:8px}
+.solo-nav a{background:#1d3a31;color:#fff;padding:9px 16px;border-radius:999px;font-size:13px;font-weight:600;text-decoration:none;box-shadow:0 6px 16px rgba(0,0,0,.2)}
+.solo-nav a.solo-only{display:none;background:#fff;color:#1d3a31;border:1px solid #1d3a31}
+html.solo .solo-nav a.solo-only{display:inline-block}
+html.solo body>header.hero,html.solo body>footer{display:none!important}
+html.solo body>section.case:not(.solo-on){display:none!important}
+html.solo body>section.case.solo-on{margin-top:40px}
+</style>
+<script>
+/* 单项目模式：portfolio/?p=dash 只显示这一个项目 */
+(function(){
+  var p=new URLSearchParams(location.search).get('p');
+  if(!p||!/^[a-z]+$/.test(p)) return;
+  document.documentElement.classList.add('solo');
+  document.addEventListener('DOMContentLoaded',function(){
+    var sec=document.getElementById(p);
+    if(!sec||!sec.classList.contains('case')){document.documentElement.classList.remove('solo');return;}
+    sec.classList.add('solo-on');
+    var h=sec.querySelector('.case-head h2'); if(h) document.title=h.textContent.trim()+' · 王雯菁作品集';
+    window.scrollTo(0,0);
+  });
+})();
+</script>
 </head>
 <body>
-<a href="../" style="position:fixed;left:16px;bottom:16px;z-index:9999;background:#1d3a31;color:#fff;padding:9px 16px;border-radius:999px;font-size:13px;font-weight:600;text-decoration:none;box-shadow:0 6px 16px rgba(0,0,0,.2)">← 回到小岛</a>
+<div class="solo-nav"><a href="../">← 回到小岛</a><a class="solo-only" href="./">看完整作品集</a></div>
 
 <header class="wrap hero">
   <div class="eyebrow">Product Portfolio · Interactive Demos</div>

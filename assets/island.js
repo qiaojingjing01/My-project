@@ -16,13 +16,13 @@ const CAMPS = [
                  '「问 AI」接入：基于 Agent 框架对接企业知识库检索（RAG）',
                  '信息卡生成以脱敏为底线，评估摘要准确和标题吸引，新旧两版对比择优'],
         mets: ['两轮灰度 1,000+ → 1,500 人', '613 → 102 部门归并', '1:1 A/B 实验'],
-        link: [PF + '#flick', '看完整案例和 Demo'] },
+        link: [PF + '?p=flick', '看完整案例和 Demo'] },
       { tag: 'Agent', org: '小红书 · Colead 会议 Agent', time: '迭代中',
         title: 'Colead：贯穿会前、会中、会后的会议助手',
         points: ['按会前、会中、会后拆解任务：材料收集、议程跟踪、纪要与待办分派',
                  '设计个人、会议、企业三层知识库，承接跨会议的上下文',
                  '体验对比 WorkBuddy、TeleAgent 等办公 Agent，借鉴 Skill 的前置检查与逐步校验'],
-        link: [PF + '#colead', '看会议 Agent Demo'] },
+        link: [PF + '?p=colead', '看会议 Agent Demo'] },
       { tag: '数据产品', org: '特斯拉 · 数据产品实习生 · Service 售后', time: '2026.03 – 2026.08',
         title: '售后运营看板：让门店经理一眼看到问题',
         points: ['走访门店，和门店经理、服务顾问、维修技师梳理看数场景，搭建分层指标体系',
@@ -30,13 +30,13 @@ const CAMPS = [
                  '对比 FRT 标准工时和实际打卡工时，按车型和项目拆分做 bad case 分析',
                  '把面试评估拆成 5 个 Skill，打分经复核再出报告'],
         mets: ['报表 2–3 小时 → 0.5 小时', '韩国全量 + 北京近 20 家门店'],
-        link: [PF + '#dash', '看看板 Demo'] },
+        link: [PF + '?p=dash', '看看板 Demo'] },
       { tag: 'AI 应用', org: 'Ubras · AI 产品测试开发实习生 · IT 部门', time: '2025.09 – 2025.12',
         title: '对话式经营报告 + 用户画像',
         points: ['串联飞书、阿里云、观远 BI，「神笔」Agent 一句话出经营报告，取数后先复核',
                  '用 Python 处理约 100 万条购买数据，K-means 聚类、肘部法定 3 类：高消 Z 时代、精致妈妈、都市白领'],
         mets: ['单份报告 20 → 5 分钟', '日均近 100 次'],
-        link: [PF + '#report', '看对话式报告 Demo'] }
+        link: [PF + '?p=report', '看对话式报告 Demo'] }
     ]
   },
   {
