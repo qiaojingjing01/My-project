@@ -662,6 +662,8 @@ html.solo body>section.case.solo-on{margin-top:40px}
 /* 单项目模式：portfolio/?p=dash 只显示这一个项目 */
 (function(){
   var p=new URLSearchParams(location.search).get('p');
+  /* 从外部带 #flick 这类锚点直接打开时，也只显示这一个项目 */
+  if(!p && location.hash) p=location.hash.slice(1);
   if(!p||!/^[a-z]+$/.test(p)) return;
   document.documentElement.classList.add('solo');
   document.addEventListener('DOMContentLoaded',function(){
@@ -669,7 +671,7 @@ html.solo body>section.case.solo-on{margin-top:40px}
     if(!sec||!sec.classList.contains('case')){document.documentElement.classList.remove('solo');return;}
     sec.classList.add('solo-on');
     var h=sec.querySelector('.case-head h2'); if(h) document.title=h.textContent.trim()+' · 王雯菁作品集';
-    window.scrollTo(0,0);
+    window.scrollTo(0,0); setTimeout(function(){window.scrollTo(0,0);},50);
   });
 })();
 </script>
