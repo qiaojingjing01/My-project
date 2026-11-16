@@ -4,21 +4,24 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light">
-<title>Claire 的林间岛 · 王雯菁 AI 产品作品集</title>
-<meta name="description" content="王雯菁（Claire）的 3D 作品集：在一座小岛上逛实习经历、Vibe Coding 作品、知识图谱课题和校园经历。">
+<title>Claire 的小星球 · 王雯菁 AI 产品作品集</title>
+<meta name="description" content="王雯菁（Claire）的 3D 作品集：转动一颗小星球，看实习经历、Vibe Coding 作品、知识图谱课题和校园经历。">
 <link rel="stylesheet" href="assets/island.css?v=20261116">
+<link rel="stylesheet" href="assets/globe.css?v=20261116">
 <script type="importmap">
 { "imports": { "three": "./vendor/three.module.js", "three/addons/": "./vendor/" } }
 </script>
 </head>
 <body class="day">
-<canvas id="scene" aria-label="可以拖动和点击的 3D 小岛"></canvas>
+<canvas id="scene" aria-label="可以拖动旋转的 3D 小星球"></canvas>
+<svg id="glines" aria-hidden="true"></svg>
 <div id="labels" aria-hidden="false"></div>
+<div id="gcards" aria-live="polite"></div>
 
 <header class="top">
-  <a class="brand" href="./" aria-label="回到小岛首页">
+  <a class="brand" href="./" aria-label="回到小星球首页">
     <span class="mark">雯<i>.</i></span>
-    <span class="bt"><b>Claire 的林间岛</b><small>A LITTLE FOREST OF MAKING</small></span>
+    <span class="bt"><b>Claire 的小星球</b><small>A LITTLE PLANET OF MAKING</small></span>
   </a>
   <div class="tools">
     <div class="seg" role="group" aria-label="切换时间">
@@ -30,15 +33,15 @@
 </header>
 
 <section class="hero" id="hero">
-  <p class="kicker"><i></i>A WORLD OF MY OWN</p>
-  <h1>欢迎来到<br>雯菁的林间岛<span>.</span></h1>
-  <p class="intro">AI 产品经理 · 软件工程硕士 · Vibe Coding 玩家。做过企业知识分发、会议 Agent、售后数据看板，也在林下经济领域自建知识图谱。这座小岛上放着我做过的事，来走走吧。</p>
+  <p class="kicker"><i></i>A PLANET OF MY OWN</p>
+  <h1>欢迎来到<br>雯菁的小星球<span>.</span></h1>
+  <p class="intro">AI 产品经理 · 软件工程硕士 · Vibe Coding 玩家。做过企业知识分发、会议 Agent、售后数据看板，也在林下经济领域自建知识图谱。这颗小星球上放着我做过的事，转一转看看吧。</p>
   <ul class="how">
-    <li><b>拖动</b>360° 看看这座小岛</li>
-    <li><b>点击营地</b>走过去，翻开那段经历</li>
-    <li><b>WASD / 方向键</b>自己在岛上走</li>
+    <li><b>拖动</b>转动星球，弹出那一面的项目卡片</li>
+    <li><b>点击营地</b>星球转到那一面</li>
+    <li><b>点卡片</b>看详情，按钮直接打开 Demo</li>
   </ul>
-  <button class="go" id="goBtn">出发，去逛逛 <span aria-hidden="true">↗</span></button>
+  <button class="go" id="goBtn">转一转，看看 <span aria-hidden="true">↗</span></button>
   <a class="sub" href="portfolio/">看完整作品集：详细案例和可交互 Demo →</a>
   <p class="mail">15619080835@163.com</p>
 </section>
@@ -56,15 +59,16 @@
 
 <div class="helpbox" id="helpBox" hidden>
   <b>怎么逛</b>
-  <p>拖动旋转视角，滚轮或双指缩放；点击营地标签、地上的光圈或底部导航，小人会走过去；也可以用 WASD 或方向键自己走，走进营地就会翻开那段经历。按 Esc 关闭卡片。</p>
+  <p>拖动转动星球，滚轮或双指缩放；点击营地标签或底部导航，星球会转到那一面，项目卡片从星球上弹出来。点卡片看完整介绍，点卡片里的按钮直接打开 Demo。左右方向键切换营地，Esc 关闭详情。</p>
+  <p><a href="island.html" style="font-weight:700;border-bottom:1.5px solid currentColor">想看之前的小岛版本 →</a></p>
 </div>
 
-<div class="loading" id="loading"><div><span class="mark">雯<i>.</i></span><p>正在登岛…</p></div></div>
+<div class="loading" id="loading"><div><span class="mark">雯<i>.</i></span><p>正在登陆小星球…</p></div></div>
 <div class="nogl" id="nogl" hidden>
-  <p>你的浏览器暂时打不开 3D 小岛。</p>
+  <p>你的浏览器暂时打不开 3D 小星球。</p>
   <a href="portfolio/">直接看完整作品集 →</a>
 </div>
 
-<script type="module" src="assets/island.js?v=20261116"></script>
+<script type="module" src="assets/globe.js?v=20261116"></script>
 </body>
 </html>

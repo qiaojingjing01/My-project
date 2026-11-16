@@ -1,0 +1,32 @@
+/* 小星球：在 island.css 基础上补充 */
+body{background:radial-gradient(120% 90% at 70% 40%,var(--sky1) 0%,var(--sky2) 70%,#9fd3d3 100%)}
+body.dusk{background:radial-gradient(120% 90% at 70% 40%,#ffe2cf 0%,#e4c3e0 65%,#b7a6cf 100%)}
+#glines{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:2}
+#glines path{fill:none;stroke-width:1.5;stroke-dasharray:3 4;opacity:calc(var(--fade,1)*.85);transition:opacity .3s}
+#glines circle{opacity:var(--fade,1);transition:opacity .3s}
+#gcards{position:fixed;inset:0;pointer-events:none;z-index:3}
+.gcard{position:absolute;left:0;top:0;width:248px;padding:13px 14px 12px;border-radius:16px;background:rgba(255,255,255,.93);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 10px 30px rgba(20,50,40,.16);border-top:3px solid var(--c);cursor:pointer;opacity:0;pointer-events:none;transition:opacity .35s, box-shadow .2s;will-change:transform}
+.gcard.show{opacity:var(--fade,1);pointer-events:auto}
+.gcard:hover{box-shadow:0 14px 36px rgba(20,50,40,.24)}
+.gtop{display:flex;align-items:center;gap:7px;margin-bottom:6px}
+.gno{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:var(--c);color:#fff;font-family:var(--mono);font-size:11px;font-weight:700}
+.gtg{font-size:11px;font-weight:700;padding:2px 7px;border-radius:6px;color:var(--c);background:color-mix(in srgb,var(--c) 13%,white)}
+.gtime{margin-left:auto;font-size:10.5px;color:var(--muted);white-space:nowrap}
+.gcard h3{font-size:14.5px;line-height:1.45;margin:0 0 3px}
+.gorg{font-size:11.5px;color:var(--ink2);margin:0 0 8px;line-height:1.5}
+.gm{display:inline-block;font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:999px;background:color-mix(in srgb,var(--c) 10%,white);color:color-mix(in srgb,var(--c) 75%,black);margin-bottom:8px}
+.gfoot{display:flex;justify-content:flex-end}
+.glk{border:0;background:none;padding:0;font-size:12.5px;font-weight:700;color:var(--c);border-bottom:1.5px solid currentColor}
+.deck-head{position:absolute;left:50%;top:76px;transform:translate(-50%,-6px);display:flex;align-items:center;gap:10px;max-width:min(720px,calc(100vw - 32px));padding:8px 16px 8px 8px;border-radius:999px;background:var(--glass2);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 6px 18px rgba(20,50,40,.12);font-size:12.5px;color:var(--ink2);opacity:0;transition:opacity .35s,transform .35s}
+.deck-head.show{opacity:var(--fade,1);transform:translate(-50%,0)}
+.deck-head b{color:var(--ink);font-size:13.5px;white-space:nowrap}
+.deck-head span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dh-no{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:24px;border-radius:50%;color:#fff;font-family:var(--mono);font-size:11px;flex:none}
+body.has-deck .pin.on{opacity:0;pointer-events:none}
+/* 窄屏：卡片排成一条横向滑动的条 */
+body.narrow #gcards{top:auto;bottom:calc(76px + env(safe-area-inset-bottom));height:auto;display:flex;gap:10px;overflow-x:auto;padding:0 16px 6px;pointer-events:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+body.narrow #gcards::-webkit-scrollbar{display:none}
+body.narrow .gcard{position:relative;transform:none!important;flex:none;width:76vw;max-width:300px;scroll-snap-align:start;display:none}
+body.narrow .gcard.show{display:block}
+body.narrow .deck-head{display:none}
+body.narrow #glines path{display:none}
