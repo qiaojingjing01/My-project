@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>林下经济知识图谱问答系统 · 王雯菁作品集</title><link rel="stylesheet" href="style.css"></head>
+<body><main class="wrap">
+<p class="kick"><i></i>03 · RESEARCH CAMP · 研究生课题</p>
+<h1>自建「林药、林菌、林蜂」知识图谱</h1>
+<p class="lead">林下经济的知识散在政策文件、技术手册和各种表格里，人查起来难，大模型直接回答又容易说错。我的课题是先把这些知识整理成模型能用的知识图谱，再在上面做问答，让回答有据可查。</p>
+<div class="tags"><span>领域本体设计</span><span>非结构化文档处理</span><span>知识图谱</span><span>Text-to-Cypher</span><span>RAG 多跳检索</span><span>Dify 工作流</span><span>消融实验</span></div>
+
+<h2>1 · 本体设计 <small>ONTOLOGY</small></h2>
+<div class="grid">
+  <div class="card"><h3><span class="num">1</span>三类实体</h3><p>林药、林菌、林蜂，对应林下经济里最主要的三类产业。</p></div>
+  <div class="card"><h3><span class="num">2</span>39 个属性字段</h3><p>名称、省份等 39 个字段，规定每类实体要记录哪些信息、用什么格式。</p></div>
+  <div class="card"><h3><span class="num">3</span>实体之间的关系</h3><p>定义实体之间有哪些关系，抽取时统一写成“头实体、关系、尾实体”的三元组。</p></div>
+</div>
+
+<h2>2 · 数据集构建 <small>DATASET</small></h2>
+<div class="flow">
+  <div class="st"><b>整合已有数据</b>结构化的领域数据，统一成规范文本</div><span class="ar">→</span>
+  <div class="st"><b>处理非结构化文档</b>清洗后按标题层级切片，保证每段语义完整</div><span class="ar">→</span>
+  <div class="st"><b>抽取实体和关系</b>按本体抽取实体、属性和关系三元组</div><span class="ar">→</span>
+  <div class="st"><b>建成知识图谱</b>存进图数据库，作为自有数据集</div>
+</div>
+
+<h2>3 · 问答系统 <small>QA</small></h2>
+<p class="lead" style="font-size:15px">在 Dify 上用大模型先判断问题类型，再分三路处理；图遍历和向量检索用 FastAPI 封装成接口接进工作流。</p>
+<div class="grid">
+  <div class="card"><h3><span class="num">1</span>精确问题 → 图谱查询</h3><p>比如某个省有哪些林药品种，用 Text-to-Cypher 生成查询语句，直接在图谱里查。</p></div>
+  <div class="card"><h3><span class="num">2</span>模糊问题 → RAG 多跳检索</h3><p>需要综合多条知识的问题，沿图谱多跳检索相关内容，再让大模型组织答案。</p></div>
+  <div class="card"><h3><span class="num">3</span>新经验 → 经验录入</h3><p>用户分享的种植养殖经验，整理后录入，补充进知识库。</p></div>
+</div>
+<figure><img src="img/patent-fig1.png" alt="林业资源智能推荐系统架构图：数据层、服务层、展示层"><figcaption>系统架构：数据层建图谱并优先在图谱里查，查不到再交给服务层用大模型补充，展示层负责交互（专利附图 1）</figcaption></figure>
+
+<h2>4 · 评测 <small>EVALUATION</small></h2>
+<div class="card">
+  <div class="metric"><div><b>K = 2</b>最优检索跳数</div><div><b>准确率</b>答对的比例</div><div><b>幻觉率</b>编造内容的比例</div></div>
+  <ul class="pts"><li>以准确率和幻觉率为指标做消融实验，比较不同检索跳数的效果。</li><li>跳数太少，找不全相关知识；跳数太多，引入无关内容，幻觉变多。最终确定 K=2。</li></ul>
+</div>
+
+<h2>5 · 成果 <small>OUTPUT</small></h2>
+<div class="card"><p>软件著作权 1 项（林业资源推荐系统 V1.0），发明专利申请 1 项（林业资源智能推荐系统，已通过初审）。<a class="more" href="ip.html">看软著和专利 →</a></p></div>
+</main>
+<div class="nav"><a href="../">← 回到小星球</a><a class="alt" href="ip.html">软著和专利</a></div>
+</body></html>
