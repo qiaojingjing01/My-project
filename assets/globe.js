@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { CAMPS, CONTACT } from './content.js?v=20261117a';
+import { CAMPS, CONTACT } from './content.js?v=20261117b';
 
 /* ================= 营地在星球上的位置（纬度, 经度） ================= */
 const SPOTS = { work: [16, -38], maker: [20, 52], research: [-14, 148], campus: [6, -128], light: [58, 8] };

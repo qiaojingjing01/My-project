@@ -1,0 +1,251 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<title>秋招步步惊心 · 宫廷秋招闯关</title>
+<link rel="preload" as="image" href="assets/images/splash-v13.webp" type="image/webp" fetchpriority="high">
+<style id="startup-critical">
+/* 首次绘制就有底图；未开始的舞台不透出空立绘。 */
+html,body{margin:0;background:#2c1b1b}
+#stage:not(.playing){visibility:hidden;pointer-events:none}
+.overlay-screen:not(.active),#screen-result:not(.active){display:none}
+#stage img[hidden],#stage img:not([src]),#stage img[src=""]{display:none!important}
+#screen-splash{isolation:isolate;background-color:#2c1b1b}
+.splash-backdrop{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none;background:#2c1b1b url('data:image/webp;base64,UklGRhQFAABXRUJQVlA4WAoAAAAgAAAALwAARwAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggJgMAAHAPAJ0BKjAASAA+tU6bSyckIiGs2qxw4BaJZDOAZu4cCPh2mqlhPeljbzLdA1w8CdvMrjhFpy55/vqPWke6d3sUmlJgoT+2gy0a4IP7GBJlGeU3vG8yCl0ffvVmqq8H/aQLHQlBpSqy4fwQ+CB35aqm82XuzlXmbfC3P0/K17ku+6Dt0AD++n8hNrC5MEcuumVZ4qvGhuAnHcIm7L0dHOPQJOEVR/TUu12UjPhkz3qf+TMNLhngzcqApgA9Rtw6NV5eIkKTrxFn08g4/EJUqLhWQJcdod5MOOVtN4R5jH3amwW2EwgH7RJ+824iePH0eicMzJF4x1YASPj8iSm+GAOmCr3r8TLEqy0WatHmRVS2xIo8gjak34f5kZvO4dwbwhKF/PV4VWs40LCBUnOD5c4irM/rRqBAEN0RSES7otFWi7Z/juAC/8iBxGabbvhLwvprm8l+uPbJjQgV23t2Td9BzckGPYT7ZGOFI7nQq+1xwZz8/XzFPij5k063YrlPOqf4iuayM75tT9CczbTbjkHMxBVPWMoyWDbwquvOWeCI88j7vuoyk+n3HyowdihoMATzrk5IZgWtm6PdLbMW8u4rzyMm9HAgBk5IyTkjd/LtH8j9Q/tuiEXLXB3z3NmIubDEygnqac2xwSlfwpbXqoSsdzsUCEd8Twb+jGztin7ff4Q8SHrcTmdm5mKwaoilVB0RkLWoSv2wvCebAMG4oGVanvlfUCf6OxHYd4erbJBJfedjAO5T4RMDKEA2uEyw+HutMj+Softoq+O+ngcSQapGsLjrx0DN3TjX1QXaxc5jTIn/KLG80m3TZ4mnAGpFWnmMexwCcekWHOXRdVRfi1bAxo3VFAPrGKxxwwT3l9Cw3EGLr16U/E2N619dR7UjTFSTVruTCFB61x64f8QvpHyGzJzPwwVm25HbVKIYPvZhbNLxoDkEXJ+75Xm/tkE3sRO/hENvXwXZXW6ZDMeuznbwlEHd7kwxkIOKKZ9JOEm+uZeBm0Zq1H6vG6Bc7ItIFksfg0SZUh5XE07OhI3wnWAy1uOnBSqdcXfOxgX5K6aYF+mlMAAA') center / cover no-repeat}
+.splash-backdrop::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 39%,rgba(213,173,111,.25),transparent 34%),linear-gradient(180deg,rgba(25,20,17,.12),rgba(42,23,24,.8) 72%,#2c1b1b)}
+#splash-background{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0;transition:opacity .35s ease}
+#splash-background.is-ready{opacity:1}
+@media(prefers-reduced-motion:reduce){#splash-background{transition:none}}
+</style>
+<link rel="stylesheet" href="assets/css/game.css?v=14">
+</head>
+<body class="landing-open">
+<div id="toast"></div>
+<aside id="pdf-download-status" class="pdf-download-status" data-status="idle" aria-label="PDF 下载状态" hidden onclick="event.stopPropagation()">
+  <div class="pdf-status-message" role="status" aria-live="polite" aria-atomic="true">
+    <span id="pdf-status-icon" class="pdf-status-icon" aria-hidden="true"></span>
+    <div class="pdf-status-copy"><strong id="pdf-status-title"></strong><p id="pdf-status-detail"></p><p id="pdf-status-file" class="pdf-status-file"></p></div>
+  </div>
+  <div id="pdf-status-actions" class="pdf-status-actions" hidden>
+    <button id="pdf-status-retry" type="button" onclick="retryPDFDownload()">再次下载</button>
+    <button type="button" onclick="closePDFStatus()">知道了</button>
+  </div>
+</aside>
+<audio id="bgm" loop preload="none" playsinline src="assets/audio/bgm.mp4"></audio>
+<button id="music-toggle" class="off" type="button" aria-label="背景音乐已关闭" onclick="toggleMusic(event)">♫</button>
+<nav id="game-actions" aria-label="游戏操作" hidden>
+  <button id="effects-toggle" type="button" aria-pressed="true" aria-label="关闭角色配音与剧情音效" onclick="toggleEffects(event)">配音音效：开</button>
+  <button id="game-restart" type="button" onclick="restartCurrentGame(event)" title="清空本局答案，保留姓名与身份重新开始">重新开始</button>
+  <button id="game-exit" type="button" onclick="exitGame(event)" title="结束本局并返回首页">离开游戏</button>
+</nav>
+
+<!-- 舞台 -->
+<div id="stage">
+  <div id="bg"></div>
+  <div id="progress-bar"><div id="progress-fill"></div></div>
+  <div id="scene-hud"><span class="scene-hud-mark">三日秋选</span><span id="scene-label">第一幕 · 入宫争位</span><span id="question-counter">01 / 10</span></div>
+
+  <aside class="run-ledger" aria-label="本局处境" onclick="event.stopPropagation()">
+    <div class="ledger-summary"><span>余下准备 <strong id="run-time"></strong></span><span>行事路线 <strong id="run-support"></strong></span><details class="inventory-panel" id="inventory-panel"><summary>随身线索 <b id="inventory-count">0</b></summary><ul id="run-inventory"></ul></details></div>
+    <p id="story-goal"></p>
+  </aside>
+  <!-- NPC 立绘（左下半身） -->
+  <div class="sprite-wrap" id="npc-sprite"><img alt="" id="npc-img"/></div>
+  <!-- 玩家立绘（右下半身） -->
+  <div class="sprite-wrap" id="player-sprite"><img alt="" id="player-img"/></div>
+
+  <!-- 对话区 -->
+  <div id="dialogue-area" style="display:none">
+    <div class="npc-plate"><span class="npc-plate-name" id="npc-name-text">苏嬷嬷</span></div>
+    <div class="dialogue-bubble">
+      <div id="decision-feedback" class="decision-feedback" aria-live="polite" hidden></div>
+      <div class="dialogue-text" id="dialogue-text"></div>
+      <div class="dialogue-footer"><span class="story-reading-hint" id="story-reading-hint">轻触画面或按空格继续</span><button class="tap-hint" id="tap-hint" type="button" onclick="event.stopPropagation();advanceNarrative(event)" aria-controls="dialogue-text">继续对话 ›</button></div>
+    </div>
+  </div>
+
+  <!-- 场景内答题栏 -->
+  <div id="choice-overlay" aria-label="请选择你的回答">
+    <div class="choice-panel">
+      <div class="choice-title" id="choice-node-title">秋选抉择</div>
+      <div class="choice-q" id="choice-q" aria-live="polite"></div>
+      <div class="choice-list" id="choice-list"></div>
+      <div id="choice-guidance" class="choice-guidance" role="status" aria-live="polite" aria-atomic="true" hidden><strong id="choice-guidance-title"></strong><p id="choice-guidance-text"></p></div>
+      <p class="choice-helper">留意每项行动的代价。你手中的线索与此前的承诺，会改变接下来的机会。</p>
+    </div>
+  </div>
+</div>
+
+<!-- 入场首页：先理解故事与玩法，再选择声音体验。 -->
+<div id="screen-splash" aria-labelledby="landing-title">
+  <div class="landing-shell">
+    <header class="landing-header">
+      <div class="landing-brand"><span class="landing-brand-seal" aria-hidden="true">秋</span><div><strong>秋招步步惊心</strong><span>宫廷互动故事 · 你的选择，改写前程</span></div></div>
+      <span class="landing-duration">一局约 <b>8–10</b> 分钟</span>
+    </header>
+    <main class="landing-hero">
+      <div class="landing-copy">
+        <p class="landing-eyebrow"><span aria-hidden="true"></span>一封秋招回信，一场意外穿越</p>
+        <h1 id="landing-title">你的秋招，<br/><em>突然穿越。</em></h1>
+        <p class="landing-intro">凌晨一点，你还在修改简历。一封奇怪的回信，把你送进宫廷的「三日秋选」。名额有限，局势多变。<strong>这次，你会怎样为自己争取机会？</strong></p>
+        <ul class="landing-stats" aria-label="游戏概览"><li><b>五幕</b>故事</li><li><b>十次</b>行动</li><li><b>八种</b>结局</li></ul>
+        <section class="landing-sound" aria-labelledby="landing-sound-title">
+          <div class="landing-sound-heading"><span class="landing-headphones" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="12" width="4" height="8" rx="2"/><rect x="17" y="12" width="4" height="8" rx="2"/></svg></span><div><h2 id="landing-sound-title">打开声音，才更入戏。</h2><p>关键对白配音、剧情音效与古风配乐</p></div><button id="landing-sound-preview" type="button" aria-pressed="false" onclick="previewLandingSound()">先听一段</button></div>
+          <p id="landing-sound-status" class="landing-sound-status" role="status" aria-live="polite" aria-atomic="true">建议戴上耳机。先试听，再带着声音推开宫门。</p>
+        </section>
+        <div class="landing-actions">
+          <button id="landing-start" class="btn-gold" type="button" onclick="startGameFromLanding(true)" aria-describedby="landing-audio-note">开启声音 · 开始游戏 <span aria-hidden="true">→</span></button>
+          <button id="landing-start-quiet" type="button" onclick="startGameFromLanding(false)">暂不开声音，直接开始 <span aria-hidden="true">↗</span></button>
+        </div>
+        <p id="landing-audio-note" class="landing-audio-note">配音音效与背景音乐可随时开关 · 推荐电脑横屏体验</p>
+      </div>
+      <figure class="landing-art" aria-label="灯火映照的宫殿，等待你进入三日秋选">
+        <div class="splash-backdrop" aria-hidden="true"><img id="splash-background" src="assets/images/splash-v13.webp" width="1024" height="1536" alt="" decoding="async" fetchpriority="high" data-state="pending"/></div>
+        <div class="landing-art-top"><span>宫 门 已 启</span><span class="landing-art-seal">三日<br/>秋选</span></div>
+        <figcaption class="landing-art-caption"><p>从深夜投递，到殿前争位</p><h2>手中是名帖，<br/>落笔是前程。</h2><span>结盟，还是独行？<br/>每一次取舍，都在改变下一步。</span></figcaption>
+        <span class="landing-art-index" aria-hidden="true">壹 · 入局</span>
+      </figure>
+    </main>
+    <section class="landing-guide" aria-labelledby="landing-guide-title">
+      <div class="landing-guide-heading"><p>入 宫 小 引</p><h2 id="landing-guide-title">第一次来，<br/>也能轻松入戏。</h2></div>
+      <ol class="landing-steps">
+        <li><span class="landing-step-number" aria-hidden="true">01</span><div><h3>听故事，认人物</h3><p>没看过宫廷剧也没关系。序章可点「下一幕」或跳过，剧情对话点画面或按空格继续。</p></div></li>
+        <li><span class="landing-step-number" aria-hidden="true">02</span><div><h3>做选择，看回响</h3><p>留意行动的代价与随身线索。你的准备、承诺和证据，会改变后面的机会。</p></div></li>
+        <li><span class="landing-step-number" aria-hidden="true">03</span><div><h3>收下结局，再走一条路</h3><p>回顾关键抉择，下载本局档案。换个决定再来一次，探索另一种前程。</p></div></li>
+      </ol>
+    </section>
+  </div>
+</div>
+
+<script>
+/* 首屏背景：低清底图随 HTML 到达，清晰图解码后再淡入。 */
+(()=>{
+  const image=document.getElementById('splash-background');
+  let settled=false,decoding=false;
+  function finish(ready){
+    if(settled)return;
+    settled=true;
+    image.removeEventListener('load',loaded);
+    image.removeEventListener('error',failed);
+    image.dataset.state=ready?'ready':'error';
+    if(ready)image.classList.add('is-ready');
+  }
+  function failed(){finish(false)}
+  function loaded(){
+    if(settled||decoding)return;
+    if(!image.naturalWidth){failed();return}
+    decoding=true;
+    if(typeof image.decode!=='function'){finish(true);return}
+    try{image.decode().then(()=>finish(true),failed)}catch(error){failed()}
+  }
+  image.addEventListener('load',loaded);
+  image.addEventListener('error',failed);
+  if(image.complete)loaded();
+})();
+</script>
+
+<!-- 主角形象：共用秋选身份与全部结局 -->
+<div class="overlay-screen" id="screen-gender" aria-labelledby="appearance-title" aria-describedby="appearance-note">
+  <div class="appearance-shell">
+    <p class="appearance-eyebrow">秋选名帖 · 待你落笔</p>
+    <h1 id="appearance-title">选择你的主角形象</h1>
+    <p class="appearance-intro">以喜欢的模样入场，凭自己的选择闯关。</p>
+    <div class="gender-grid appearance-grid">
+      <button type="button" class="gender-card appearance-card" onclick="selectGender('female')" aria-label="选择形象一">
+        <span class="appearance-portrait appearance-portrait-one"><img src="assets/images/appearance-one-v13.webp" alt="" loading="lazy" fetchpriority="low" decoding="async" width="1024" height="1536"/></span>
+        <span class="appearance-card-copy"><span class="appearance-card-name">形象一</span><span class="appearance-card-action">选择此形象 <span aria-hidden="true">↗</span></span></span>
+      </button>
+      <button type="button" class="gender-card appearance-card" onclick="selectGender('male')" aria-label="选择形象二">
+        <span class="appearance-portrait appearance-portrait-two"><img src="assets/images/appearance-two-v13.webp" alt="" loading="lazy" fetchpriority="low" decoding="async" width="704" height="1346"/></span>
+        <span class="appearance-card-copy"><span class="appearance-card-name">形象二</span><span class="appearance-card-action">选择此形象 <span aria-hidden="true">↗</span></span></span>
+      </button>
+    </div>
+    <p class="appearance-note" id="appearance-note">两种形象都可探索全部八种结局。<br/>你的前程，由每一次行动写成。</p>
+  </div>
+</div>
+
+<!-- 宫名 -->
+<div class="overlay-screen" id="screen-name">
+  <div class="overlay-title">写下你的名字</div>
+  <p class="name-hint" id="name-hint-text">这份秋选名帖，该写下谁的名字？</p>
+  <input class="palace-input" id="name-input" name="palace-entry-name-v17" type="text" placeholder="请输入你的名字" maxlength="8" autocomplete="new-password" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+  <button class="btn-gold" onclick="confirmName()">名帖已备 · 开始穿越</button>
+</div>
+
+<!-- 自动剧情序章 -->
+<section id="screen-prologue" class="overlay-screen cinema-screen" tabindex="-1" aria-label="序章：从深夜投递到宫廷秋选">
+  <div class="cinema-backdrop" aria-hidden="true">
+    <div id="cinema-bg-0" class="cinema-background"></div>
+    <div id="cinema-bg-1" class="cinema-background"></div>
+    <div class="cinema-vignette"></div>
+    <div class="cinema-modern" aria-hidden="true"><div class="night-window"><span>CAREER PORTAL</span><span>01:47</span></div><div class="modern-mail"><small>你的秋招申请有一封新回信</small><strong>简历_最终版.pdf</strong><div class="mail-progress"></div><p>投递状态：<em>名帖已入宫册</em></p><div class="portal-seal">秋<br/>选</div><b>三日之后 · 殿前候选</b></div><div class="laptop-base"></div></div>
+  </div>
+  <header class="cinema-topline"><span>秋招步步惊心</span><span>序章 · 一封不寻常的回信</span></header>
+  <div id="cinema-stage" class="cinema-stage" aria-busy="false">
+    <div id="cinema-copy" class="cinema-copy">
+      <p id="cinema-eyebrow" class="cinema-eyebrow"></p>
+      <h1 id="cinema-title"></h1>
+      <p id="cinema-role" class="cinema-role"></p>
+    </div>
+    <figure id="cinema-portrait-wrap" class="cinema-portrait-wrap" hidden><img id="cinema-portrait" alt=""></figure>
+  </div>
+  <div class="cinema-subtitle-band"><p id="cinema-subtitle" class="cinema-subtitle" aria-live="polite" aria-atomic="true"></p></div>
+  <footer class="cinema-controls">
+    <span id="cinema-count" class="cinema-count">01 / 07</span>
+    <div id="cinema-progress" class="cinema-progress" role="progressbar" aria-label="序章播放进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="cinema-progress-fill"></span></div>
+    <span id="cinema-status" class="cinema-status" aria-live="polite"></span>
+    <button id="cinema-pause" type="button" onclick="toggleProloguePause()" aria-pressed="false">暂停</button>
+    <button id="cinema-next" type="button" onclick="advancePrologue(event)" aria-label="前往下一幕">下一幕 ›</button>
+    <button id="cinema-skip" type="button" onclick="finishPrologue()">跳过序章 <span aria-hidden="true">›</span></button>
+  </footer>
+</section>
+
+<!-- 结局页：先看本局命运，再回顾选择 -->
+<div id="screen-result">
+  <div class="result-hero">
+    <div class="result-hero-bg" id="result-hero-bg"></div>
+    <div class="result-eyebrow">秋 选 放 榜 · 命 运 有 回 声</div>
+    <img class="result-seal-img" src="assets/images/result_seal.png" alt="" loading="lazy" decoding="async"/>
+    <div class="result-type" id="result-type"></div>
+    <h1 class="result-role-name" id="result-role-name" tabindex="-1"></h1>
+    <div class="result-role-sub" id="result-role-sub"></div>
+    <p class="result-offer" id="result-offer"></p>
+  </div>
+  <main class="story-result-body">
+    <section class="result-section ending-narrative"><div class="result-section-title">✦ 你的秋选终章 ✦</div><div id="ending-story"></div><div class="ending-return"><small>凌晨 01:48 · 回到投递页面</small><p id="ending-return"></p></div></section>
+    <section class="result-section"><div class="result-section-title">✦ 哪几步，把你带到了这里 ✦</div><div id="ending-causes" class="ending-causes"></div></section>
+    <section class="ending-replay-panel"><div><small>如果那一次，换个决定</small><h2>这份名单，还能改写。</h2><p id="ending-next-hint"></p></div><button type="button" class="btn-gold" id="ending-replay">回到关键抉择 ↺</button></section>
+    <section class="result-section"><div class="ending-gallery-heading"><h2>还有别的前程</h2><span id="ending-collection-count"></span></div><div id="ending-collection" class="ending-collection"></div></section>
+    <details class="result-section ending-details"><summary>展开本局求职风格与十次行动回顾</summary><p class="ending-note">这里记录你在本局采用的策略，与具体选择对应；不作为性格测评或真实录用预测。</p><div id="ending-style" class="ending-style"></div><ol id="ending-history" class="ending-history"></ol></details>
+    <details class="result-section ending-details"><summary>把这一局，带回真实秋招</summary><div id="ending-advice" class="ending-advice"></div></details>
+  </main>
+  <div class="result-actions">
+    <button class="btn-gold" onclick="restart()">回到深夜 · 从头再来</button>
+    <div class="result-share-actions">
+      <button class="btn-share" id="share-result-btn" type="button" onclick="downloadResultPDF()">下载完整结果 PDF</button>
+      <button class="btn-share" id="share-game-btn" type="button" aria-haspopup="dialog" onclick="shareGame()">邀好友来闯关</button>
+    </div>
+    <div class="share-hint">✦ 收好这份秋选档案，下一局，试一条不同的路 ✦</div>
+  </div>
+</div>
+
+<!-- 宫廷邀帖：全屏时随宿主挂载，复制状态留在游戏内。 -->
+<div id="share-dialog" class="palace-share-overlay" role="dialog" aria-modal="true" aria-labelledby="share-dialog-title" aria-describedby="share-dialog-description" hidden onclick="closeShareBackdrop(event)">
+  <section class="palace-share-card">
+    <button id="share-close-btn" class="palace-share-close" type="button" aria-label="关闭邀请弹窗，返回结果" onclick="closeShareDialog()">×</button>
+    <div class="palace-share-seal" aria-hidden="true">邀</div>
+    <p class="palace-share-eyebrow">宫 门 留 帖 · 好 友 同 游</p>
+    <h2 id="share-dialog-title">邀好友来闯关</h2>
+    <p id="share-dialog-description">同一场秋选，未必是同一份名单。<br>递出这封邀帖，看看朋友会走向哪种前程。</p>
+    <label class="palace-share-label" for="share-link-input">秋选邀帖链接</label>
+    <input id="share-link-input" class="palace-share-link" type="text" readonly spellcheck="false" autocomplete="off" onclick="this.select()">
+    <button id="share-copy-btn" class="btn-gold palace-share-copy" type="button" onclick="copyGameLink()">复制游戏链接</button>
+    <p id="share-copy-status" class="palace-share-status" role="status" aria-live="polite" aria-atomic="true"></p>
+  </section>
+</div>
+
+<script src="assets/js/palace-engine.js?v=14"></script>
+<script src="assets/js/palace-report.js?v=14"></script>
+<script src="assets/js/palace-voices.js?v=14"></script>
+<script src="assets/js/palace-effects.js?v=14"></script>
+<script src="assets/js/game.js?v=14"></script>
+</body></html>
