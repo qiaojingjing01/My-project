@@ -307,9 +307,13 @@ SEASONS.forEach(S => { S.c = {}; ['pine', 'top', 'broad', 'fx'].forEach(k => S.c
 let timeMode = 'day', seasonKey = -1;
 const mixHex = (a, b, t) => { const A = new THREE.Color(a), B = new THREE.Color(b); return '#' + A.lerp(B, t).getHexString(); };
 const sc = { pine: new THREE.Color(), top: new THREE.Color(), broad: new THREE.Color(), fx: new THREE.Color(), g0: new THREE.Color(), g1: new THREE.Color() };
-function applySeason(lon, force) {
-  // 以工作营地经度为春天的中心，每 90° 一季
-  let x = ((lon + 38) / 90) % 4; if (x < 0) x += 4;
+let seasonX = null;
+function applySeason(lon, force, dt = 1) {
+  // 以工作营地经度为春天的中心，每 90° 一季；平滑过渡，开车翻过两极时季节也不会突变
+  let tx = ((lon + 38) / 90) % 4; if (tx < 0) tx += 4;
+  if (seasonX === null || force) seasonX = tx;
+  else { const dl = ((tx - seasonX + 6) % 4) - 2; seasonX += dl * (1 - Math.exp(-dt * 2.2)); seasonX = (seasonX + 4) % 4; }
+  const x = seasonX;
   const i = Math.floor(x), j = (i + 1) % 4, f = x - i;
   const w = smooth(0.62, 1, f);
   const key = Math.round((i + w) * 200) / 200 + (timeMode === 'dusk' ? 10 : 0);
@@ -655,9 +659,37 @@ function goRegion(ri) {
   const d = REGIONS[ri].dir.clone();
   const tilt = new THREE.Vector3(0, 1, 0).sub(d.clone().multiplyScalar(d.y)).normalize().multiplyScalar(0.12);
   const to = d.add(tilt).normalize();
-  flyTo = { from: camera.position.clone().normalize(), to, dist0: camera.position.length(), t: 0 };
+  startFly(to, DIST, 1.1);
   syncNav(ri);
 }
+// 相机三种状态：orbit 鼠标拖动；drive 跟着小车（相机的“上方”随车一起平移，过两极不翻转）；fly 平滑转到目标
+let camMode = 'orbit';
+const camUp = new THREE.Vector3(), Y = new THREE.Vector3(0, 1, 0), fM = new THREE.Matrix4(), fQ = new THREE.Quaternion();
+function startFly(toDir, dist, dur) {
+  fM.lookAt(toDir.clone().multiplyScalar(dist), new THREE.Vector3(), Y);
+  flyTo = { q0: camera.quaternion.clone(), q1: new THREE.Quaternion().setFromRotationMatrix(fM), d0: camera.position.length(), d1: dist, t: 0, dur };
+  camMode = 'fly'; controls.enabled = false; controls.autoRotate = false;
+}
+function enterDrive() {
+  if (camMode === 'drive') return;
+  camUp.set(0, 1, 0).applyQuaternion(camera.quaternion);
+  camMode = 'drive'; flyTo = null; controls.enabled = false; controls.autoRotate = false;
+}
+function leaveDrive() {
+  if (camMode !== 'drive') return;
+  carS.v = 0; driveT = 0;
+  // 回到普通浏览：离开两极一点，把画面慢慢扶正
+  const d = camera.position.clone().normalize();
+  const pol = Math.acos(clamp(d.y, -1, 1)), lim = 0.25;
+  if (pol < lim || pol > Math.PI - lim) {
+    const tp = pol < lim ? lim : Math.PI - lim;
+    const az = Math.hypot(d.x, d.z) > 1e-4 ? Math.atan2(d.x, d.z) : Math.atan2(-camUp.x, -camUp.z) * (pol < lim ? 1 : -1);
+    d.set(Math.sin(tp) * Math.sin(az), Math.cos(tp), Math.sin(tp) * Math.cos(az));
+  }
+  startFly(d, camera.position.length(), 0.6);
+}
+canvas.addEventListener('pointerdown', () => leaveDrive(), true);
+canvas.addEventListener('wheel', () => leaveDrive(), { capture: true, passive: true });
 
 // 点击星球上的营地
 const ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
@@ -683,7 +715,7 @@ function setTime(t) {
   sun.color.set(th.sun[0]); sun.intensity = th.sun[1];
   halo.material.uniforms.col.value.set(th.halo);
   document.body.classList.toggle('dusk', t === 'dusk');
-  timeMode = t; car.userData.lights.emissiveIntensity = t === 'dusk' ? 1.6 : 0.6; applySeason(lonOf(camera.position), true);
+  timeMode = t; car.userData.lights.emissiveIntensity = t === 'dusk' ? 1.6 : 0.6; applySeason(lonOf(camera.position), false, 1);
   document.querySelectorAll('.seg button').forEach(b => b.classList.toggle('on', b.dataset.time === t));
   try { localStorage.setItem('globe-time', t); } catch (e) {}
 }
@@ -797,29 +829,31 @@ const clock = new THREE.Clock();
 let first = true;
 function tick() {
   const dt = Math.min(clock.getDelta(), 0.05), t = clock.elapsedTime;
-  if (flyTo) {
-    flyTo.t = Math.min(1, flyTo.t + dt / 1.1);
-    const e = 1 - Math.pow(1 - flyTo.t, 3);
-    const q = new THREE.Quaternion().setFromUnitVectors(flyTo.from, flyTo.to);
-    const qi = new THREE.Quaternion().slerp(q, e);
-    const d = flyTo.dist0 + (DIST - flyTo.dist0) * e;
-    camera.position.copy(flyTo.from).applyQuaternion(qi).multiplyScalar(d);
-    if (flyTo.t >= 1) flyTo = null;
-  }
   const drv = updateCar(dt);
-  controls.minPolarAngle = drv ? 0.08 : 0.25; controls.maxPolarAngle = Math.PI - controls.minPolarAngle;
-  if (drv) {
-    if (!exploring) explore();
-    controls.autoRotate = false; flyTo = null;
-    const want = tmp.copy(carS.p);
-    const L = camera.position.length() + (DIST * 0.82 - camera.position.length()) * (1 - Math.exp(-dt * 1.5));
-    const cur = camDir.copy(camera.position).normalize();
-    cur.lerp(want, 1 - Math.exp(-dt * 2.6)).normalize();
-    camera.position.copy(cur).multiplyScalar(L);
+  if (drv) { if (!exploring) explore(); enterDrive(); }
+  if (camMode === 'drive') {
+    if (drv) {
+      const L = camera.position.length() + (DIST * 0.82 - camera.position.length()) * (1 - Math.exp(-dt * 1.5));
+      const cur = camDir.copy(camera.position).normalize();
+      const nxt = wp.copy(cur).lerp(carS.p, 1 - Math.exp(-dt * 2.6)).normalize();
+      fQ.setFromUnitVectors(cur, nxt);
+      camUp.applyQuaternion(fQ);
+      camera.position.copy(nxt).multiplyScalar(L);
+    }
+    camUp.sub(tmp.copy(camera.position).normalize().multiplyScalar(camUp.dot(tmp))).normalize();
+    camera.up.copy(camUp);
+    camera.lookAt(0, 0, 0);
+  } else if (camMode === 'fly' && flyTo) {
+    flyTo.t = Math.min(1, flyTo.t + dt / flyTo.dur);
+    const e = 1 - Math.pow(1 - flyTo.t, 3);
+    camera.quaternion.slerpQuaternions(flyTo.q0, flyTo.q1, e);
+    camera.position.set(0, 0, flyTo.d0 + (flyTo.d1 - flyTo.d0) * e).applyQuaternion(camera.quaternion);
+    if (flyTo.t >= 1) { flyTo = null; camera.up.set(0, 1, 0); camMode = 'orbit'; controls.enabled = true; controls.update(); }
+  } else {
+    controls.update();
   }
-  controls.update();
   camDir.copy(camera.position).normalize();
-  applySeason(lonOf(camera.position));
+  if (Math.hypot(camera.position.x, camera.position.z) > 0.5) applySeason(lonOf(camera.position), false, dt);
   updateFx(dt, t);
   // 太阳跟着相机，从左上方照过来
   tmp.set(-0.6, 0.8, 0.4).applyQuaternion(camera.quaternion);
