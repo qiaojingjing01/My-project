@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-import { PF, CAMPS, CONTACT } from './content.js?v=20261117d';
+import { PF, CAMPS, CONTACT } from './content.js?v=20261118c';
 
 /* ================= 基础 ================= */
 const canvas = document.getElementById('scene');
