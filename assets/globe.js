@@ -459,6 +459,78 @@ const car = new THREE.Group();
   });
   car.scale.setScalar(1.45);
 }
+// 车的零件收进 carParts，水上换成 boat
+const carParts = new THREE.Group();
+[car.userData.body, ...car.userData.wheels].forEach(o => carParts.add(o));
+car.add(carParts);
+const boat = new THREE.Group();
+{
+  const white = mat(0xfaf7f0), blue = mat(0x2f6fb0), wood = mat(0xb07a4f);
+  const hull = new THREE.Shape();
+  hull.moveTo(-0.15, -0.26); hull.lineTo(0.15, -0.26); hull.lineTo(0.17, 0.08); hull.quadraticCurveTo(0.12, 0.26, 0, 0.36); hull.quadraticCurveTo(-0.12, 0.26, -0.17, 0.08); hull.closePath();
+  const hg = new THREE.ExtrudeGeometry(hull, { depth: 0.07, bevelEnabled: true, bevelSize: 0.015, bevelThickness: 0.015, bevelSegments: 1 });
+  hg.rotateX(Math.PI / 2);
+  add(hg, blue, 0, 0.085, 0, boat);
+  add(hg.clone(), white, 0, 0.125, 0, boat).scale.set(0.93, 0.45, 0.93);
+  add(new THREE.BoxGeometry(0.24, 0.015, 0.36), wood, 0, 0.13, -0.03, boat); // 甲板
+  add(new THREE.CylinderGeometry(0.012, 0.014, 0.5, 6), wood, 0, 0.37, 0.06, boat); // 桅杆
+  const sail = new THREE.Shape(); sail.moveTo(0, 0); sail.lineTo(0, 0.4); sail.lineTo(0.2, 0.02); sail.closePath();
+  const sg = new THREE.ShapeGeometry(sail); 
+  const sm = add(sg, new THREE.MeshStandardMaterial({ color: 0xfff4e0, side: THREE.DoubleSide, flatShading: true }), 0.012, 0.16, 0.05, boat);
+  sm.rotation.y = Math.PI / 2; boat.userData.sail = sm;
+  add(new THREE.BoxGeometry(0.004, 0.05, 0.08), mat(0xe8604c), 0, 0.57, 0.02, boat); // 小旗
+  // 小人坐在船尾
+  const skin = mat(0xf6d2b8), hair = mat(0x3a2a24), shirt = mat(0x2f8f8a);
+  add(new THREE.CylinderGeometry(0.04, 0.05, 0.11, 8), shirt, 0, 0.19, -0.15, boat);
+  add(new THREE.SphereGeometry(0.052, 12, 10), skin, 0, 0.285, -0.145, boat);
+  add(new THREE.SphereGeometry(0.056, 12, 10, 0, Math.PI * 2, 0, Math.PI * 0.55), hair, 0, 0.292, -0.152, boat);
+  add(new THREE.BoxGeometry(0.09, 0.08, 0.03), hair, 0, 0.25, -0.195, boat);
+  const oar = add(new THREE.BoxGeometry(0.012, 0.012, 0.22), wood, 0.08, 0.17, -0.16, boat); oar.rotation.set(0.3, 0.6, 0);
+  boat.scale.setScalar(0.001); boat.visible = false;
+}
+car.add(boat);
+// 变身时的一团白烟
+const puffs = [];
+{
+  const pm = new THREE.MeshStandardMaterial({ color: 0xffffff, flatShading: true, transparent: true, opacity: 0.9, emissive: 0xffffff, emissiveIntensity: 0.35 });
+  for (let i = 0; i < 9; i++) {
+    const m = new THREE.Mesh(new THREE.IcosahedronGeometry(0.07, 0), pm.clone());
+    const a = i / 9 * Math.PI * 2;
+    m.userData.dir = new THREE.Vector3(Math.cos(a), 0.35 + (i % 3) * 0.25, Math.sin(a)).normalize();
+    m.visible = false; car.add(m); puffs.push(m);
+  }
+}
+const morph = { mode: 'car', t: 1, from: carParts, to: carParts };
+const easeOutBack = x => { const c1 = 1.7, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
+function setVehicle(mode, instant) {
+  if (mode === morph.mode) return;
+  morph.from = mode === 'boat' ? carParts : boat; morph.to = mode === 'boat' ? boat : carParts;
+  morph.mode = mode; morph.t = instant ? 1 : 0;
+  morph.to.visible = true;
+  if (instant) { morph.from.visible = false; morph.from.scale.setScalar(0.001); morph.to.scale.setScalar(1); morph.to.rotation.y = 0; }
+}
+function updateMorph(dt) {
+  if (morph.t >= 1) return 0;
+  morph.t = Math.min(1, morph.t + dt); // 1 秒
+  const t = morph.t;
+  // 0–0.45s 旧的转着缩小；0.35–0.8s 冒烟；0.45–1s 新的弹出来
+  const a = Math.min(1, t / 0.45), b = clamp((t - 0.45) / 0.55, 0, 1);
+  morph.from.scale.setScalar(Math.max(0.001, 1 - a * a));
+  morph.from.rotation.y = a * Math.PI;
+  morph.from.visible = a < 1;
+  morph.to.scale.setScalar(Math.max(0.001, b > 0 ? easeOutBack(b) : 0.001));
+  morph.to.rotation.y = (1 - b) * -Math.PI;
+  const pt = clamp((t - 0.3) / 0.55, 0, 1);
+  puffs.forEach((m, i) => {
+    m.visible = pt > 0 && pt < 1;
+    const r = 0.06 + pt * 0.32;
+    m.position.copy(m.userData.dir).multiplyScalar(r); m.position.y += 0.12;
+    m.scale.setScalar(0.6 + Math.sin(pt * Math.PI) * 1.4);
+    m.material.opacity = 0.9 * (1 - pt);
+  });
+  if (t >= 1) { morph.from.rotation.y = 0; morph.to.rotation.y = 0; }
+  return Math.sin(t * Math.PI) * 0.12; // 变身时整体轻轻跳一下
+}
 scene.add(car);
 const carS = { p: new THREE.Vector3(), h: new THREE.Vector3(), v: 0, spin: 0 };
 { // 出生点：工作营地旁边的一块平地
@@ -473,7 +545,7 @@ const carS = { p: new THREE.Vector3(), h: new THREE.Vector3(), v: 0, spin: 0 };
   if (!isFinite(carS.h.x) || carS.h.lengthSq() < 0.5) carS.h.copy(north);
 }
 const keys = {};
-let driveT = 0, holdT = 0;
+let driveT = 0, holdT = 0, boatT = 0;
 const KEYMAP = { KeyW: 'w', KeyA: 'a', KeyS: 's', KeyD: 'd', ArrowUp: 'w', ArrowDown: 's' };
 addEventListener('keydown', e => {
   const k = KEYMAP[e.code]; if (!k) return;
@@ -520,8 +592,14 @@ function updateCar(dt) {
   cR.crossVectors(carS.p, carS.h);
   cM.makeBasis(cR, carS.p, carS.h);
   car.quaternion.setFromRotationMatrix(cM);
-  const onSea = land(carS.p).l <= 0;
-  car.position.copy(carS.p).multiplyScalar(Math.max(surf(carS.p), R) + 0.02 + (onSea ? Math.sin(carS.spin * 0.5) * 0.008 : 0));
+  const lv = land(carS.p).l;
+  if (morph.mode === 'car' && lv < -0.012) setVehicle('boat');
+  else if (morph.mode === 'boat' && lv > 0.012) setVehicle('car');
+  const onSea = morph.mode === 'boat';
+  const hop = updateMorph(dt);
+  boatT += dt;
+  car.position.copy(carS.p).multiplyScalar(Math.max(surf(carS.p), R) + 0.02 + hop + (onSea ? Math.sin(boatT * 2.2) * 0.012 : 0));
+  if (onSea) { boat.rotation.z = Math.sin(boatT * 1.7) * 0.08; boat.rotation.x = Math.sin(boatT * 1.3 + 1) * 0.05; }
   car.userData.wheels.forEach(w => { w.rotation.x = carS.spin; });
   car.userData.body.position.y = carS.v > 0.1 ? Math.sin(carS.spin * 0.7) * 0.006 : 0;
   if (input || carS.v > 0.05) driveT = 1.2; else driveT = Math.max(0, driveT - dt);
