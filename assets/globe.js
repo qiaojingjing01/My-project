@@ -304,7 +304,6 @@ const SEASONS = [
     grass: [0xf0f4f7, 0xe3eaef], pine: 0x557a6e, top: 0xf2f6f8, broad: 0xd7e0e5, fx: 0xffffff }
 ];
 SEASONS.forEach(S => { S.c = {}; ['pine', 'top', 'broad', 'fx'].forEach(k => S.c[k] = new THREE.Color(S[k])); S.c.g0 = new THREE.Color(S.grass[0]); S.c.g1 = new THREE.Color(S.grass[1]); });
-const seasonEl = document.getElementById('season');
 let timeMode = 'day', seasonKey = -1;
 const mixHex = (a, b, t) => { const A = new THREE.Color(a), B = new THREE.Color(b); return '#' + A.lerp(B, t).getHexString(); };
 const sc = { pine: new THREE.Color(), top: new THREE.Color(), broad: new THREE.Color(), fx: new THREE.Color(), g0: new THREE.Color(), g1: new THREE.Color() };
@@ -328,8 +327,6 @@ function applySeason(lon, force) {
   const bg = [0, 1, 2].map(k => mixHex(A[timeMode][k], B[timeMode][k], w));
   document.body.style.background = `radial-gradient(120% 90% at 70% 40%,${bg[0]} 0%,${bg[1]} 68%,${bg[2]} 100%)`;
   setFx(i, j, w);
-  const name = (w < 0.5 ? A : B).name;
-  if (seasonEl) seasonEl.textContent = name + (timeMode === 'dusk' ? ' · 黄昏' : '');
 }
 
 // 飘落物：春天花瓣、秋天落叶、冬天下雪、夏天黄昏萤火虫。挂在相机前面，整页都能看到
@@ -870,7 +867,7 @@ tick();
   const set = on => {
     btn.classList.toggle('on', on);
     btn.setAttribute('aria-pressed', String(on));
-    btn.querySelector('.mt').textContent = on ? '音乐开' : '音乐';
+    btn.setAttribute('aria-label', on ? '背景音乐：正在播放，点击关闭' : '背景音乐：已关闭，点击开启');
   };
   btn.addEventListener('click', () => {
     if (au.paused) {
