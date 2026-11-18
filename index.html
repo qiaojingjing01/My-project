@@ -7,7 +7,7 @@
 <title>Claire 的小星球 · 王雯菁 AI 产品作品集</title>
 <meta name="description" content="王雯菁（Claire）的 3D 作品集：转动一颗小星球，看实习经历、Vibe Coding 作品、知识图谱课题和校园经历。">
 <link rel="stylesheet" href="assets/island.css?v=20261116b">
-<link rel="stylesheet" href="assets/globe.css?v=20261116">
+<link rel="stylesheet" href="assets/globe.css?v=20261118a">
 <script type="importmap">
 { "imports": { "three": "./vendor/three.module.js", "three/addons/": "./vendor/" } }
 </script>
@@ -24,6 +24,7 @@
     <span class="bt"><b>Claire 的小星球</b><small>A LITTLE PLANET OF MAKING</small></span>
   </a>
   <div class="tools">
+    <span class="season" id="season" aria-live="polite" title="转动星球，四季跟着变">春</span>
     <div class="seg" role="group" aria-label="切换时间">
       <button data-time="day" class="on">白天</button><button data-time="dusk">黄昏</button>
     </div>
@@ -40,11 +41,14 @@
     <li><b>拖动</b>转动星球，弹出那一面的项目卡片</li>
     <li><b>点击营地</b>星球转到那一面</li>
     <li><b>点卡片</b>看详情，按钮直接打开 Demo</li>
+    <li class="kb"><b>W A S D</b>开小车逛星球，到营地弹出卡片</li>
   </ul>
   <button class="go" id="goBtn">转一转，看看 <span aria-hidden="true">↗</span></button>
   <a class="sub" href="portfolio/">看完整作品集：详细案例和可交互 Demo →</a>
   <p class="mail">15619080835@163.com</p>
 </section>
+
+<div class="drivehint" id="driveHint" aria-hidden="true"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd><span>开小车逛星球</span></div>
 
 <nav class="dock" id="dock" aria-label="营地"></nav>
 
@@ -60,6 +64,7 @@
 <div class="helpbox" id="helpBox" hidden>
   <b>怎么逛</b>
   <p>拖动转动星球，滚轮或双指缩放；点击营地标签或底部导航，星球会转到那一面，项目卡片从星球上弹出来。点卡片看完整介绍，点卡片里的按钮直接打开 Demo。左右方向键切换营地，Esc 关闭详情。</p>
+  <p>键盘 W、S 前进后退，A、D 左右转，开着小车逛星球。转到不同的营地，季节也会变：工作营地是春天，作品营地是夏天，研究营地是秋天，校园营地是冬天。</p>
   <p><a href="island.html" style="font-weight:700;border-bottom:1.5px solid currentColor">想看之前的小岛版本 →</a></p>
 </div>
 
@@ -69,6 +74,6 @@
   <a href="portfolio/">直接看完整作品集 →</a>
 </div>
 
-<script type="module" src="assets/globe.js?v=20261117d"></script>
+<script type="module" src="assets/globe.js?v=20261118a"></script>
 </body>
 </html>

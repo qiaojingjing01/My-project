@@ -100,6 +100,7 @@ function elev(v) {
   return { e, l };
 }
 const surf = v => R + elev(v).e;
+let ballGeo, grassFaces = [];
 
 {
   const geo = new THREE.IcosahedronGeometry(1, 18);
@@ -124,11 +125,12 @@ const surf = v => R + elev(v).e;
     let c;
     if (l <= -0.18) c = C.deep; else if (l <= -0.05) c = C.sea; else if (l <= 0.0) c = C.shoal;
     else if (l < 0.07) c = C.sand; else if (e > 0.5) c = C.snow; else if (e > 0.37) c = C.rock;
-    else c = (Math.sin(f * 12.9898) > 0.2) ? C.grass : C.grass2;
+    else { const g2 = Math.sin(f * 12.9898) > 0.2 ? 0 : 1; c = g2 ? C.grass2 : C.grass; grassFaces.push(f, g2); }
     tmpC.copy(c);
     for (let k = 0; k < 3; k++) { colors[(f + k) * 3] = tmpC.r; colors[(f + k) * 3 + 1] = tmpC.g; colors[(f + k) * 3 + 2] = tmpC.b; }
   }
   geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+  ballGeo = geo;
   geo.computeVertexNormals();
   const ball = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ vertexColors: true, flatShading: true, roughness: 0.88 }));
   ball.receiveShadow = true; ball.castShadow = true;
@@ -160,6 +162,7 @@ function randDir() {
 }
 
 // 树（实例化）
+const treeMats = {};
 {
   const treeDirs = [];
   let guard = 0;
@@ -181,6 +184,7 @@ function randDir() {
     planet.add(im); return im;
   };
   const iC = mk(cone, 0x3f7d55, pine), iC2 = mk(cone2, 0x4e9466, pine), iT = mk(trunk, 0x7a5a43, treeDirs), iB = mk(round, 0x6aa65a, broad);
+  Object.assign(treeMats, { pine: iC.material, top: iC2.material, broad: iB.material });
   const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), s = new THREE.Vector3(), p = new THREE.Vector3();
   const place = (im, list, idx0 = 0) => list.forEach((d, i) => {
     const k = 0.75 + (Math.sin(i * 91.7) * 0.5 + 0.5) * 0.6;
@@ -284,6 +288,183 @@ for (let i = 0; i < 9; i++) {
   c.position.set(0, R + RR(1.9, 2.5), 0); c.scale.setScalar(0.8);
   pivot.add(c); scene.add(pivot);
   clouds.push({ pivot, sp: RR(0.03, 0.07) * (rnd() > 0.5 ? 1 : -1) });
+}
+
+
+/* ================= 四季：转到不同的经度，季节跟着变 ================= */
+// 工作营地 = 春，作品营地 = 夏，研究营地 = 秋，校园营地 = 冬
+const SEASONS = [
+  { name: '春', day: ['#fdf0f3', '#d3ecdf', '#a6d6c6'], dusk: ['#ffe1e4', '#ecc4d8', '#b9a3cc'],
+    grass: [0xb7da8c, 0xa5d07e], pine: 0x4f8f5e, top: 0x66a873, broad: 0xf5b3c7, fx: 0xffb9cf },
+  { name: '夏', day: ['#e9f7f3', '#bfe7e4', '#9fd3d3'], dusk: ['#ffe2cf', '#e4c3e0', '#b7a6cf'],
+    grass: [0x95c96a, 0x80bb5a], pine: 0x2f7a4c, top: 0x3e8f5a, broad: 0x4f9e4a, fx: 0xfff2a0 },
+  { name: '秋', day: ['#fff3df', '#f2d8b3', '#d9b38d'], dusk: ['#ffd6ad', '#e6ab92', '#9d7fa8'],
+    grass: [0xd9c27b, 0xc8ab65], pine: 0x5d7c47, top: 0x748f52, broad: 0xe2783b, fx: 0xe98a3c },
+  { name: '冬', day: ['#f5f9fc', '#dbe7f1', '#b6c9da'], dusk: ['#f4dee8', '#cbc4de', '#8e97bf'],
+    grass: [0xf0f4f7, 0xe3eaef], pine: 0x557a6e, top: 0xf2f6f8, broad: 0xd7e0e5, fx: 0xffffff }
+];
+SEASONS.forEach(S => { S.c = {}; ['pine', 'top', 'broad', 'fx'].forEach(k => S.c[k] = new THREE.Color(S[k])); S.c.g0 = new THREE.Color(S.grass[0]); S.c.g1 = new THREE.Color(S.grass[1]); });
+const seasonEl = document.getElementById('season');
+let timeMode = 'day', seasonKey = -1;
+const mixHex = (a, b, t) => { const A = new THREE.Color(a), B = new THREE.Color(b); return '#' + A.lerp(B, t).getHexString(); };
+const sc = { pine: new THREE.Color(), top: new THREE.Color(), broad: new THREE.Color(), fx: new THREE.Color(), g0: new THREE.Color(), g1: new THREE.Color() };
+let fxWeight = { fall: 0, firefly: 0 };
+function applySeason(lon, force) {
+  // 以工作营地经度为春天的中心，每 90° 一季
+  let x = ((lon + 38) / 90) % 4; if (x < 0) x += 4;
+  const i = Math.floor(x), j = (i + 1) % 4, f = x - i;
+  const w = smooth(0.62, 1, f);
+  const key = Math.round((i + w) * 200) / 200 + (timeMode === 'dusk' ? 10 : 0);
+  if (!force && key === seasonKey) return;
+  seasonKey = key;
+  const A = SEASONS[i], B = SEASONS[j];
+  for (const k in sc) sc[k].copy(A.c[k]).lerp(B.c[k], w);
+  treeMats.pine.color.copy(sc.pine); treeMats.top.color.copy(sc.top); treeMats.broad.color.copy(sc.broad);
+  const col = ballGeo.attributes.color.array;
+  for (let n = 0; n < grassFaces.length; n += 2) {
+    const f0 = grassFaces[n], c = grassFaces[n + 1] ? sc.g1 : sc.g0;
+    for (let k = 0; k < 3; k++) { const o = (f0 + k) * 3; col[o] = c.r; col[o + 1] = c.g; col[o + 2] = c.b; }
+  }
+  ballGeo.attributes.color.needsUpdate = true;
+  const bg = [0, 1, 2].map(k => mixHex(A[timeMode][k], B[timeMode][k], w));
+  document.body.style.background = `radial-gradient(120% 90% at 70% 40%,${bg[0]} 0%,${bg[1]} 68%,${bg[2]} 100%)`;
+  // 飘落物：春花瓣、秋叶、冬雪；夏天黄昏是萤火虫
+  const fallOf = s => (s === 1 ? 0 : 1);
+  fxWeight.fall = fallOf(i) * (1 - w) + fallOf(j) * w;
+  const ff = s => (s === 1 && timeMode === 'dusk' ? 1 : 0);
+  fxWeight.firefly = ff(i) * (1 - w) + ff(j) * w;
+  fxMat.color.copy(sc.fx);
+  const name = (w < 0.5 ? A : B).name;
+  if (seasonEl) seasonEl.textContent = name + (timeMode === 'dusk' ? ' · 黄昏' : '');
+}
+
+// 飘落物粒子
+const FX_N = 420;
+const fxGeo = new THREE.BufferGeometry();
+const fxPos = new Float32Array(FX_N * 3), fxSeed = [];
+for (let i = 0; i < FX_N; i++) {
+  const d = randDir(), r = R + RR(0.4, 3.2);
+  fxPos.set([d.x * r, d.y * r, d.z * r], i * 3);
+  fxSeed.push({ sp: RR(0.25, 0.6), ph: RR(0, 6.28) });
+}
+fxGeo.setAttribute('position', new THREE.BufferAttribute(fxPos, 3));
+const fxTex = (() => {
+  const c = document.createElement('canvas'); c.width = c.height = 64;
+  const g = c.getContext('2d'), gr = g.createRadialGradient(32, 32, 0, 32, 32, 30);
+  gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(0.55, 'rgba(255,255,255,.85)'); gr.addColorStop(1, 'rgba(255,255,255,0)');
+  g.fillStyle = gr; g.beginPath(); g.ellipse(32, 32, 30, 22, 0.6, 0, Math.PI * 2); g.fill();
+  return new THREE.CanvasTexture(c);
+})();
+const fxMat = new THREE.PointsMaterial({ size: 0.2, map: fxTex, transparent: true, depthWrite: false, opacity: 0 });
+const fx = new THREE.Points(fxGeo, fxMat);
+scene.add(fx);
+const fxV = new THREE.Vector3(), fxT = new THREE.Vector3();
+function updateFx(dt, t) {
+  const fall = fxWeight.fall, fly = fxWeight.firefly;
+  fxMat.opacity = Math.max(fall * 0.9, fly * 0.95);
+  fxMat.size = 0.2 - fly * 0.08;
+  fxMat.blending = fly > 0.5 ? THREE.AdditiveBlending : THREE.NormalBlending;
+  if (fxMat.opacity < 0.01 || reduce) return;
+  for (let i = 0; i < FX_N; i++) {
+    fxV.fromArray(fxPos, i * 3);
+    const sd = fxSeed[i];
+    let r = fxV.length();
+    fxV.divideScalar(r);
+    // 向星球飘落，同时左右摆
+    fxT.set(-fxV.z, 0, fxV.x).normalize().multiplyScalar(Math.sin(t * 1.3 + sd.ph) * 0.25 * dt);
+    fxV.add(fxT).normalize();
+    r -= sd.sp * dt * (fall > fly ? 1 : 0.15);
+    if (r < surf(fxV) + 0.05) { fxV.copy(randDir()); r = R + RR(2.4, 3.2); }
+    fxV.multiplyScalar(r);
+    fxV.toArray(fxPos, i * 3);
+  }
+  fxGeo.attributes.position.needsUpdate = true;
+}
+
+/* ================= 小人开敞篷车：WASD ================= */
+const car = new THREE.Group();
+{
+  const body = new THREE.Group(); car.add(body);
+  const red = mat(0xe8604c), cream = mat(0xfff2df), dark = mat(0x2b2b2b);
+  add(new THREE.BoxGeometry(0.34, 0.1, 0.64), red, 0, 0.11, 0, body);
+  add(new THREE.BoxGeometry(0.32, 0.06, 0.2), red, 0, 0.18, 0.2, body);   // 前机盖
+  add(new THREE.BoxGeometry(0.32, 0.06, 0.12), red, 0, 0.18, -0.26, body); // 后备箱
+  add(new THREE.BoxGeometry(0.36, 0.025, 0.66), cream, 0, 0.065, 0, body); // 腰线
+  const glass = add(new THREE.BoxGeometry(0.3, 0.1, 0.012), new THREE.MeshStandardMaterial({ color: 0xbfe8ff, transparent: true, opacity: 0.55, roughness: 0.1 }), 0, 0.25, 0.09, body);
+  glass.rotation.x = -0.45; glass.castShadow = false;
+  [-0.075, 0.075].forEach(x => { add(new THREE.BoxGeometry(0.11, 0.04, 0.1), cream, x, 0.18, -0.07, body); add(new THREE.BoxGeometry(0.11, 0.1, 0.03), cream, x, 0.23, -0.12, body); });
+  // 小人：坐在左边驾驶位
+  const skin = mat(0xf6d2b8), hair = mat(0x3a2a24), shirt = mat(0x2f8f8a);
+  add(new THREE.CylinderGeometry(0.04, 0.05, 0.11, 8), shirt, 0.075, 0.25, -0.07, body);
+  add(new THREE.SphereGeometry(0.052, 12, 10), skin, 0.075, 0.345, -0.065, body);
+  const h1 = add(new THREE.SphereGeometry(0.056, 12, 10, 0, Math.PI * 2, 0, Math.PI * 0.55), hair, 0.075, 0.352, -0.072, body);
+  add(new THREE.BoxGeometry(0.09, 0.08, 0.03), hair, 0.075, 0.31, -0.115, body);  // 披发
+  const arm = new THREE.CylinderGeometry(0.014, 0.014, 0.1, 6);
+  [-0.035, 0.035].forEach(dx => { const a = add(arm, shirt, 0.075 + dx, 0.27, -0.02, body); a.rotation.x = 1.1; });
+  add(new THREE.TorusGeometry(0.035, 0.008, 6, 14), dark, 0.075, 0.26, 0.03, body).rotation.x = 0.5; // 方向盘
+  // 灯
+  const head = mat(0xfff6c8, { emissive: 0xffe08a, emissiveIntensity: 0.6 });
+  [-0.12, 0.12].forEach(x => { add(new THREE.BoxGeometry(0.06, 0.035, 0.015), head, x, 0.13, 0.325, body); add(new THREE.BoxGeometry(0.06, 0.03, 0.015), mat(0xd23a3a, { emissive: 0xb02020, emissiveIntensity: 0.5 }), x, 0.13, -0.325, body); });
+  car.userData.lights = head;
+  car.userData.body = body;
+  // 轮子
+  car.userData.wheels = [];
+  const wg = new THREE.CylinderGeometry(0.062, 0.062, 0.05, 12); wg.rotateZ(Math.PI / 2);
+  [[-0.17, 0.2], [0.17, 0.2], [-0.17, -0.21], [0.17, -0.21]].forEach(([x, z]) => {
+    const w = add(wg, dark, x, 0.062, z, car);
+    add(new THREE.BoxGeometry(0.052, 0.03, 0.03), mat(0xd9d9d9), 0, 0, 0, w);
+    car.userData.wheels.push(w);
+  });
+  car.scale.setScalar(1.45);
+}
+scene.add(car);
+const carS = { p: new THREE.Vector3(), h: new THREE.Vector3(), v: 0, spin: 0 };
+{ // 出生点：工作营地旁边的一块平地
+  const c = REGIONS[0].dir, east = new THREE.Vector3().crossVectors(UP, c).normalize(), north = new THREE.Vector3().crossVectors(c, east).normalize();
+  for (let a = 0; a < 24; a++) {
+    const ang = a / 24 * Math.PI * 2;
+    const d = c.clone().add(east.clone().multiplyScalar(Math.cos(ang) * 0.32)).add(north.clone().multiplyScalar(Math.sin(ang) * 0.32)).normalize();
+    if (land(d).l > 0.12 && elev(d).e < 0.3) { carS.p.copy(d); break; }
+  }
+  if (carS.p.lengthSq() === 0) carS.p.copy(c);
+  carS.h.copy(carS.p).sub(c); carS.h.sub(carS.p.clone().multiplyScalar(carS.h.dot(carS.p))).normalize(); // 车头背对营地
+  if (!isFinite(carS.h.x) || carS.h.lengthSq() < 0.5) carS.h.copy(north);
+}
+const keys = {};
+let driveT = 0;
+const KEYMAP = { KeyW: 'w', KeyA: 'a', KeyS: 's', KeyD: 'd' };
+addEventListener('keydown', e => {
+  const k = KEYMAP[e.code]; if (!k) return;
+  if (e.target.closest && e.target.closest('input,textarea,[contenteditable]')) return;
+  keys[k] = true;
+  if (!keys.started) { keys.started = true; document.body.classList.add('driving'); }
+});
+addEventListener('keyup', e => { const k = KEYMAP[e.code]; if (k) keys[k] = false; });
+addEventListener('blur', () => { for (const k in keys) if (k !== 'started') keys[k] = false; });
+const cAx = new THREE.Vector3(), cR = new THREE.Vector3(), cM = new THREE.Matrix4(), cNext = new THREE.Vector3();
+function updateCar(dt) {
+  const f = (keys.w ? 1 : 0) - (keys.s ? 1 : 0), turn = (keys.a ? 1 : 0) - (keys.d ? 1 : 0);
+  const target = f * 2.1;
+  carS.v += (target - carS.v) * (1 - Math.exp(-dt * (f ? 2.2 : 3.5)));
+  if (Math.abs(carS.v) < 0.002 && !f) carS.v = 0;
+  if (turn) carS.h.applyAxisAngle(carS.p, turn * dt * (1.2 + Math.min(Math.abs(carS.v), 1.5)) * (carS.v < -0.05 ? -1 : 1));
+  if (carS.v) {
+    cAx.crossVectors(carS.p, carS.h).normalize();
+    const ang = carS.v * dt / R;
+    cNext.copy(carS.p).applyAxisAngle(cAx, ang);
+    if (land(cNext).l > -0.03) { carS.p.copy(cNext); carS.h.applyAxisAngle(cAx, ang); }
+    else carS.v *= 0.2; // 到海边停下
+    carS.spin += carS.v * dt / 0.056;
+  }
+  carS.h.sub(cR.copy(carS.p).multiplyScalar(carS.h.dot(carS.p))).normalize();
+  cR.crossVectors(carS.p, carS.h);
+  cM.makeBasis(cR, carS.p, carS.h);
+  car.quaternion.setFromRotationMatrix(cM);
+  car.position.copy(carS.p).multiplyScalar(Math.max(surf(carS.p), R) + 0.02);
+  car.userData.wheels.forEach(w => { w.rotation.x = carS.spin; });
+  car.userData.body.position.y = Math.abs(carS.v) > 0.1 ? Math.sin(carS.spin * 0.7) * 0.006 : 0;
+  if (f || turn || Math.abs(carS.v) > 0.05) driveT = 1.2; else driveT = Math.max(0, driveT - dt);
+  return driveT > 0;
 }
 
 /* ================= 界面 ================= */
@@ -434,6 +615,7 @@ canvas.addEventListener('pointerup', e => {
 });
 
 /* ================= 白天 / 黄昏 ================= */
+const lonOf = v => Math.atan2(v.x, v.z) / D2R;
 const THEMES = {
   day: { hemi: [0xf2fbff, 0x5d7f6a, 1.15], sun: [0xfff1d6, 1.9], halo: 0xbff3ff },
   dusk: { hemi: [0xffd9e6, 0x5a4a6e, 0.95], sun: [0xffb487, 1.6], halo: 0xffc6e0 }
@@ -444,6 +626,7 @@ function setTime(t) {
   sun.color.set(th.sun[0]); sun.intensity = th.sun[1];
   halo.material.uniforms.col.value.set(th.halo);
   document.body.classList.toggle('dusk', t === 'dusk');
+  timeMode = t; car.userData.lights.emissiveIntensity = t === 'dusk' ? 1.6 : 0.6; applySeason(lonOf(camera.position), true);
   document.querySelectorAll('.seg button').forEach(b => b.classList.toggle('on', b.dataset.time === t));
   try { localStorage.setItem('globe-time', t); } catch (e) {}
 }
@@ -566,8 +749,19 @@ function tick() {
     camera.position.copy(flyTo.from).applyQuaternion(qi).multiplyScalar(d);
     if (flyTo.t >= 1) flyTo = null;
   }
+  if (updateCar(dt)) {
+    if (!exploring) explore();
+    controls.autoRotate = false; flyTo = null;
+    const want = tmp.copy(carS.p).sub(wp.copy(carS.h).multiplyScalar(0.42)).normalize();
+    const L = camera.position.length() + (DIST * 0.82 - camera.position.length()) * (1 - Math.exp(-dt * 1.5));
+    const cur = camDir.copy(camera.position).normalize();
+    cur.lerp(want, 1 - Math.exp(-dt * 2.6)).normalize();
+    camera.position.copy(cur).multiplyScalar(L);
+  }
   controls.update();
   camDir.copy(camera.position).normalize();
+  applySeason(lonOf(camera.position));
+  updateFx(dt, t);
   // 太阳跟着相机，从左上方照过来
   tmp.set(-0.6, 0.8, 0.4).applyQuaternion(camera.quaternion);
   sun.position.copy(tmp.multiplyScalar(30));
