@@ -7,7 +7,7 @@
 <title>Claire 的小星球 · 王雯菁 AI 产品作品集</title>
 <meta name="description" content="王雯菁（Claire）的 3D 作品集：转动一颗小星球，看实习经历、Vibe Coding 作品、知识图谱课题和校园经历。">
 <link rel="stylesheet" href="assets/island.css?v=20261116b">
-<link rel="stylesheet" href="assets/globe.css?v=20261118a">
+<link rel="stylesheet" href="assets/globe.css?v=20261118d">
 <script type="importmap">
 { "imports": { "three": "./vendor/three.module.js", "three/addons/": "./vendor/" } }
 </script>
@@ -24,6 +24,7 @@
     <span class="bt"><b>Claire 的小星球</b><small>A LITTLE PLANET OF MAKING</small></span>
   </a>
   <div class="tools">
+    <button class="music" id="musicBtn" type="button" aria-pressed="false" title="背景音乐：森林秘境（来源：爱给网）"><span class="mi" aria-hidden="true"><i></i><i></i><i></i></span><span class="mt">音乐</span></button>
     <span class="season" id="season" aria-live="polite" title="转动星球，四季跟着变">春</span>
     <div class="seg" role="group" aria-label="切换时间">
       <button data-time="day" class="on">白天</button><button data-time="dusk">黄昏</button>
@@ -65,12 +66,14 @@
   <p>键盘 W、A、S、D 分别朝屏幕的上、左、下、右开，小车会自己转过去，哪个方向都能开，海上也能开。转到不同的营地，季节也会变：工作营地是春天，作品营地是夏天，研究营地是秋天，校园营地是冬天。</p>
 </div>
 
+<audio id="bgm" src="assets/audio/forest.mp3" loop preload="none"></audio>
+
 <div class="loading" id="loading"><div><span class="mark">雯<i>.</i></span><p>正在登陆小星球…</p></div></div>
 <div class="nogl" id="nogl" hidden>
   <p>你的浏览器暂时打不开 3D 小星球。</p>
   <a href="portfolio/">直接看完整作品集 →</a>
 </div>
 
-<script type="module" src="assets/globe.js?v=20261118c"></script>
+<script type="module" src="assets/globe.js?v=20261118d"></script>
 </body>
 </html>

@@ -38,3 +38,14 @@ body.narrow #glines path{display:none}
 .drivehint span{margin-left:4px}
 body.driving .drivehint{opacity:0;pointer-events:none}
 body.narrow .drivehint,body.narrow .how .kb{display:none}
+/* 背景音乐开关 */
+.tools{flex-wrap:nowrap}
+.music{display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 14px 0 12px;border:0;border-radius:999px;background:var(--glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 4px 14px rgba(20,50,40,.08);font-size:12.5px;font-weight:600;color:var(--ink2);cursor:pointer;white-space:nowrap}
+.music:hover{background:#fff}
+.music .mi{display:inline-flex;align-items:flex-end;gap:2px;height:12px}
+.music .mi i{display:block;width:3px;height:4px;border-radius:2px;background:currentColor;opacity:.55}
+.music.on{color:var(--ink);background:#fff}
+.music.on .mi i{opacity:1;animation:eq .9s ease-in-out infinite}
+.music.on .mi i:nth-child(2){animation-delay:.2s}.music.on .mi i:nth-child(3){animation-delay:.4s}
+@keyframes eq{0%,100%{height:4px}50%{height:12px}}
+@media (max-width:760px){.music .mt,.season{display:none}.music{padding:0 11px}}

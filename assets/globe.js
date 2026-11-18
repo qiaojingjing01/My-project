@@ -853,3 +853,32 @@ function tick() {
   requestAnimationFrame(tick);
 }
 tick();
+
+/* ================= 背景音乐（默认关闭） ================= */
+{
+  const btn = document.getElementById('musicBtn'), au = document.getElementById('bgm');
+  let fadeT = null;
+  const fade = (to, ms, done) => {
+    clearInterval(fadeT);
+    const from = au.volume, t0 = performance.now();
+    fadeT = setInterval(() => {
+      const k = Math.min(1, (performance.now() - t0) / ms);
+      au.volume = from + (to - from) * k;
+      if (k >= 1) { clearInterval(fadeT); done && done(); }
+    }, 30);
+  };
+  const set = on => {
+    btn.classList.toggle('on', on);
+    btn.setAttribute('aria-pressed', String(on));
+    btn.querySelector('.mt').textContent = on ? '音乐开' : '音乐';
+  };
+  btn.addEventListener('click', () => {
+    if (au.paused) {
+      au.volume = 0;
+      au.play().then(() => { set(true); fade(0.55, 1200); }).catch(() => set(false));
+    } else {
+      set(false);
+      fade(0, 500, () => au.pause());
+    }
+  });
+}
