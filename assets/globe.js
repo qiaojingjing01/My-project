@@ -308,7 +308,6 @@ const seasonEl = document.getElementById('season');
 let timeMode = 'day', seasonKey = -1;
 const mixHex = (a, b, t) => { const A = new THREE.Color(a), B = new THREE.Color(b); return '#' + A.lerp(B, t).getHexString(); };
 const sc = { pine: new THREE.Color(), top: new THREE.Color(), broad: new THREE.Color(), fx: new THREE.Color(), g0: new THREE.Color(), g1: new THREE.Color() };
-let fxWeight = { fall: 0, firefly: 0 };
 function applySeason(lon, force) {
   // 以工作营地经度为春天的中心，每 90° 一季
   let x = ((lon + 38) / 90) % 4; if (x < 0) x += 4;
@@ -328,57 +327,99 @@ function applySeason(lon, force) {
   ballGeo.attributes.color.needsUpdate = true;
   const bg = [0, 1, 2].map(k => mixHex(A[timeMode][k], B[timeMode][k], w));
   document.body.style.background = `radial-gradient(120% 90% at 70% 40%,${bg[0]} 0%,${bg[1]} 68%,${bg[2]} 100%)`;
-  // 飘落物：春花瓣、秋叶、冬雪；夏天黄昏是萤火虫
-  const fallOf = s => (s === 1 ? 0 : 1);
-  fxWeight.fall = fallOf(i) * (1 - w) + fallOf(j) * w;
-  const ff = s => (s === 1 && timeMode === 'dusk' ? 1 : 0);
-  fxWeight.firefly = ff(i) * (1 - w) + ff(j) * w;
-  fxMat.color.copy(sc.fx);
+  setFx(i, j, w);
   const name = (w < 0.5 ? A : B).name;
   if (seasonEl) seasonEl.textContent = name + (timeMode === 'dusk' ? ' · 黄昏' : '');
 }
 
-// 飘落物粒子
-const FX_N = 420;
-const fxGeo = new THREE.BufferGeometry();
-const fxPos = new Float32Array(FX_N * 3), fxSeed = [];
-for (let i = 0; i < FX_N; i++) {
-  const d = randDir(), r = R + RR(0.4, 3.2);
-  fxPos.set([d.x * r, d.y * r, d.z * r], i * 3);
-  fxSeed.push({ sp: RR(0.25, 0.6), ph: RR(0, 6.28) });
-}
-fxGeo.setAttribute('position', new THREE.BufferAttribute(fxPos, 3));
-const fxTex = (() => {
+// 飘落物：春天花瓣、秋天落叶、冬天下雪、夏天黄昏萤火虫。挂在相机前面，整页都能看到
+const FX_N = 150, FX_Z = [14, 27];
+const fxTexOf = kind => {
   const c = document.createElement('canvas'); c.width = c.height = 64;
-  const g = c.getContext('2d'), gr = g.createRadialGradient(32, 32, 0, 32, 32, 30);
-  gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(0.55, 'rgba(255,255,255,.85)'); gr.addColorStop(1, 'rgba(255,255,255,0)');
-  g.fillStyle = gr; g.beginPath(); g.ellipse(32, 32, 30, 22, 0.6, 0, Math.PI * 2); g.fill();
-  return new THREE.CanvasTexture(c);
-})();
-const fxMat = new THREE.PointsMaterial({ size: 0.2, map: fxTex, transparent: true, depthWrite: false, opacity: 0 });
-const fx = new THREE.Points(fxGeo, fxMat);
-scene.add(fx);
-const fxV = new THREE.Vector3(), fxT = new THREE.Vector3();
-function updateFx(dt, t) {
-  const fall = fxWeight.fall, fly = fxWeight.firefly;
-  fxMat.opacity = Math.max(fall * 0.9, fly * 0.95);
-  fxMat.size = 0.2 - fly * 0.08;
-  fxMat.blending = fly > 0.5 ? THREE.AdditiveBlending : THREE.NormalBlending;
-  if (fxMat.opacity < 0.01 || reduce) return;
-  for (let i = 0; i < FX_N; i++) {
-    fxV.fromArray(fxPos, i * 3);
-    const sd = fxSeed[i];
-    let r = fxV.length();
-    fxV.divideScalar(r);
-    // 向星球飘落，同时左右摆
-    fxT.set(-fxV.z, 0, fxV.x).normalize().multiplyScalar(Math.sin(t * 1.3 + sd.ph) * 0.25 * dt);
-    fxV.add(fxT).normalize();
-    r -= sd.sp * dt * (fall > fly ? 1 : 0.15);
-    if (r < surf(fxV) + 0.05) { fxV.copy(randDir()); r = R + RR(2.4, 3.2); }
-    fxV.multiplyScalar(r);
-    fxV.toArray(fxPos, i * 3);
+  const g = c.getContext('2d');
+  g.translate(32, 32);
+  if (kind === 'petal') {
+    g.rotate(0.5); g.fillStyle = '#fff';
+    g.beginPath(); g.moveTo(0, -26); g.bezierCurveTo(22, -18, 18, 18, 0, 26); g.bezierCurveTo(-18, 18, -22, -18, 0, -26); g.fill();
+    g.globalCompositeOperation = 'destination-out'; g.beginPath(); g.arc(0, -27, 7, 0, Math.PI * 2); g.fill();
+  } else if (kind === 'leaf') {
+    g.rotate(-0.6); g.fillStyle = '#fff';
+    g.beginPath(); g.moveTo(0, -28); g.quadraticCurveTo(22, -4, 0, 26); g.quadraticCurveTo(-22, -4, 0, -28); g.fill();
+    g.strokeStyle = 'rgba(0,0,0,.28)'; g.lineWidth = 2.5; g.beginPath(); g.moveTo(0, -24); g.lineTo(0, 24); g.stroke();
+  } else if (kind === 'snow') {
+    const gr = g.createRadialGradient(0, 0, 0, 0, 0, 24);
+    gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(0.6, 'rgba(255,255,255,.95)'); gr.addColorStop(1, 'rgba(255,255,255,0)');
+    g.fillStyle = 'rgba(90,120,150,.35)'; g.beginPath(); g.arc(1.5, 2, 20, 0, Math.PI * 2); g.fill();
+    g.fillStyle = gr; g.beginPath(); g.arc(0, 0, 24, 0, Math.PI * 2); g.fill();
+  } else {
+    const gr = g.createRadialGradient(0, 0, 0, 0, 0, 30);
+    gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(0.25, 'rgba(255,255,255,.9)'); gr.addColorStop(1, 'rgba(255,255,255,0)');
+    g.fillStyle = gr; g.beginPath(); g.arc(0, 0, 30, 0, Math.PI * 2); g.fill();
   }
-  fxGeo.attributes.position.needsUpdate = true;
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
+};
+const FX_KIND = [
+  { tex: fxTexOf('petal'), size: 0.95, fall: 1.1, sway: 1.4, cols: [0xffb3c9, 0xffc9d8, 0xff9fbb, 0xfff0f4] },
+  { tex: fxTexOf('glow'), size: 0.6, fall: 0.15, sway: 0.8, cols: [0xfff3a0, 0xffe680, 0xfffbd0], glow: true },
+  { tex: fxTexOf('leaf'), size: 1.1, fall: 1.5, sway: 1.8, cols: [0xe8772e, 0xd9522b, 0xf0a33a, 0xc8642a] },
+  { tex: fxTexOf('snow'), size: 0.7, fall: 1.0, sway: 0.7, cols: [0xffffff, 0xf4f9ff, 0xffffff] }
+];
+const fxRoot = new THREE.Group();
+camera.add(fxRoot); scene.add(camera);
+const fxLayers = [0, 1].map(layer => {
+  const geo = new THREE.BufferGeometry();
+  const pos = new Float32Array(FX_N * 3), col = new Float32Array(FX_N * 3), seeds = [];
+  for (let i = 0; i < FX_N; i++) {
+    const z = RR(FX_Z[0], FX_Z[1]);
+    seeds.push({ z, x0: RR(-1, 1), y: RR(-1, 1), sp: RR(0.6, 1.3), ph: RR(0, 6.28), cr: rnd() });
+    pos.set([0, 0, -z], i * 3);
+  }
+  geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+  const m = new THREE.PointsMaterial({ size: 0.4, vertexColors: true, transparent: true, depthWrite: false, depthTest: false, opacity: 0 });
+  const pts = new THREE.Points(geo, m); pts.frustumCulled = false; pts.renderOrder = 10;
+  fxRoot.add(pts);
+  return { geo, pos, col, seeds, m, kind: null, amount: 0, scale: layer ? 0.65 : 1 };
+});
+const tc = new THREE.Color();
+function setFx(i, j, w) {
+  // 层 0 = 当前季节，层 1 = 下一季，按权重淡入淡出
+  [[fxLayers[0], i, 1 - w], [fxLayers[1], j, w]].forEach(([L, si, amt]) => {
+    let k = si;
+    if (si === 1 && timeMode !== 'dusk') amt = 0; // 夏天白天不飘东西
+    const K = FX_KIND[k];
+    if (L.kind !== K) {
+      L.kind = K; L.m.map = K.tex; L.m.blending = K.glow ? THREE.AdditiveBlending : THREE.NormalBlending; L.m.needsUpdate = true;
+      L.seeds.forEach((sd, n) => { tc.set(K.cols[Math.floor(sd.cr * K.cols.length)]); L.col.set([tc.r, tc.g, tc.b], n * 3); });
+      L.geo.attributes.color.needsUpdate = true;
+    }
+    L.amount = amt;
+    L.m.size = K.size;
+    L.m.opacity = Math.min(1, amt * 1.4) * (K.glow ? 0.95 : 0.92);
+  });
+}
+function updateFx(dt, t) {
+  const halfH = Math.tan(camera.fov * D2R / 2), aspect = camera.aspect;
+  fxLayers.forEach(L => {
+    if (L.m.opacity < 0.01 || !L.kind) { L.pts && (L.pts.visible = false); return; }
+    const K = L.kind;
+    for (let n = 0; n < FX_N; n++) {
+      const sd = L.seeds[n];
+      // 只显示一部分，数量跟着权重走
+      const on = (n / FX_N) < L.amount;
+      const hy = sd.z * halfH, hx = hy * aspect;
+      if (!reduce) {
+        sd.y -= (K.fall * sd.sp * dt) / hy * (K.glow ? Math.sin(t * 0.7 + sd.ph) : 1);
+        if (sd.y < -1.08) { sd.y = 1.08; sd.x0 = RR(-1, 1); }
+        if (sd.y > 1.08) sd.y = -1.08;
+      }
+      const sway = Math.sin(t * K.sway * sd.sp + sd.ph) * 0.06 + (K.glow ? Math.cos(t * 0.9 + sd.ph * 2) * 0.05 : 0);
+      L.pos[n * 3] = (sd.x0 + sway) * hx * 1.05;
+      L.pos[n * 3 + 1] = on ? sd.y * hy : 9999;
+      L.pos[n * 3 + 2] = -sd.z;
+    }
+    L.geo.attributes.position.needsUpdate = true;
+  });
 }
 
 /* ================= 小人开敞篷车：WASD ================= */
@@ -431,39 +472,58 @@ const carS = { p: new THREE.Vector3(), h: new THREE.Vector3(), v: 0, spin: 0 };
   if (!isFinite(carS.h.x) || carS.h.lengthSq() < 0.5) carS.h.copy(north);
 }
 const keys = {};
-let driveT = 0;
-const KEYMAP = { KeyW: 'w', KeyA: 'a', KeyS: 's', KeyD: 'd' };
+let driveT = 0, holdT = 0;
+const KEYMAP = { KeyW: 'w', KeyA: 'a', KeyS: 's', KeyD: 'd', ArrowUp: 'w', ArrowDown: 's' };
 addEventListener('keydown', e => {
   const k = KEYMAP[e.code]; if (!k) return;
   if (e.target.closest && e.target.closest('input,textarea,[contenteditable]')) return;
   keys[k] = true;
-  if (!keys.started) { keys.started = true; document.body.classList.add('driving'); }
+  document.body.classList.add('driving');
 });
 addEventListener('keyup', e => { const k = KEYMAP[e.code]; if (k) keys[k] = false; });
-addEventListener('blur', () => { for (const k in keys) if (k !== 'started') keys[k] = false; });
-const cAx = new THREE.Vector3(), cR = new THREE.Vector3(), cM = new THREE.Matrix4(), cNext = new THREE.Vector3();
+addEventListener('blur', () => { for (const k in keys) keys[k] = false; });
+// 方向参照系：松开按键时和屏幕对齐（W 朝屏幕上方），开动后跟着车一起沿球面平移，绕过两极也不会乱转
+const refF = new THREE.Vector3(), refR = new THREE.Vector3();
+const cAx = new THREE.Vector3(), cR = new THREE.Vector3(), cM = new THREE.Matrix4(), want = new THREE.Vector3(), q0 = new THREE.Quaternion();
+const tangent = (v, p) => v.sub(cR.copy(p).multiplyScalar(v.dot(p))).normalize();
+function syncRef() {
+  refF.set(0, 1, 0).applyQuaternion(camera.quaternion); tangent(refF, carS.p);
+  refR.crossVectors(refF, carS.p).normalize();
+}
+syncRef();
 function updateCar(dt) {
-  const f = (keys.w ? 1 : 0) - (keys.s ? 1 : 0), turn = (keys.a ? 1 : 0) - (keys.d ? 1 : 0);
-  const target = f * 2.1;
-  carS.v += (target - carS.v) * (1 - Math.exp(-dt * (f ? 2.2 : 3.5)));
-  if (Math.abs(carS.v) < 0.002 && !f) carS.v = 0;
-  if (turn) carS.h.applyAxisAngle(carS.p, turn * dt * (1.2 + Math.min(Math.abs(carS.v), 1.5)) * (carS.v < -0.05 ? -1 : 1));
+  const y = (keys.w ? 1 : 0) - (keys.s ? 1 : 0), x = (keys.d ? 1 : 0) - (keys.a ? 1 : 0);
+  const input = x || y;
+  if (input) holdT += dt; else { holdT = 0; syncRef(); }
+  if (input) {
+    want.copy(refF).multiplyScalar(y).addScaledVector(refR, x); tangent(want, carS.p);
+    // 车头平滑转向目标方向
+    const ang = Math.acos(clamp(carS.h.dot(want), -1, 1));
+    if (ang > 1e-4) {
+      const sgn = Math.sign(cAx.crossVectors(carS.h, want).dot(carS.p)) || 1;
+      carS.h.applyAxisAngle(carS.p, sgn * Math.min(ang, dt * 4.5));
+    }
+  }
+  const target = input ? 2.2 : 0;
+  carS.v += (target - carS.v) * (1 - Math.exp(-dt * (input ? 2.5 : 3.5)));
+  if (carS.v < 0.003 && !input) carS.v = 0;
   if (carS.v) {
     cAx.crossVectors(carS.p, carS.h).normalize();
-    const ang = carS.v * dt / R;
-    cNext.copy(carS.p).applyAxisAngle(cAx, ang);
-    if (land(cNext).l > -0.03) { carS.p.copy(cNext); carS.h.applyAxisAngle(cAx, ang); }
-    else carS.v *= 0.2; // 到海边停下
-    carS.spin += carS.v * dt / 0.056;
+    const a = carS.v * dt / R;
+    q0.setFromAxisAngle(cAx, a);
+    carS.p.applyQuaternion(q0).normalize(); carS.h.applyQuaternion(q0);
+    refF.applyQuaternion(q0); refR.applyQuaternion(q0);
+    carS.spin += carS.v * dt / 0.09;
   }
-  carS.h.sub(cR.copy(carS.p).multiplyScalar(carS.h.dot(carS.p))).normalize();
+  tangent(carS.h, carS.p); tangent(refF, carS.p); refR.crossVectors(refF, carS.p).normalize();
   cR.crossVectors(carS.p, carS.h);
   cM.makeBasis(cR, carS.p, carS.h);
   car.quaternion.setFromRotationMatrix(cM);
-  car.position.copy(carS.p).multiplyScalar(Math.max(surf(carS.p), R) + 0.02);
+  const onSea = land(carS.p).l <= 0;
+  car.position.copy(carS.p).multiplyScalar(Math.max(surf(carS.p), R) + 0.02 + (onSea ? Math.sin(carS.spin * 0.5) * 0.008 : 0));
   car.userData.wheels.forEach(w => { w.rotation.x = carS.spin; });
-  car.userData.body.position.y = Math.abs(carS.v) > 0.1 ? Math.sin(carS.spin * 0.7) * 0.006 : 0;
-  if (f || turn || Math.abs(carS.v) > 0.05) driveT = 1.2; else driveT = Math.max(0, driveT - dt);
+  car.userData.body.position.y = carS.v > 0.1 ? Math.sin(carS.spin * 0.7) * 0.006 : 0;
+  if (input || carS.v > 0.05) driveT = 1.2; else driveT = Math.max(0, driveT - dt);
   return driveT > 0;
 }
 
@@ -749,10 +809,12 @@ function tick() {
     camera.position.copy(flyTo.from).applyQuaternion(qi).multiplyScalar(d);
     if (flyTo.t >= 1) flyTo = null;
   }
-  if (updateCar(dt)) {
+  const drv = updateCar(dt);
+  controls.minPolarAngle = drv ? 0.08 : 0.25; controls.maxPolarAngle = Math.PI - controls.minPolarAngle;
+  if (drv) {
     if (!exploring) explore();
     controls.autoRotate = false; flyTo = null;
-    const want = tmp.copy(carS.p).sub(wp.copy(carS.h).multiplyScalar(0.42)).normalize();
+    const want = tmp.copy(carS.p);
     const L = camera.position.length() + (DIST * 0.82 - camera.position.length()) * (1 - Math.exp(-dt * 1.5));
     const cur = camDir.copy(camera.position).normalize();
     cur.lerp(want, 1 - Math.exp(-dt * 2.6)).normalize();
